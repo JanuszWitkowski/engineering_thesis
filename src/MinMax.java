@@ -14,6 +14,7 @@ public class MinMax {
             return heuristic.evaluate(state);
         }
 
+        State best;
         if (maximizingPlayer) {
             int maxEval = Integer.MIN_VALUE;
             double maxEps = 0.0;
@@ -29,6 +30,7 @@ public class MinMax {
                      */
                     double eps = rng.nextDouble();
                     if (maxEps < eps) {
+                        best = child;
                         maxEval = eval;
                         maxEps = eps;
                     }
@@ -36,6 +38,7 @@ public class MinMax {
                 if (alpha < eval) alpha = eval;
                 if (beta <= alpha) break;
             }
+            //state.makeMove(best. ...);
             return maxEval;
         }
         else {
@@ -46,6 +49,7 @@ public class MinMax {
                 if (eval <= minEval)  {
                     double eps = rng.nextDouble();
                     if (eps < minEps) {
+                        best = child;
                         minEval = eval;
                         minEps = eps;
                     }
@@ -53,6 +57,7 @@ public class MinMax {
                 if (eval < beta) beta = eval;
                 if (beta <= alpha) break;
             }
+            //state.makeMove(best. ...);
             return minEval;
         }
     }
