@@ -1,3 +1,4 @@
+//import java.util.ArrayList;
 import java.util.Random;
 
 public class MinMax {
@@ -7,6 +8,7 @@ public class MinMax {
         this.rng = new Random();
     }
 
+    // TODO: Wykonywać ruchy na planszy.
     public int minimax(State state, int depth, Heuristic heuristic, int alpha, int beta, boolean maximizingPlayer) {
         if (depth == 0 || state.gameOver()) {
             return heuristic.evaluate(state);
@@ -15,6 +17,7 @@ public class MinMax {
         if (maximizingPlayer) {
             int maxEval = Integer.MIN_VALUE;
             double maxEps = 0.0;
+//            ArrayList<State> children = state.getChildren();
             for (State child : state.getChildren()) {
                 int eval = minimax(child, depth - 1, heuristic, alpha, beta, false);
                 if (maxEval <= eval) {

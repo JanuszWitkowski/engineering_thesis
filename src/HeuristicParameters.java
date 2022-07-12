@@ -19,7 +19,7 @@ public enum HeuristicParameters {
     LONER_KINGS,
     HOLES,
     TRIANGLE_PATTERN,
-    OERO_PATTERN,
+    OREO_PATTERN,
     BRIDGE_PATTERN,
     DOG_PATTERN,
     PAWN_IN_CORNER,
