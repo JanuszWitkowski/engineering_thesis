@@ -1,4 +1,4 @@
-# Engineering_Thesis
+# Engineering Thesis - A.I. playing Checkers
 ## Thesis supervisor: [dr Maciej Gębala](https://cs.pwr.edu.pl/gebala/)
 ### Informatyka Algorytmiczna, PPT/IT Facility, Wrocław University of Science and Technology, VII semester
 
