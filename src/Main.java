@@ -1,10 +1,14 @@
+import java.util.Random;
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
+        State state = new State();
         // initial call
         int depth = 3;
-//        Heuristic heuristic = new Heuristic();
+        Heuristic heuristic = new Heuristic();
 //        heuristic.generateParamValues();
-//        minimax(state, depth, heuristic, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+        MinMax m = new MinMax();
+        m.minimax(state, depth, heuristic, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
     }
 }

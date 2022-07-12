@@ -23,6 +23,5 @@ public enum HeuristicParameters {
     BRIDGE_PATTERN,
     DOG_PATTERN,
     PAWN_IN_CORNER,
-    KING_IN_CORNER,
-    NUMBER_OF_ARGUMENTS
+    KING_IN_CORNER
 }
