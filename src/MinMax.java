@@ -14,7 +14,7 @@ public class MinMax {
             return heuristic.evaluate(state);
         }
 
-        State best;
+        State best = null;
         if (maximizingPlayer) {
             int maxEval = Integer.MIN_VALUE;
             double maxEps = 0.0;
@@ -38,7 +38,8 @@ public class MinMax {
                 if (alpha < eval) alpha = eval;
                 if (beta <= alpha) break;
             }
-            //state.makeMove(best. ...);
+            assert best != null;
+            state.makeMove(best.lastMoveList());    // Wykonaj najlepszy ruch na oryginalnej planszy.
             return maxEval;
         }
         else {
@@ -57,7 +58,8 @@ public class MinMax {
                 if (eval < beta) beta = eval;
                 if (beta <= alpha) break;
             }
-            //state.makeMove(best. ...);
+            assert best != null;
+            state.makeMove(best.lastMoveList());
             return minEval;
         }
     }

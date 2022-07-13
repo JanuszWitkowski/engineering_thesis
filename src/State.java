@@ -2,12 +2,14 @@ import java.util.ArrayList;
 import java.lang.Math;
 
 import static java.lang.Math.ceil;
+import static java.lang.Math.pow;
 
 public class State {
     // FIELDS
     private final int dimension;
     private int[][] board;
-    private static final char[] playerColor = new char[]{'X', 'x', ' ', 'o', 'O'};
+    private ArrayList<Integer> lastMoveList = null;
+    private static final char[] playerFigure = new char[]{'X', 'x', ' ', 'o', 'O'};
 
     // CONSTRUCTORS
     public State () {
@@ -28,11 +30,12 @@ public class State {
         copyBoard(state);
     }
 
-    public State (State state, int row1, int col1, int row2, int col2) {
+    public State (State state, ArrayList<Integer> moveList) {
         this.dimension = state.dimension();
         this.board = new int[this.dimension][this.dimension];
         copyBoard(state);
-        makeMove(row1, col1, row2, col2);
+        this.lastMoveList = moveList;
+        makeMove(moveList);
     }
 
     // PRIVATE METHODS
@@ -62,16 +65,29 @@ public class State {
         }
     }
 
-    private void makeMove (int row1, int col1, int row2, int col2) {
-        int tmp = this.board[row1][col1];
-        this.board[row1][col1] = this.board[row2][col2];
-        this.board[row2][col2] = tmp;
+    private void makeOneMove (int fromRow, int fromCol, int destRow, int destCol) {
+        if ((fromRow - destRow) % 2 == 0) {     // capture pawn
+            int captRow = (fromRow + destRow) / 2, captCol = (fromCol + destRow) / 2;
+            this.board[captRow][captCol] = 0;
+        }
+        this.board[destRow][destCol] = this.board[fromRow][fromCol];
+        this.board[fromRow][fromCol] = 0;
+    }
+
+    private void makeOneMove (int from, int dest) {
+        int fromRow = numberToRow(from), fromCol = numberToCol(from);
+        int destRow = numberToRow(dest), destCol = numberToCol(dest);
+        makeOneMove(fromRow, fromCol, destRow, destCol);
+    }
+
+    private void makeOneMove (Pair from, Pair dest) {
+        makeOneMove(from.l(), from.r(), dest.l(), dest.r());
     }
 
     // PUBLIC METHODS
-    public static char getPlayerColor (int player) {
-        if (player < -2 || player > 2) return 'X';
-        return playerColor[player + 2];
+    public static char getPlayerFigure (int player) {
+        if (player < -2 || player > 2) return '?';
+        return playerFigure[player + 2];
     }
 
     public int coordinatesToNumber (int row, int col) {
@@ -80,11 +96,29 @@ public class State {
     }
 
     public Pair numberToPair (int number) {
-        if (number == 0) return new Pair (0, 0);
+        if (number <= 0 || number > dimension*dimension/2) return new Pair (0, 0);
         int half = (dimension/2);
         int row = (number - 1) / half;
         int col = 2 * ((number - 1) % half) + (row + 1) % 2;
         return new Pair (row, col);
+    }
+
+    public int numberToRow (int number) {
+        return 2 * (number - 1) / dimension;
+    }
+
+    public int numberToCol (int number) {
+        return 2 * ((number - 1) % (dimension/2)) + ((2 * (number - 1) / dimension) + 1) % 2;
+    }
+
+    public void makeMove (ArrayList<Integer> moveList) {
+        if (moveList.isEmpty()) return;
+        int prevMove = moveList.get(0);
+        for (int move = 1; move < moveList.size(); move++) {
+            int nextMove = moveList.get(move);
+            makeOneMove(prevMove, nextMove);
+            prevMove = nextMove;
+        }
     }
 
     public ArrayList<State> getChildren () {
@@ -99,7 +133,7 @@ public class State {
     public void printBoard () {
         for (int row = 0; row < dimension; row++) {
             for (int col = 0; col < dimension; col++) {
-                System.out.print("[" + getPlayerColor(board[row][col]) + "]");
+                System.out.print("[" + getPlayerFigure(board[row][col]) + "]");
             }
             System.out.println();
         }
@@ -125,6 +159,10 @@ public class State {
 
     public int board (int row, int col) {
         return this.board[row][col];
+    }
+
+    public ArrayList<Integer> lastMoveList() {
+        return this.lastMoveList;
     }
 
 }
