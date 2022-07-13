@@ -1,21 +1,16 @@
 import java.util.ArrayList;
-import java.lang.Math;
-
-import static java.lang.Math.ceil;
-import static java.lang.Math.pow;
 
 public class State {
     // FIELDS
     private final int dimension;
     private int[][] board;
+    private int currentPlayer = 1;
     private ArrayList<Integer> lastMoveList = null;
     private static final char[] playerFigure = new char[]{'X', 'x', ' ', 'o', 'O'};
 
     // CONSTRUCTORS
     public State () {
-        this.dimension = 8;
-        this.board = new int[this.dimension][this.dimension];
-        initBoard();
+        this(8);
     }
 
     public State (int dimension) {
@@ -27,13 +22,13 @@ public class State {
     public State (State state) {
         this.dimension = state.dimension();
         this.board = new int[this.dimension][this.dimension];
+        this.currentPlayer = state.currentPlayer();
+        this.lastMoveList = lastMoveList();
         copyBoard(state);
     }
 
     public State (State state, ArrayList<Integer> moveList) {
-        this.dimension = state.dimension();
-        this.board = new int[this.dimension][this.dimension];
-        copyBoard(state);
+        this(state);
         this.lastMoveList = moveList;
         makeMove(moveList);
     }
@@ -65,6 +60,10 @@ public class State {
         }
     }
 
+    private boolean isKing (int row, int col) {
+        return board[row][col] % 2 == 0;
+    }
+
     private void makeOneMove (int fromRow, int fromCol, int destRow, int destCol) {
         if ((fromRow - destRow) % 2 == 0) {     // capture pawn
             int captRow = (fromRow + destRow) / 2, captCol = (fromCol + destRow) / 2;
@@ -82,6 +81,32 @@ public class State {
 
     private void makeOneMove (Pair from, Pair dest) {
         makeOneMove(from.l(), from.r(), dest.l(), dest.r());
+    }
+
+    private boolean isOutOfBounds (int row, int col) {
+        return row < 0 || row >= dimension || col < 0 || col >= dimension;
+    }
+
+    private ArrayList<ArrayList<Integer>> getPossibleMovesForOnePawn (int row, int col, int n) {
+        ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
+        if (board[row][col] != 0) {
+            // TODO: TUTAJ UWAŻAĆ! NIE DODAWAĆ NIC JEŚLI NIE MA ŻADNYCH RUCHÓW!!
+            if (isKing(row, col)) {
+                //
+            }
+            else {
+                //
+            }
+        }
+        return possibleMoves;
+    }
+
+    private ArrayList<ArrayList<Integer>> getPossibleMovesForOnePawn (int row, int col) {
+        return getPossibleMovesForOnePawn(row, col, coordinatesToNumber(row, col));
+    }
+
+    private ArrayList<ArrayList<Integer>> getPossibleMovesForOnePawn (int n) {
+        return getPossibleMovesForOnePawn(numberToRow(n), numberToCol(n), n);
     }
 
     // PUBLIC METHODS
@@ -112,6 +137,7 @@ public class State {
     }
 
     public void makeMove (ArrayList<Integer> moveList) {
+        currentPlayer = opponent();
         if (moveList.isEmpty()) return;
         int prevMove = moveList.get(0);
         for (int move = 1; move < moveList.size(); move++) {
@@ -121,8 +147,25 @@ public class State {
         }
     }
 
+    public ArrayList<ArrayList<Integer>> getPossibleMoves (int player) {
+        ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
+        for (int row = 0; row < dimension; row++) {
+            for (int col = 0; col < dimension; col++) {
+                if (board[row][col] == player || board[row][col] == 2 * player) {
+                    // TODO: zastanowić się czy już na tym poziomie rozpatrzeć różne ruchy dla pionków i damek.
+                    possibleMoves.addAll(getPossibleMovesForOnePawn(row, col));
+                }
+            }
+        }
+        return possibleMoves;
+    }
+
     public ArrayList<State> getChildren () {
         ArrayList<State> children = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> possibleMoves = getPossibleMoves(currentPlayer);
+        for (ArrayList<Integer> moves : possibleMoves) {
+            children.add(new State(this, moves));
+        }
         return children;
     }
 
@@ -152,6 +195,18 @@ public class State {
         System.out.println();
     }
 
+    public boolean playerHasNoPieces (int player) {
+        return false;   // TODO
+    }
+
+    public boolean currentPlayerHasNoPieces () {
+        return playerHasNoPieces(currentPlayer);
+    }
+
+    public boolean opponentHasNoPieces () {
+        return playerHasNoPieces(opponent());
+    }
+
     // SETTERS & GETTERS
     public int dimension () {
         return this.dimension;
@@ -159,6 +214,18 @@ public class State {
 
     public int board (int row, int col) {
         return this.board[row][col];
+    }
+
+    public int currentPlayer () {
+        return this.currentPlayer;
+    }
+
+    public int opponent (int player) {
+        return (-1) * this.currentPlayer;
+    }
+
+    public int opponent () {
+        return opponent(currentPlayer);
     }
 
     public ArrayList<Integer> lastMoveList() {

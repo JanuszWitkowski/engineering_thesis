@@ -19,6 +19,6 @@ public class Main {
         Heuristic heuristic = new Heuristic();
 //        heuristic.generateParamValues();
         MinMax m = new MinMax();
-//        m.minimax(state, depth, heuristic, Integer.MIN_VALUE, Integer.MAX_VALUE, true);
+//        m.minimax(state, depth, heuristic, Integer.MIN_VALUE, Integer.MAX_VALUE, 1, true);
     }
 }
