@@ -7,6 +7,7 @@ public class State {
     private int currentPlayer = 1;
     private ArrayList<Integer> lastMoveList = null;
     private final ArrayList<ArrayList<Integer>> currentPlayerMoves;
+    private static final int[] directions = new int[]{1, -1};
     private static final char[] playerFigure = new char[]{'X', 'x', ' ', 'o', 'O'};
 
     // CONSTRUCTORS
@@ -71,6 +72,11 @@ public class State {
         return board[row][col] % 2 == 0;
     }
 
+    private int ownerOfField (int row, int col) {
+        int field = board[row][col];
+        return Integer.compare(field, 0);
+    }
+
     private void makeOneMove (int fromRow, int fromCol, int destRow, int destCol) {
         if ((fromRow - destRow) % 2 == 0) {     // capture pawn
             int captRow = (fromRow + destRow) / 2, captCol = (fromCol + destRow) / 2;
@@ -94,15 +100,57 @@ public class State {
         return row < 0 || row >= dimension || col < 0 || col >= dimension;
     }
 
+    // TODO: DOKOŃCZYĆ TĘ FUNKCJĘ (PAMIĘTAJ O MAKSLYMALNYM BICIU)
+    private void buildCaptureMove (ArrayList<ArrayList<Integer>> moves, ArrayList<Integer> move, int row, int col, int dr, boolean isKing) {
+        move.add(coordinatesToNumber(row, col));
+        int adjRow, adjCol, newRow, newCol;
+        for (int dc = -1; dc <= 1; dc += 2) {
+            adjRow = row + dr; adjCol = col + dc;
+            if (!isOutOfBounds(adjRow, adjCol)) {
+                int owner = ownerOfField(adjRow, adjCol);
+                if (owner != 0 && owner != ownerOfField(row, col)) {
+                    newRow = adjRow + dr;
+                    newCol = adjCol + dc;
+                    if (!isOutOfBounds(newRow, newCol) && board[newRow][newCol] == 0) {
+                        buildCaptureMove(moves, move, newRow, newCol, 2 * dr, false);
+                    }
+                }
+            }
+            if (isKing) {
+                //
+            }
+        }
+    }
+
     private ArrayList<ArrayList<Integer>> getPossibleMovesForOnePawn (int row, int col, int n) {
         ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
         if (board[row][col] != 0) {
             // TODO: TUTAJ UWAŻAĆ! NIE DODAWAĆ NIC JEŚLI NIE MA ŻADNYCH RUCHÓW!!
+            ArrayList<Integer> move = new ArrayList<>();
             if (isKing(row, col)) {
                 //
             }
             else {
-                //
+                int dr = direction(board[row][col]);
+                for (int dc = -1; dc <= 1; dc += 2) {
+                    int newRow = row + dr, newCol = col + dc;
+                    if (!isOutOfBounds(newRow, newCol)) {
+                        if (board[newRow][newCol] == 0) {
+                            move = new ArrayList<>();
+                            move.add(coordinatesToNumber(row, col));
+                            move.add(coordinatesToNumber(newRow, newCol));
+                            possibleMoves.add(move);
+                        }
+                        else if (ownerOfField(newRow, newCol) != ownerOfField(row, col)) {
+                            newRow += dr; newCol += dc;
+                            if (!isOutOfBounds(newRow, newCol) && board[newRow][newCol] == 0) {
+                                move = new ArrayList<>();
+                                move.add(coordinatesToNumber(row, col));
+                                buildCaptureMove(possibleMoves, move, newRow, newCol, dr, false);
+                            }
+                        }
+                    }
+                }
             }
         }
         return possibleMoves;
@@ -114,6 +162,13 @@ public class State {
 
     private ArrayList<ArrayList<Integer>> getPossibleMovesForOnePawn (int n) {
         return getPossibleMovesForOnePawn(numberToRow(n), numberToCol(n), n);
+    }
+
+    private static int direction (int field) {
+        if (field == 0) return 0;
+        else if (field > 0) return -1;
+        return 1;
+//        return directions[(player + 1) / 2];
     }
 
     // PUBLIC METHODS
@@ -151,6 +206,11 @@ public class State {
             int nextMove = moveList.get(move);
             makeOneMove(prevMove, nextMove);
             prevMove = nextMove;
+        }
+        // damka
+        int row = numberToRow(prevMove), col = numberToCol(prevMove);
+        if ((row == 0 || row == dimension - 1) && board[row][col] % 2 == 1) {
+            board[row][col] = board[row][col] * 2;
         }
     }
 
