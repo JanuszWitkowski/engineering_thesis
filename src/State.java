@@ -6,6 +6,7 @@ public class State {
     private int[][] board;
     private int currentPlayer = 1;
     private ArrayList<Integer> lastMoveList = null;
+    private final ArrayList<ArrayList<Integer>> currentPlayerMoves;
     private static final char[] playerFigure = new char[]{'X', 'x', ' ', 'o', 'O'};
 
     // CONSTRUCTORS
@@ -17,20 +18,26 @@ public class State {
         this.dimension = dimension;
         this.board = new int[this.dimension][this.dimension];
         initBoard();
+        this.currentPlayerMoves = getPossibleMoves(currentPlayer);
     }
 
     public State (State state) {
         this.dimension = state.dimension();
         this.board = new int[this.dimension][this.dimension];
         this.currentPlayer = state.currentPlayer();
-        this.lastMoveList = lastMoveList();
         copyBoard(state);
+        this.lastMoveList = state.lastMoveList();
+        this.currentPlayerMoves = state.currentPlayerMoves();
     }
 
     public State (State state, ArrayList<Integer> moveList) {
-        this(state);
+        this.dimension = state.dimension();
+        this.board = new int[this.dimension][this.dimension];
+        this.currentPlayer = state.currentPlayer();
+        copyBoard(state);
         this.lastMoveList = moveList;
         makeMove(moveList);
+        this.currentPlayerMoves = getPossibleMoves(currentPlayer);
     }
 
     // PRIVATE METHODS
@@ -162,6 +169,14 @@ public class State {
 
     public ArrayList<State> getChildren () {
         ArrayList<State> children = new ArrayList<>();
+        for (ArrayList<Integer> moves : currentPlayerMoves) {
+            children.add(new State(this, moves));
+        }
+        return children;
+    }
+
+    public ArrayList<State> getChildren (int player) {
+        ArrayList<State> children = new ArrayList<>();
         ArrayList<ArrayList<Integer>> possibleMoves = getPossibleMoves(currentPlayer);
         for (ArrayList<Integer> moves : possibleMoves) {
             children.add(new State(this, moves));
@@ -207,6 +222,10 @@ public class State {
         return playerHasNoPieces(opponent());
     }
 
+    public boolean currentPlayerOutOfMoves () {
+        return currentPlayerMoves.isEmpty();
+    }
+
     // SETTERS & GETTERS
     public int dimension () {
         return this.dimension;
@@ -230,6 +249,10 @@ public class State {
 
     public ArrayList<Integer> lastMoveList() {
         return this.lastMoveList;
+    }
+
+    public ArrayList<ArrayList<Integer>> currentPlayerMoves () {
+        return this.currentPlayerMoves;
     }
 
 }

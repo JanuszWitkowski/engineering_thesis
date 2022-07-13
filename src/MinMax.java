@@ -10,21 +10,15 @@ public class MinMax {
 
     // TODO: Wykonywać ruchy na planszy.
     public int minimax(State state, int depth, Heuristic heuristic, int alpha, int beta, int maximizingPlayer, boolean isPlayerMaximizing) {
-        if (depth == 0) {
-            return heuristic.evaluate(state, maximizingPlayer);
-        }
+        if (depth == 0) return heuristic.evaluate(state, maximizingPlayer);
 
         State best = null;
         if (isPlayerMaximizing) {
-//            if (state.opponentHasNoPieces()) {
-//                return Integer.MAX_VALUE;
-//            }
-//            if (state.currentPlayerHasNoPieces()) {
-//                return Integer.MIN_VALUE;
-//            }
+            if (state.opponentHasNoPieces()) return Integer.MAX_VALUE;
+            if (state.currentPlayerHasNoPieces()) return Integer.MIN_VALUE;
+            if (state.currentPlayerOutOfMoves()) return Integer.MIN_VALUE;
             int maxEval = Integer.MIN_VALUE;
             double maxEps = 0.0;
-//            ArrayList<State> children = state.getChildren();
             for (State child : state.getChildren()) {
                 int eval = minimax(child, depth - 1, heuristic, alpha, beta, maximizingPlayer, false);
                 if (maxEval <= eval) {
@@ -49,12 +43,9 @@ public class MinMax {
             return maxEval;
         }
         else {
-//            if (state.opponentHasNoPieces()) {
-//                return Integer.MIN_VALUE;
-//            }
-//            if (state.currentPlayerHasNoPieces()) {
-//                return Integer.MAX_VALUE;
-//            }
+            if (state.opponentHasNoPieces()) return Integer.MIN_VALUE;
+            if (state.currentPlayerHasNoPieces()) return Integer.MAX_VALUE;
+            if (state.currentPlayerOutOfMoves()) return Integer.MAX_VALUE;
             int minEval = Integer.MAX_VALUE;
             double minEps = 1.0;
             for (State child : state.getChildren()) {
