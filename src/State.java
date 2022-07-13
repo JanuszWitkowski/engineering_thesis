@@ -75,13 +75,15 @@ public class State {
     }
 
     public int coordinatesToNumber (int row, int col) {
-        return (dimension/2) * row + col / 2 + 1;
+        int n = dimension * row + col + 1;
+        return ((n + row + 1) % 2) * (n + 1) / 2;
     }
 
     public Pair numberToPair (int number) {
+        if (number == 0) return new Pair (0, 0);
         int half = (dimension/2);
         int row = (number - 1) / half;
-        int col = (number - 1) % half + (row + 1) % 2;
+        int col = 2 * ((number - 1) % half) + (row + 1) % 2;
         return new Pair (row, col);
     }
 
