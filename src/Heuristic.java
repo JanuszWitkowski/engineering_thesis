@@ -14,10 +14,9 @@ public class Heuristic {
     }
 
     public int evaluate (State state, int player) {
-        if (state.playerHasNoPieces(state.opponent(player))) return Integer.MAX_VALUE;
-        if (state.playerHasNoPieces(player)) return Integer.MIN_VALUE;
-        if (player == state.currentPlayer() && state.currentPlayerOutOfMoves()) return Integer.MIN_VALUE;
-        if (player == state.opponent() && state.currentPlayerOutOfMoves()) return Integer.MAX_VALUE;
+        int winner = state.heuristicWinner(player);
+        if (winner == player) return Integer.MAX_VALUE;
+        if (winner == state.opponent(player)) return Integer.MIN_VALUE;
         int[] params = getParams(state, player);
         int sum = 0;
         for (int i = 0; i < numberOfParams; i++) {

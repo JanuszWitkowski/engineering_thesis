@@ -75,9 +75,12 @@ public class State {
         return board[row][col] % 2 == 0;
     }
 
-    private int ownerOfField (int row, int col) {
-        int field = board[row][col];
+    private int ownerOfField (int field) {
         return Integer.compare(field, 0);
+    }
+
+    private int ownerOfField (int row, int col) {
+        return ownerOfField(board[row][col]);
     }
 
     private void makeOneMove (int fromRow, int fromCol, int destRow, int destCol) {
@@ -147,26 +150,9 @@ public class State {
     private ArrayList<ArrayList<Integer>> getPossibleMovesForOnePawn (int row, int col, int n) {
         ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
         if (board[row][col] != 0) {
-            // TODO: TUTAJ UWAŻAĆ! NIE DODAWAĆ NIC JEŚLI NIE MA ŻADNYCH RUCHÓW!!
             ArrayList<ArrayList<Integer>> captureMoves = new ArrayList<>();
             int dr = direction(ownerOfField(row, col));
             buildCaptureMove(null, -1, captureMoves, row, col, dr, isKing(row, col));
-//                    if (!isOutOfBounds(newRow, newCol)) {
-//                        if (board[newRow][newCol] == 0) {
-//                            move = new ArrayList<>();
-//                            move.add(coordinatesToNumber(row, col));
-//                            move.add(coordinatesToNumber(newRow, newCol));
-//                            possibleMoves.add(move);
-//                        }
-//                        else if (ownerOfField(newRow, newCol) != ownerOfField(row, col)) {
-//                            newRow += dr; newCol += dc;
-//                            if (!isOutOfBounds(newRow, newCol) && board[newRow][newCol] == 0) {
-//                                move = new ArrayList<>();
-//                                move.add(coordinatesToNumber(row, col));
-//                                buildCaptureMove(possibleMoves, move, newRow, newCol, dr, false);
-//                            }
-//                        }
-//                    }
             if (captureMoves.isEmpty()) {
                 boolean checkOtherRow = !isKing(row, col);
                 do {
@@ -316,7 +302,7 @@ public class State {
     }
 
     public boolean playerHasNoPieces (int player) {
-        return false;   // TODO
+        return getNumberOfPieces(player) == 0;
     }
 
     public boolean currentPlayerHasNoPieces () {
@@ -329,6 +315,40 @@ public class State {
 
     public boolean currentPlayerOutOfMoves () {
         return currentPlayerMoves.isEmpty();
+    }
+
+    public int winner () {
+        if (opponentHasNoPieces()) return currentPlayer;
+        if (currentPlayerHasNoPieces()) return opponent();
+        if (currentPlayerOutOfMoves()) opponent();
+        return 0;
+    }
+
+    public int currentPlayerWinning () {
+        if (opponentHasNoPieces()) return 1;
+        if (currentPlayerHasNoPieces()) return -1;
+        if (currentPlayerOutOfMoves()) return -1;
+        return 0;
+    }
+
+    // HEURISTIC METHODS
+    public int heuristicWinner (int player) {
+        int opponent = opponent(player);
+        if (playerHasNoPieces(opponent(player))) return player;
+        if (playerHasNoPieces(player)) return opponent;
+        if (player == currentPlayer() && currentPlayerOutOfMoves()) return opponent;
+        if (player == opponent() && currentPlayerOutOfMoves()) return player;
+        return 0;
+    }
+
+    public int getNumberOfPieces (int player) {
+        int sum = 0;
+        for (int[] row : board) {
+            for (int field : row) {
+                if (ownerOfField(field) == player) ++sum;
+            }
+        }
+        return sum;
     }
 
     // SETTERS & GETTERS

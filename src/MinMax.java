@@ -8,15 +8,14 @@ public class MinMax {
         this.rng = new Random();
     }
 
-    // TODO: Wykonywać ruchy na planszy.
     public int minimax(State state, int depth, Heuristic heuristic, int alpha, int beta, int maximizingPlayer, boolean isPlayerMaximizing) {
         if (depth == 0) return heuristic.evaluate(state, maximizingPlayer);
 
         State best = null;
         if (isPlayerMaximizing) {
-            if (state.opponentHasNoPieces()) return Integer.MAX_VALUE;
-            if (state.currentPlayerHasNoPieces()) return Integer.MIN_VALUE;
-            if (state.currentPlayerOutOfMoves()) return Integer.MIN_VALUE;
+            int winner = state.currentPlayerWinning();
+            if (winner == 1) return Integer.MAX_VALUE;
+            if (winner == -1) return Integer.MIN_VALUE;
             int maxEval = Integer.MIN_VALUE;
             double maxEps = 0.0;
             for (State child : state.getChildren()) {
@@ -43,9 +42,9 @@ public class MinMax {
             return maxEval;
         }
         else {
-            if (state.opponentHasNoPieces()) return Integer.MIN_VALUE;
-            if (state.currentPlayerHasNoPieces()) return Integer.MAX_VALUE;
-            if (state.currentPlayerOutOfMoves()) return Integer.MAX_VALUE;
+            int winner = state.currentPlayerWinning();
+            if (winner == 1) return Integer.MIN_VALUE;
+            if (winner == -1) return Integer.MAX_VALUE;
             int minEval = Integer.MAX_VALUE;
             double minEps = 1.0;
             for (State child : state.getChildren()) {
