@@ -24,6 +24,7 @@ public class PlayerComputer extends Player {
 
     @Override
     public void makeMove (State board) {
+        System.out.println("Wykonuję ruch...");
         m.minimax(board, depth, heuristic, alpha, beta, playerNumber, true);
     }
 
