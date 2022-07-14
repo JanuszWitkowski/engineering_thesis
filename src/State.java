@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.Queue;
 
 public class State {
     // FIELDS
@@ -100,25 +103,44 @@ public class State {
         return row < 0 || row >= dimension || col < 0 || col >= dimension;
     }
 
-    // TODO: DOKOŃCZYĆ TĘ FUNKCJĘ (PAMIĘTAJ O MAKSLYMALNYM BICIU)
-    private void buildCaptureMove (ArrayList<ArrayList<Integer>> moves, ArrayList<Integer> move, int row, int col, int dr, boolean isKing) {
-        move.add(coordinatesToNumber(row, col));
+    private ArrayList<Integer> getMoveFromTree (Node tree) {
+        ArrayList<Integer> move = new ArrayList<>();
+        if (tree.height() > 0) {
+            for (int i = tree.height(); i >= 0; i--) {
+                move.add(tree.moveValue());
+                tree = tree.parent();
+            }
+            Collections.reverse(move);
+        }
+        return move;
+    }
+
+    private void buildCaptureMove (Node parent, int height, ArrayList<ArrayList<Integer>> moves, int row, int col, int dr, boolean isKing) {
+//        move.add(coordinatesToNumber(row, col));
+        Node next = new Node(coordinatesToNumber(row, col), height + 1, parent);
         int adjRow, adjCol, newRow, newCol;
-        for (int dc = -1; dc <= 1; dc += 2) {
-            adjRow = row + dr; adjCol = col + dc;
-            if (!isOutOfBounds(adjRow, adjCol)) {
-                int owner = ownerOfField(adjRow, adjCol);
-                if (owner != 0 && owner != ownerOfField(row, col)) {
-                    newRow = adjRow + dr;
-                    newCol = adjCol + dc;
-                    if (!isOutOfBounds(newRow, newCol) && board[newRow][newCol] == 0) {
-                        buildCaptureMove(moves, move, newRow, newCol, 2 * dr, false);
+        boolean nodeIsLeaf = true, checkOtherRow = !isKing;
+        do {
+            checkOtherRow = !checkOtherRow;
+            for (int dc = -1; dc <= 1; dc += 2) {
+                adjRow = row + dr;
+                adjCol = col + dc;
+                if (!isOutOfBounds(adjRow, adjCol)) {
+                    int owner = ownerOfField(adjRow, adjCol);
+                    if (owner != 0 && owner != ownerOfField(row, col)) {
+                        newRow = adjRow + dr;
+                        newCol = adjCol + dc;
+                        if (!isOutOfBounds(newRow, newCol) && board[newRow][newCol] == 0) {
+                            nodeIsLeaf = false;
+                            buildCaptureMove(next, next.height(), moves, newRow, newCol, dr, isKing);
+                        }
                     }
                 }
             }
-            if (isKing) {
-                //
-            }
+            dr *= -1;
+        } while (checkOtherRow);
+        if (nodeIsLeaf) {
+            moves.add(getMoveFromTree(next));
         }
     }
 
@@ -126,30 +148,53 @@ public class State {
         ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
         if (board[row][col] != 0) {
             // TODO: TUTAJ UWAŻAĆ! NIE DODAWAĆ NIC JEŚLI NIE MA ŻADNYCH RUCHÓW!!
-            ArrayList<Integer> move = new ArrayList<>();
-            if (isKing(row, col)) {
-                //
-            }
-            else {
-                int dr = direction(board[row][col]);
-                for (int dc = -1; dc <= 1; dc += 2) {
-                    int newRow = row + dr, newCol = col + dc;
-                    if (!isOutOfBounds(newRow, newCol)) {
-                        if (board[newRow][newCol] == 0) {
-                            move = new ArrayList<>();
+            ArrayList<ArrayList<Integer>> captureMoves = new ArrayList<>();
+            int dr = direction(ownerOfField(row, col));
+            buildCaptureMove(null, -1, captureMoves, row, col, dr, isKing(row, col));
+//                    if (!isOutOfBounds(newRow, newCol)) {
+//                        if (board[newRow][newCol] == 0) {
+//                            move = new ArrayList<>();
+//                            move.add(coordinatesToNumber(row, col));
+//                            move.add(coordinatesToNumber(newRow, newCol));
+//                            possibleMoves.add(move);
+//                        }
+//                        else if (ownerOfField(newRow, newCol) != ownerOfField(row, col)) {
+//                            newRow += dr; newCol += dc;
+//                            if (!isOutOfBounds(newRow, newCol) && board[newRow][newCol] == 0) {
+//                                move = new ArrayList<>();
+//                                move.add(coordinatesToNumber(row, col));
+//                                buildCaptureMove(possibleMoves, move, newRow, newCol, dr, false);
+//                            }
+//                        }
+//                    }
+            if (captureMoves.isEmpty()) {
+                boolean checkOtherRow = !isKing(row, col);
+                do {
+                    checkOtherRow = !checkOtherRow;
+                    for (int dc = -1; dc <= 1; dc += 2) {
+                        int newRow = row + dr, newCol = col + dc;
+                        if (!isOutOfBounds(newRow, newCol) && board[newRow][newCol] == 0) {
+                            ArrayList<Integer> move = new ArrayList<>();
                             move.add(coordinatesToNumber(row, col));
                             move.add(coordinatesToNumber(newRow, newCol));
                             possibleMoves.add(move);
                         }
-                        else if (ownerOfField(newRow, newCol) != ownerOfField(row, col)) {
-                            newRow += dr; newCol += dc;
-                            if (!isOutOfBounds(newRow, newCol) && board[newRow][newCol] == 0) {
-                                move = new ArrayList<>();
-                                move.add(coordinatesToNumber(row, col));
-                                buildCaptureMove(possibleMoves, move, newRow, newCol, dr, false);
-                            }
-                        }
                     }
+                    dr *= -1;
+                } while (checkOtherRow);
+            }
+            else {
+                if (isKing(row, col)) {     // maksymalne bicie damką
+                    int maxLength = 0;
+                    for (ArrayList<Integer> move : captureMoves) {
+                        if (maxLength < move.size()) maxLength = move.size();
+                    }
+                    for (ArrayList<Integer> move : captureMoves) {
+                        if (maxLength == move.size()) possibleMoves.add(move);
+                    }
+                }
+                else {
+                    possibleMoves.addAll(captureMoves);
                 }
             }
         }
