@@ -1,4 +1,3 @@
-//import java.util.ArrayList;
 import java.util.Random;
 
 public class MinMax {
@@ -36,6 +35,7 @@ public class MinMax {
                 }
                 if (alpha < eval) alpha = eval;
                 if (beta <= alpha) break;
+
             }
             assert best != null;
             state.makeMove(best.lastMoveList());    // Wykonaj najlepszy ruch na oryginalnej planszy.

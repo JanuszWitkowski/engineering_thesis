@@ -16,12 +16,12 @@ public class PlayerHuman extends Player {
         System.out.println("Podaj współrzędne pionka którym chcesz się ruszyć.");
         System.out.print("rząd: ");
         row1 = scanner.nextInt();
-        System.out.print("kolumna:");
+        System.out.print("kolumna: ");
         col1 = scanner.nextInt();
         System.out.println("Podaj współrzędne pola do którego chcesz się poruszyć.");
         System.out.print("rząd: ");
         row2 = scanner.nextInt();
-        System.out.print("kolumna:");
+        System.out.print("kolumna: ");
         col2 = scanner.nextInt();
         ArrayList<Integer> move = new ArrayList<>();
         move.add(board.coordinatesToNumber(row1, col1));

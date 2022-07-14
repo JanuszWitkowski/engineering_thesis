@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Deque;
-import java.util.Queue;
 
 public class State {
     // FIELDS
@@ -102,8 +100,8 @@ public class State {
         makeOneMove(from.l(), from.r(), dest.l(), dest.r());
     }
 
-    private boolean isOutOfBounds (int row, int col) {
-        return row < 0 || row >= dimension || col < 0 || col >= dimension;
+    private boolean isInsideTheBoard(int row, int col) {
+        return row >= 0 && row < dimension && col >= 0 && col < dimension;
     }
 
     private ArrayList<Integer> getMoveFromTree (Node tree) {
@@ -128,12 +126,12 @@ public class State {
             for (int dc = -1; dc <= 1; dc += 2) {
                 adjRow = row + dr;
                 adjCol = col + dc;
-                if (!isOutOfBounds(adjRow, adjCol)) {
+                if (isInsideTheBoard(adjRow, adjCol)) {
                     int owner = ownerOfField(adjRow, adjCol);
                     if (owner != 0 && owner != ownerOfField(row, col)) {
                         newRow = adjRow + dr;
                         newCol = adjCol + dc;
-                        if (!isOutOfBounds(newRow, newCol) && board[newRow][newCol] == 0) {
+                        if (isInsideTheBoard(newRow, newCol) && board[newRow][newCol] == 0) {
                             nodeIsLeaf = false;
                             buildCaptureMove(next, next.height(), moves, newRow, newCol, dr, isKing);
                         }
@@ -143,7 +141,10 @@ public class State {
             dr *= -1;
         } while (checkOtherRow);
         if (nodeIsLeaf) {
-            moves.add(getMoveFromTree(next));
+            ArrayList<Integer> move = getMoveFromTree(next);
+            if (!move.isEmpty()) {
+                moves.add(getMoveFromTree(next));
+            }
         }
     }
 
@@ -159,7 +160,7 @@ public class State {
                     checkOtherRow = !checkOtherRow;
                     for (int dc = -1; dc <= 1; dc += 2) {
                         int newRow = row + dr, newCol = col + dc;
-                        if (!isOutOfBounds(newRow, newCol) && board[newRow][newCol] == 0) {
+                        if (isInsideTheBoard(newRow, newCol) && board[newRow][newCol] == 0) {
                             ArrayList<Integer> move = new ArrayList<>();
                             move.add(coordinatesToNumber(row, col));
                             move.add(coordinatesToNumber(newRow, newCol));
@@ -249,7 +250,7 @@ public class State {
         ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
         for (int row = 0; row < dimension; row++) {
             for (int col = 0; col < dimension; col++) {
-                if (board[row][col] == player || board[row][col] == 2 * player) {
+                if (ownerOfField(row, col) == player) {
                     // TODO: zastanowić się czy już na tym poziomie rozpatrzeć różne ruchy dla pionków i damek.
                     possibleMoves.addAll(getPossibleMovesForOnePawn(row, col));
                 }
@@ -260,8 +261,8 @@ public class State {
 
     public ArrayList<State> getChildren () {
         ArrayList<State> children = new ArrayList<>();
-        for (ArrayList<Integer> moves : currentPlayerMoves) {
-            children.add(new State(this, moves));
+        for (ArrayList<Integer> move : currentPlayerMoves) {
+            children.add(new State(this, move));
         }
         return children;
     }
