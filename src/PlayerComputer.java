@@ -7,7 +7,7 @@ public class PlayerComputer extends Player {
 
     public PlayerComputer () {
         super();
-        this.depth = 3;
+        this.depth = 5;
         this.heuristic = new Heuristic((short) 0);
     }
 

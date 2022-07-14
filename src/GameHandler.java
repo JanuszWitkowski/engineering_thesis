@@ -4,7 +4,7 @@ public class GameHandler {
     private final State board;
 
     public GameHandler () {
-        this(new PlayerHuman(), new PlayerComputer(), new State());
+        this(new PlayerComputer(), new PlayerHuman(), new State());
     }
 
     public GameHandler (Player player1, Player player2) {
@@ -20,15 +20,15 @@ public class GameHandler {
     }
 
     public void run () {
-        board.printBoard();
+        board.printBoardWithCoordinates();
         int winner = board.winner();
         while (winner == 0) {
             player1.makeMove(board);
-            board.printBoard();
+            board.printBoardWithCoordinates();
             winner = board.winner();
             if (winner != 0) break;
             player2.makeMove(board);
-            board.printBoard();
+            board.printBoardWithCoordinates();
             winner = board.winner();
         }
         System.out.println("---[ GAME OVER ]---");

@@ -6,10 +6,17 @@ public class State {
     private final int dimension;
     private int[][] board;
     private int currentPlayer = 1;
-    private ArrayList<Integer> lastMoveList = null;
-    private final ArrayList<ArrayList<Integer>> currentPlayerMoves;
+    private ArrayList<Integer> creationMove = null;
+    private ArrayList<Integer> lastMove = null;
+    private ArrayList<ArrayList<Integer>> currentPlayerMoves;
     private static final int[] directions = new int[]{1, -1};
     private static final char[] playerFigure = new char[]{'X', 'x', ' ', 'o', 'O'};
+    private static final String[] playerColors = new String[] {
+            Console.RED_BOLD, Console.RED, "", Console.BLUE, Console.BLUE_BOLD
+    };
+    private static final String[] backgroundColors = new String[] {
+            "", Console.BLUE_BACKGROUND, Console.WHITE_BACKGROUND
+    };
 
     // CONSTRUCTORS
     public State () {
@@ -28,7 +35,8 @@ public class State {
         this.board = new int[this.dimension][this.dimension];
         this.currentPlayer = state.currentPlayer();
         copyBoard(state);
-        this.lastMoveList = state.lastMoveList();
+        this.creationMove = state.creationMove();
+        this.lastMove = state.lastMove();
         this.currentPlayerMoves = state.currentPlayerMoves();
     }
 
@@ -37,9 +45,8 @@ public class State {
         this.board = new int[this.dimension][this.dimension];
         this.currentPlayer = state.currentPlayer();
         copyBoard(state);
-        this.lastMoveList = moveList;
+        this.creationMove = moveList;
         makeMove(moveList);
-        this.currentPlayerMoves = getPossibleMoves(currentPlayer);
     }
 
     // PRIVATE METHODS
@@ -74,7 +81,10 @@ public class State {
     }
 
     private int ownerOfField (int field) {
-        return Integer.compare(field, 0);
+        if (field == 0) return 0;
+        if (field > 0) return 1;
+        return -1;
+//        return field == 0 ? 0 : field > 0 ? 1 : -1;
     }
 
     private int ownerOfField (int row, int col) {
@@ -104,6 +114,28 @@ public class State {
         return row >= 0 && row < dimension && col >= 0 && col < dimension;
     }
 
+    private ArrayList<ArrayList<Integer>> getAdjacentMovesForOnePiece(int row, int col) {
+        ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
+        if (board[row][col] != 0) {
+            int dr = direction(ownerOfField(row, col));
+            boolean checkOtherRow = !isKing(row, col);
+            do {
+                checkOtherRow = !checkOtherRow;
+                for (int dc = -1; dc <= 1; dc += 2) {
+                    int newRow = row + dr, newCol = col + dc;
+                    if (isInsideTheBoard(newRow, newCol) && board[newRow][newCol] == 0) {
+                        ArrayList<Integer> move = new ArrayList<>();
+                        move.add(coordinatesToNumber(row, col));
+                        move.add(coordinatesToNumber(newRow, newCol));
+                        possibleMoves.add(move);
+                    }
+                }
+                dr *= -1;
+            } while (checkOtherRow);
+        }
+        return possibleMoves;
+    }
+
     private ArrayList<Integer> getMoveFromTree (Node tree) {
         ArrayList<Integer> move = new ArrayList<>();
         if (tree.height() > 0) {
@@ -116,8 +148,7 @@ public class State {
         return move;
     }
 
-    private void buildCaptureMove (Node parent, int height, ArrayList<ArrayList<Integer>> moves, int row, int col, int dr, boolean isKing) {
-//        move.add(coordinatesToNumber(row, col));
+    private void buildCaptureMove (Node parent, int height, ArrayList<ArrayList<Integer>> moves, int row, int col, int prevRow, int prevCol, int dr, boolean isKing) {
         Node next = new Node(coordinatesToNumber(row, col), height + 1, parent);
         int adjRow, adjCol, newRow, newCol;
         boolean nodeIsLeaf = true, checkOtherRow = !isKing;
@@ -131,9 +162,9 @@ public class State {
                     if (owner != 0 && owner != ownerOfField(row, col)) {
                         newRow = adjRow + dr;
                         newCol = adjCol + dc;
-                        if (isInsideTheBoard(newRow, newCol) && board[newRow][newCol] == 0) {
+                        if (newRow != prevRow && newCol != prevCol && isInsideTheBoard(newRow, newCol) && board[newRow][newCol] == 0) {
                             nodeIsLeaf = false;
-                            buildCaptureMove(next, next.height(), moves, newRow, newCol, dr, isKing);
+                            buildCaptureMove(next, next.height(), moves, newRow, newCol, row, col, dr, isKing);
                         }
                     }
                 }
@@ -148,52 +179,34 @@ public class State {
         }
     }
 
-    private ArrayList<ArrayList<Integer>> getPossibleMovesForOnePawn (int row, int col, int n) {
+    private ArrayList<ArrayList<Integer>> getCaptureMovesForOnePiece(int row, int col, int n) {
         ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
         if (board[row][col] != 0) {
             ArrayList<ArrayList<Integer>> captureMoves = new ArrayList<>();
             int dr = direction(ownerOfField(row, col));
-            buildCaptureMove(null, -1, captureMoves, row, col, dr, isKing(row, col));
-            if (captureMoves.isEmpty()) {
-                boolean checkOtherRow = !isKing(row, col);
-                do {
-                    checkOtherRow = !checkOtherRow;
-                    for (int dc = -1; dc <= 1; dc += 2) {
-                        int newRow = row + dr, newCol = col + dc;
-                        if (isInsideTheBoard(newRow, newCol) && board[newRow][newCol] == 0) {
-                            ArrayList<Integer> move = new ArrayList<>();
-                            move.add(coordinatesToNumber(row, col));
-                            move.add(coordinatesToNumber(newRow, newCol));
-                            possibleMoves.add(move);
-                        }
-                    }
-                    dr *= -1;
-                } while (checkOtherRow);
+            buildCaptureMove(null, -1, captureMoves, row, col, -1, -1, dr, isKing(row, col));
+            if (isKing(row, col)) {     // maksymalne bicie damką
+                int maxLength = 0;
+                for (ArrayList<Integer> move : captureMoves) {
+                    if (maxLength < move.size()) maxLength = move.size();
+                }
+                for (ArrayList<Integer> move : captureMoves) {
+                    if (maxLength == move.size()) possibleMoves.add(move);
+                }
             }
             else {
-                if (isKing(row, col)) {     // maksymalne bicie damką
-                    int maxLength = 0;
-                    for (ArrayList<Integer> move : captureMoves) {
-                        if (maxLength < move.size()) maxLength = move.size();
-                    }
-                    for (ArrayList<Integer> move : captureMoves) {
-                        if (maxLength == move.size()) possibleMoves.add(move);
-                    }
-                }
-                else {
-                    possibleMoves.addAll(captureMoves);
-                }
+                possibleMoves.addAll(captureMoves);
             }
         }
         return possibleMoves;
     }
 
-    private ArrayList<ArrayList<Integer>> getPossibleMovesForOnePawn (int row, int col) {
-        return getPossibleMovesForOnePawn(row, col, coordinatesToNumber(row, col));
+    private ArrayList<ArrayList<Integer>> getCaptureMovesForOnePiece(int row, int col) {
+        return getCaptureMovesForOnePiece(row, col, coordinatesToNumber(row, col));
     }
 
-    private ArrayList<ArrayList<Integer>> getPossibleMovesForOnePawn (int n) {
-        return getPossibleMovesForOnePawn(numberToRow(n), numberToCol(n), n);
+    private ArrayList<ArrayList<Integer>> getCaptureMovesForOnePiece(int n) {
+        return getCaptureMovesForOnePiece(numberToRow(n), numberToCol(n), n);
     }
 
     private static int direction (int field) {
@@ -204,9 +217,14 @@ public class State {
     }
 
     // PUBLIC METHODS
-    public static char getPlayerFigure (int player) {
-        if (player < -2 || player > 2) return '?';
-        return playerFigure[player + 2];
+    public static char figure (int field) {
+        if (field < -2 || field > 2) return '?';
+        return playerFigure[field + 2];
+    }
+
+    public static String color (int field) {
+        if (field < -2 || field > 2) return "";
+        return playerColors[field + 2];
     }
 
     public int coordinatesToNumber (int row, int col) {
@@ -231,6 +249,7 @@ public class State {
     }
 
     public void makeMove (ArrayList<Integer> moveList) {
+        lastMove = moveList;
         currentPlayer = opponent();
         if (moveList.isEmpty()) return;
         int prevMove = moveList.get(0);
@@ -244,6 +263,7 @@ public class State {
         if ((row == 0 || row == dimension - 1) && board[row][col] % 2 == 1) {
             board[row][col] = board[row][col] * 2;
         }
+        currentPlayerMoves = getPossibleMoves(currentPlayer);
     }
 
     public ArrayList<ArrayList<Integer>> getPossibleMoves (int player) {
@@ -251,8 +271,11 @@ public class State {
         for (int row = 0; row < dimension; row++) {
             for (int col = 0; col < dimension; col++) {
                 if (ownerOfField(row, col) == player) {
-                    // TODO: zastanowić się czy już na tym poziomie rozpatrzeć różne ruchy dla pionków i damek.
-                    possibleMoves.addAll(getPossibleMovesForOnePawn(row, col));
+                    ArrayList<ArrayList<Integer>> captureMoves = getCaptureMovesForOnePiece(row, col);
+                    if (captureMoves.isEmpty()) {
+                        possibleMoves.addAll(getAdjacentMovesForOnePiece(row, col));
+                    }
+                    else possibleMoves.addAll(captureMoves);
                 }
             }
         }
@@ -283,7 +306,29 @@ public class State {
     public void printBoard () {
         for (int row = 0; row < dimension; row++) {
             for (int col = 0; col < dimension; col++) {
-                System.out.print("[" + getPlayerFigure(board[row][col]) + "]");
+                System.out.print("[" + figure(board[row][col]) + "]");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    public void printBoardWithCoordinates () {
+        System.out.print("   ");
+        for (int col = 0; col < dimension; col++)
+            System.out.print(" " + col + " ");
+        System.out.println();
+        for (int row = 0; row < dimension; row++) {
+            System.out.print(" " + row + " ");
+            for (int col = 0; col < dimension; col++) {
+                String background = backgroundColors[2];
+                if (lastMove != null && numberToRow(lastMove.get(0)) == row && numberToCol(lastMove.get(0)) == col)
+                    System.out.print(backgroundColors[2] + "[ ]" + Console.RESET);
+                else if (lastMove != null && numberToRow(lastMove.get(lastMove.size()-1)) == row
+                        && numberToCol(lastMove.get(lastMove.size()-1)) == col)
+                    System.out.print(background + "[" + color(board[row][col]) + figure(board[row][col]) +
+                            Console.RESET + background + "]" + Console.RESET);
+                else System.out.print("[" + color(board[row][col]) + figure(board[row][col]) + Console.RESET + "]");
             }
             System.out.println();
         }
@@ -318,6 +363,7 @@ public class State {
         return currentPlayerMoves.isEmpty();
     }
 
+    // TODO: DODAĆ OPCJĘ REMISU (DAMKA VS DAMKA, 1 DAMKA VS 2 DAMKI NA WIELKIEJ PRZEKĄTNEJ)
     public int winner () {
         if (opponentHasNoPieces()) return currentPlayer;
         if (currentPlayerHasNoPieces()) return opponent();
@@ -373,8 +419,12 @@ public class State {
         return opponent(currentPlayer);
     }
 
-    public ArrayList<Integer> lastMoveList() {
-        return this.lastMoveList;
+    public ArrayList<Integer> creationMove () {
+        return this.creationMove;
+    }
+
+    public ArrayList<Integer> lastMove () {
+        return this.lastMove;
     }
 
     public ArrayList<ArrayList<Integer>> currentPlayerMoves () {
