@@ -1,7 +1,15 @@
-public class Player {
-    protected boolean isComputer = false;
+public abstract class Player {
+    protected int playerNumber = 0;
+    public abstract boolean isComputer ();
 
-    public boolean isComputer () {
-        return this.isComputer;
+    public abstract void makeMove (State state);
+
+    public int playerNumber () {
+        return this.playerNumber;
     }
+
+    public void playerNumber (int p) {
+        this.playerNumber = p;
+    }
+
 }
