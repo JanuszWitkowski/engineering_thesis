@@ -1,4 +1,4 @@
-public enum HeuristicParameters {
+public enum HParam {
     PAWNS,
     KINGS,
     SAFE_PAWNS,

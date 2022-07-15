@@ -18,7 +18,7 @@ public class MinMax {
             int maxEval = Integer.MIN_VALUE;
             double maxEps = 0.0;
             for (State child : state.getChildren()) {
-                if (depth == 5) System.out.println("d=" + depth + " child move: " + child.creationMove());
+//                if (depth == 5) System.out.println("d=" + depth + " child move: " + child.creationMove());
                 int eval = minimax(child, depth - 1, heuristic, alpha, beta, maximizingPlayer, false);
                 if (maxEval <= eval) {
                     /*
@@ -39,7 +39,7 @@ public class MinMax {
 
             }
             assert best != null;
-            if (depth == 5) System.out.println("d=" + depth + " Making move: " + best.creationMove());
+//            if (depth == 5) System.out.println("d=" + depth + " Making move: " + best.creationMove());
             state.makeMove(best.creationMove());    // Wykonaj najlepszy ruch na oryginalnej planszy.
             return maxEval;
         }

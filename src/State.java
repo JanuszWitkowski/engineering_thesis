@@ -18,6 +18,7 @@ public class State {
             "", Console.BLUE_BACKGROUND, Console.WHITE_BACKGROUND
     };
 
+
     // CONSTRUCTORS
     public State () {
         this(8);
@@ -26,8 +27,8 @@ public class State {
     public State (int dimension) {
         this.dimension = dimension;
         this.board = new int[this.dimension][this.dimension];
-//        initBoard();
-        initBoardTemplate();
+        initBoard();
+//        initBoardTemplate();
         this.currentPlayerMoves = getPossibleMoves(currentPlayer);
     }
 
@@ -49,6 +50,7 @@ public class State {
         this.creationMove = moveList;
         makeMove(moveList);
     }
+
 
     // PRIVATE METHODS
     private void initBoard () {
@@ -268,6 +270,7 @@ public class State {
 //        return directions[(player + 1) / 2];
     }
 
+
     // PUBLIC METHODS
     public static char figure (int field) {
         if (field < -2 || field > 2) return '?';
@@ -440,6 +443,7 @@ public class State {
         return 0;
     }
 
+
     // HEURISTIC METHODS
     public int heuristicWinner (int player) {
         int opponent = opponent(player);
@@ -459,6 +463,47 @@ public class State {
         }
         return sum;
     }
+
+    public int getNumberOfPawns (int player) {
+        int sum = 0;
+        for (int row = 0; row < dimension; row++) {
+            for (int col = 0; col < dimension; col++) {
+                if (ownerOfField(row, col) == player && !isKing(row, col)) ++sum;
+            }
+        }
+        return sum;
+    }
+
+    public int getNumberOfKings (int player) {
+        int sum = 0;
+        for (int row = 0; row < dimension; row++) {
+            for (int col = 0; col < dimension; col++) {
+                if (ownerOfField(row, col) == player && isKing(row, col)) ++sum;
+            }
+        }
+        return sum;
+    }
+
+    public int getNumberOfSafePawns (int player) {
+        int sum = 0;
+        return sum;
+    }
+
+    public int getNumberOfSafeKings (int player) {
+        int sum = 0;
+        return sum;
+    }
+
+    public int getNumberOfMovablePawns (int player) {
+        int sum = 0;
+        return sum;
+    }
+
+    public int getNumberOfMovableKings (int player) {
+        int sum = 0;
+        return sum;
+    }
+
 
     // SETTERS & GETTERS
     public int dimension () {
