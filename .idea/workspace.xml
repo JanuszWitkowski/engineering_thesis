@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Fix the computer always making moves from the same row">
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Fix misc computer moves">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MinMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinMax.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/State.java" afterDir="false" />
@@ -69,7 +69,7 @@
       <workItem from="1657650363691" duration="4373000" />
       <workItem from="1657703025650" duration="624000" />
       <workItem from="1657800618975" duration="9764000" />
-      <workItem from="1657889439150" duration="8442000" />
+      <workItem from="1657889439150" duration="8760000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1657570133924</created>
@@ -169,7 +169,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657822459410</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Fix misc computer moves">
+      <created>1657900873634</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1657900873634</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,7 +207,8 @@
     <MESSAGE value="Tune GameHandler and Player classes" />
     <MESSAGE value="Fix move generation&#10;&#10;The game works on minimax level.&#10;Need to implement better player handling for non-Computer players, parameter-data counter &amp; better heuristic." />
     <MESSAGE value="Fix the computer always making moves from the same row" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix the computer always making moves from the same row" />
+    <MESSAGE value="Fix misc computer moves" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix misc computer moves" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
