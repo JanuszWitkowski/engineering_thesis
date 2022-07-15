@@ -11,15 +11,14 @@ public class MinMax {
         if (depth == 0) return heuristic.evaluate(state, maximizingPlayer);
 
         State best = null;
+        int winner = state.currentPlayerWinning();
         if (isPlayerMaximizing) {
-            int winner = state.currentPlayerWinning();
             if (winner == 1) return Integer.MAX_VALUE;
             if (winner == -1) return Integer.MIN_VALUE;
             int maxEval = Integer.MIN_VALUE;
             double maxEps = 0.0;
             for (State child : state.getChildren()) {
-//                if (depth == 5 && child.creationMove().size() > 2)
-//                    System.err.println("Capture move found!");
+                if (depth == 5) System.out.println("d=" + depth + " child move: " + child.creationMove());
                 int eval = minimax(child, depth - 1, heuristic, alpha, beta, maximizingPlayer, false);
                 if (maxEval <= eval) {
                     /*
@@ -40,11 +39,11 @@ public class MinMax {
 
             }
             assert best != null;
+            if (depth == 5) System.out.println("d=" + depth + " Making move: " + best.creationMove());
             state.makeMove(best.creationMove());    // Wykonaj najlepszy ruch na oryginalnej planszy.
             return maxEval;
         }
         else {
-            int winner = state.currentPlayerWinning();
             if (winner == 1) return Integer.MIN_VALUE;
             if (winner == -1) return Integer.MAX_VALUE;
             int minEval = Integer.MAX_VALUE;

@@ -26,7 +26,8 @@ public class State {
     public State (int dimension) {
         this.dimension = dimension;
         this.board = new int[this.dimension][this.dimension];
-        initBoard();
+//        initBoard();
+        initBoardTemplate();
         this.currentPlayerMoves = getPossibleMoves(currentPlayer);
     }
 
@@ -68,6 +69,49 @@ public class State {
         }
     }
 
+    private void initBoardTemplate () {     // tmp
+//        board = new int[][] {
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0}
+//        };
+//        board = new int[][] {
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, -2, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, -1, 0, 0, 0, -2, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, -1, 0, -2, 0, 0, 0},
+//                {0, 0, 0, 2, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0}
+//        };
+//        board = new int[][] {
+//                {0, -1, 0, -1, 0, -1, 0, -1},
+//                {1, 0, 1, 0, 1, 0, 1, 0},
+//                {0, -1, 0, -1, 0, -1, 0, -1},
+//                {1, 0, 1, 0, 1, 0, 1, 0},
+//                {0, -1, 0, -1, 0, -1, 0, -1},
+//                {1, 0, 1, 0, 1, 0, 1, 0},
+//                {0, -1, 0, -1, 0, -1, 0, -1},
+//                {1, 0, 1, 0, 1, 0, 1, 0}
+//        };
+        board = new int[][] {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {-1, 0, 0, 0, 0, 0, 0, 0},
+                {0, -1, 0, 0, 0, 0, 0, 0},
+                {1, 0, 1, 0, 0, 0, 0, 0}
+        };
+    }
+
     private void copyBoard (State state) {
         for (int row = 0; row < dimension; row++) {
             for (int col = 0; col < dimension; col++) {
@@ -85,6 +129,7 @@ public class State {
         if (field > 0) return 1;
         return -1;
 //        return field == 0 ? 0 : field > 0 ? 1 : -1;
+//        return Integer.compare(field, 0);
     }
 
     private int ownerOfField (int row, int col) {
@@ -93,7 +138,7 @@ public class State {
 
     private void makeOneMove (int fromRow, int fromCol, int destRow, int destCol) {
         if ((fromRow - destRow) % 2 == 0) {     // capture pawn
-            int captRow = (fromRow + destRow) / 2, captCol = (fromCol + destRow) / 2;
+            int captRow = (fromRow + destRow) / 2, captCol = (fromCol + destCol) / 2;
             this.board[captRow][captCol] = 0;
         }
         this.board[destRow][destCol] = this.board[fromRow][fromCol];
@@ -148,7 +193,7 @@ public class State {
         return move;
     }
 
-    private void buildCaptureMove (Node parent, int height, ArrayList<ArrayList<Integer>> moves, int row, int col, int prevRow, int prevCol, int dr, boolean isKing) {
+    private void buildCaptureMove (Node parent, int height, ArrayList<ArrayList<Integer>> moves, int row, int col, int dr, boolean isKing) {
         Node next = new Node(coordinatesToNumber(row, col), height + 1, parent);
         int adjRow, adjCol, newRow, newCol;
         boolean nodeIsLeaf = true, checkOtherRow = !isKing;
@@ -162,9 +207,16 @@ public class State {
                     if (owner != 0 && owner != ownerOfField(row, col)) {
                         newRow = adjRow + dr;
                         newCol = adjCol + dc;
-                        if (newRow != prevRow && newCol != prevCol && isInsideTheBoard(newRow, newCol) && board[newRow][newCol] == 0) {
+                        if (isInsideTheBoard(newRow, newCol) && board[newRow][newCol] == 0) {
                             nodeIsLeaf = false;
-                            buildCaptureMove(next, next.height(), moves, newRow, newCol, row, col, dr, isKing);
+                            board[newRow][newCol] = board[row][col];
+                            board[row][col] = 0;
+                            int capturedPiece = board[adjRow][adjCol];
+                            board[adjRow][adjCol] = 0;
+                            buildCaptureMove(next, next.height(), moves, newRow, newCol, dr, isKing);
+                            board[adjRow][adjCol] = capturedPiece;
+                            board[row][col] = board[newRow][newCol];
+                            board[newRow][newCol] = 0;
                         }
                     }
                 }
@@ -184,7 +236,7 @@ public class State {
         if (board[row][col] != 0) {
             ArrayList<ArrayList<Integer>> captureMoves = new ArrayList<>();
             int dr = direction(ownerOfField(row, col));
-            buildCaptureMove(null, -1, captureMoves, row, col, -1, -1, dr, isKing(row, col));
+            buildCaptureMove(null, -1, captureMoves, row, col, dr, isKing(row, col));
             if (isKing(row, col)) {     // maksymalne bicie damką
                 int maxLength = 0;
                 for (ArrayList<Integer> move : captureMoves) {
@@ -260,7 +312,7 @@ public class State {
         }
         // damka
         int row = numberToRow(prevMove), col = numberToCol(prevMove);
-        if ((row == 0 || row == dimension - 1) && board[row][col] % 2 == 1) {
+        if ((row == 0 || row == dimension - 1) && !isKing(row, col)) {
             board[row][col] = board[row][col] * 2;
         }
         currentPlayerMoves = getPossibleMoves(currentPlayer);
@@ -268,14 +320,24 @@ public class State {
 
     public ArrayList<ArrayList<Integer>> getPossibleMoves (int player) {
         ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
+        boolean captureMoveDoesNotExists = true;
         for (int row = 0; row < dimension; row++) {
             for (int col = 0; col < dimension; col++) {
                 if (ownerOfField(row, col) == player) {
                     ArrayList<ArrayList<Integer>> captureMoves = getCaptureMovesForOnePiece(row, col);
-                    if (captureMoves.isEmpty()) {
+                    if (!captureMoves.isEmpty()) {
+                        captureMoveDoesNotExists = false;
+                        possibleMoves.addAll(captureMoves);
+                    }
+                }
+            }
+        }
+        if (captureMoveDoesNotExists) {
+            for (int row = 0; row < dimension; row++) {
+                for (int col = 0; col < dimension; col++) {
+                    if (ownerOfField(row, col) == player) {
                         possibleMoves.addAll(getAdjacentMovesForOnePiece(row, col));
                     }
-                    else possibleMoves.addAll(captureMoves);
                 }
             }
         }
@@ -367,7 +429,7 @@ public class State {
     public int winner () {
         if (opponentHasNoPieces()) return currentPlayer;
         if (currentPlayerHasNoPieces()) return opponent();
-        if (currentPlayerOutOfMoves()) opponent();
+        if (currentPlayerOutOfMoves()) return opponent();
         return 0;
     }
 
