@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class State {
     // FIELDS
@@ -10,13 +11,27 @@ public class State {
     private ArrayList<Integer> lastMove = null;
     private ArrayList<ArrayList<Integer>> currentPlayerMoves;
     private static final int[] directions = new int[]{1, -1};
-    private static final char[] playerFigure = new char[]{'X', 'x', ' ', 'o', 'O'};
+    private static final char[] playerSymbol = new char[]{'X', 'x', ' ', 'o', 'O'};
+    private static final char[] numbersToBigLetters = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'};
+    private static final char[] numbersToSmallLetters = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'};
+    private static final HashMap<Character, Integer> lettersToNumbers = initLettersToNumbers();
     private static final String[] playerColors = new String[] {
             Console.RED_BOLD, Console.RED, "", Console.BLUE, Console.BLUE_BOLD
     };
     private static final String[] backgroundColors = new String[] {
-            "", Console.BLUE_BACKGROUND, Console.WHITE_BACKGROUND
+            "", Console.BLACK_BACKGROUND, Console.WHITE_BACKGROUND
     };
+
+
+    // PRIVATE STATIC INITIALIZERS
+    private static HashMap<Character, Integer> initLettersToNumbers () {
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < numbersToBigLetters.length; i++) {
+            map.put(numbersToBigLetters[i], i);
+            map.put(numbersToSmallLetters[i], i);
+        }
+        return map;
+    }
 
 
     // CONSTRUCTORS
@@ -92,26 +107,26 @@ public class State {
 //                {0, 0, 0, 2, 0, 0, 0, 0},
 //                {0, 0, 0, 0, 0, 0, 0, 0}
 //        };
-//        board = new int[][] {
-//                {0, -1, 0, -1, 0, -1, 0, -1},
-//                {1, 0, 1, 0, 1, 0, 1, 0},
-//                {0, -1, 0, -1, 0, -1, 0, -1},
-//                {1, 0, 1, 0, 1, 0, 1, 0},
-//                {0, -1, 0, -1, 0, -1, 0, -1},
-//                {1, 0, 1, 0, 1, 0, 1, 0},
-//                {0, -1, 0, -1, 0, -1, 0, -1},
-//                {1, 0, 1, 0, 1, 0, 1, 0}
-//        };
         board = new int[][] {
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {-1, 0, 0, 0, 0, 0, 0, 0},
-                {0, -1, 0, 0, 0, 0, 0, 0},
-                {1, 0, 1, 0, 0, 0, 0, 0}
+                {0, -1, 0, -1, 0, -1, 0, -1},
+                {1, 0, 1, 0, 1, 0, 1, 0},
+                {0, -1, 0, -1, 0, -1, 0, -1},
+                {1, 0, 1, 0, 1, 0, 1, 0},
+                {0, -1, 0, -1, 0, -1, 0, -1},
+                {1, 0, 1, 0, 1, 0, 1, 0},
+                {0, -1, 0, -1, 0, -1, 0, -1},
+                {1, 0, 1, 0, 1, 0, 1, 0}
         };
+//        board = new int[][] {
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {-1, 0, 0, 0, 0, 0, 0, 0},
+//                {0, -1, 0, 0, 0, 0, 0, 0},
+//                {1, 0, 1, 0, 0, 0, 0, 0}
+//        };
     }
 
     private void copyBoard (State state) {
@@ -270,11 +285,15 @@ public class State {
 //        return directions[(player + 1) / 2];
     }
 
+    private static int letterToNumber (char letter) {
+        return lettersToNumbers.getOrDefault(letter, -1);
+    }
+
 
     // PUBLIC METHODS
-    public static char figure (int field) {
+    public static char symbol(int field) {
         if (field < -2 || field > 2) return '?';
-        return playerFigure[field + 2];
+        return playerSymbol[field + 2];
     }
 
     public static String color (int field) {
@@ -301,6 +320,34 @@ public class State {
 
     public int numberToCol (int number) {
         return 2 * ((number - 1) % (dimension/2)) + ((2 * (number - 1) / dimension) + 1) % 2;
+    }
+
+    public boolean checkUserInput (char col, int row) {
+        return isInsideTheBoard(row, letterToNumber(col));
+    }
+
+    public boolean checkUserInput (int number) {
+        if (number < 0 || number > dimension * dimension / 2) return false;
+        return isInsideTheBoard(numberToRow(number), numberToCol(number));
+    }
+
+    public boolean submitUserInput (ArrayList<Character> cols, ArrayList<Integer> rows) {
+        if (cols.size() != rows.size()) return false;
+        if (cols.size() <= 1) return false;
+        for (int i = 0; i < cols.size(); i++) {
+            if (!checkUserInput(cols.get(i), rows.get(i))) return false;
+            rows.set(i, coordinatesToNumber(rows.get(i), letterToNumber(cols.get(i))));
+        }
+        makeMove(rows);
+        return true;
+    }
+
+    public boolean submitUserInput (ArrayList<Integer> numbers) {
+        if (numbers.size() <= 1) return false;
+        for (Integer n : numbers)
+            if (!checkUserInput(n)) return false;
+        makeMove(numbers);
+        return true;
     }
 
     public void makeMove (ArrayList<Integer> moveList) {
@@ -364,14 +411,14 @@ public class State {
         return children;
     }
 
-    public boolean gameOver() {
-        return false;
-    }
+//    public boolean gameOver() {
+//        return false;
+//    }
 
     public void printBoard () {
         for (int row = 0; row < dimension; row++) {
             for (int col = 0; col < dimension; col++) {
-                System.out.print("[" + figure(board[row][col]) + "]");
+                System.out.print("[" + symbol(board[row][col]) + "]");
             }
             System.out.println();
         }
@@ -381,21 +428,26 @@ public class State {
     public void printBoardWithCoordinates () {
         System.out.print("   ");
         for (int col = 0; col < dimension; col++)
-            System.out.print(" " + col + " ");
+            System.out.print(" " + numbersToBigLetters[col] + " ");
         System.out.println();
+        String background = backgroundColors[2], disabled = backgroundColors[1];
+        int disabledCounter = 0;
         for (int row = 0; row < dimension; row++) {
-            System.out.print(" " + row + " ");
+            System.out.print(" " + (row+1) + " ");
             for (int col = 0; col < dimension; col++) {
-                String background = backgroundColors[2];
-                if (lastMove != null && numberToRow(lastMove.get(0)) == row && numberToCol(lastMove.get(0)) == col)
+                ++disabledCounter;
+                if (disabledCounter % 2 == 1)
+                    System.out.print(disabled + "[ ]" + Console.RESET);
+                else if (lastMove != null && numberToRow(lastMove.get(0)) == row && numberToCol(lastMove.get(0)) == col)
                     System.out.print(backgroundColors[2] + "[ ]" + Console.RESET);
                 else if (lastMove != null && numberToRow(lastMove.get(lastMove.size()-1)) == row
                         && numberToCol(lastMove.get(lastMove.size()-1)) == col)
-                    System.out.print(background + "[" + color(board[row][col]) + figure(board[row][col]) +
+                    System.out.print(background + "[" + color(board[row][col]) + symbol(board[row][col]) +
                             Console.RESET + background + "]" + Console.RESET);
-                else System.out.print("[" + color(board[row][col]) + figure(board[row][col]) + Console.RESET + "]");
+                else System.out.print("[" + color(board[row][col]) + symbol(board[row][col]) + Console.RESET + "]");
             }
             System.out.println();
+            ++disabledCounter;
         }
         System.out.println();
     }

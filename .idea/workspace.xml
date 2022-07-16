@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Fix misc computer moves">
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Make HParam enum to integer conversion for indexing in Heuristic">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MinMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinMax.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PlayerHuman.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlayerHuman.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/State.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,7 +70,8 @@
       <workItem from="1657650363691" duration="4373000" />
       <workItem from="1657703025650" duration="624000" />
       <workItem from="1657800618975" duration="9764000" />
-      <workItem from="1657889439150" duration="8760000" />
+      <workItem from="1657889439150" duration="11660000" />
+      <workItem from="1657963663477" duration="4998000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1657570133924</created>
@@ -176,7 +178,21 @@
       <option name="project" value="LOCAL" />
       <updated>1657900873634</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Merge commit">
+      <created>1657900989905</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1657900989905</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Make HParam enum to integer conversion for indexing in Heuristic">
+      <created>1657903720023</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1657903720023</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,7 +203,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -208,39 +236,8 @@
     <MESSAGE value="Fix move generation&#10;&#10;The game works on minimax level.&#10;Need to implement better player handling for non-Computer players, parameter-data counter &amp; better heuristic." />
     <MESSAGE value="Fix the computer always making moves from the same row" />
     <MESSAGE value="Fix misc computer moves" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix misc computer moves" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/State.java</url>
-          <line>138</line>
-          <properties class="State" method="makeOneMove">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/State.java</url>
-          <line>302</line>
-          <properties class="State" method="makeMove">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/State.java</url>
-          <line>346</line>
-          <properties class="State" method="getChildren">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Merge commit" />
+    <MESSAGE value="Make HParam enum to integer conversion for indexing in Heuristic" />
+    <option name="LAST_COMMIT_MESSAGE" value="Make HParam enum to integer conversion for indexing in Heuristic" />
   </component>
 </project>

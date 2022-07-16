@@ -32,6 +32,6 @@ public class GameHandler {
             winner = board.winner();
         }
         System.out.println("---[ GAME OVER ]---");
-        System.out.println("WYGRANY: " + winner);
+        System.out.println("ZWYCIEZCA: " + winner + " (" + State.symbol(winner) + ")");
     }
 }

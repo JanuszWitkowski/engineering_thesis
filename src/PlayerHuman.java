@@ -13,6 +13,7 @@ public class PlayerHuman extends Player {
     @Override
     public void makeMove (State board) {
         int row1, col1, row2, col2;
+        System.out.println("Dostępne ruchy: " + board.currentPlayerMoves());
         System.out.println("Podaj współrzędne pionka którym chcesz się ruszyć.");
         System.out.print("rząd: ");
         row1 = scanner.nextInt();
