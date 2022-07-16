@@ -97,26 +97,26 @@ public class State {
 //                {0, 0, 0, 0, 0, 0, 0, 0},
 //                {0, 0, 0, 0, 0, 0, 0, 0}
 //        };
-//        board = new int[][] {
-//                {0, 0, 0, 0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, -2, 0, 0, 0},
-//                {0, 0, 0, 0, 0, 0, 0, 0},
-//                {0, 0, -1, 0, 0, 0, -2, 0},
-//                {0, 0, 0, 0, 0, 0, 0, 0},
-//                {0, 0, -1, 0, -2, 0, 0, 0},
-//                {0, 0, 0, 2, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0, 0, 0, 0}
-//        };
         board = new int[][] {
-                {0, -1, 0, -1, 0, -1, 0, -1},
-                {1, 0, 1, 0, 1, 0, 1, 0},
-                {0, -1, 0, -1, 0, -1, 0, -1},
-                {1, 0, 1, 0, 1, 0, 1, 0},
-                {0, -1, 0, -1, 0, -1, 0, -1},
-                {1, 0, 1, 0, 1, 0, 1, 0},
-                {0, -1, 0, -1, 0, -1, 0, -1},
-                {1, 0, 1, 0, 1, 0, 1, 0}
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, -2, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, -1, 0, 0, 0, -2, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, -1, 0, -2, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
         };
+//        board = new int[][] {
+//                {0, -1, 0, -1, 0, -1, 0, -1},
+//                {1, 0, 1, 0, 1, 0, 1, 0},
+//                {0, -1, 0, -1, 0, -1, 0, -1},
+//                {1, 0, 1, 0, 1, 0, 1, 0},
+//                {0, -1, 0, -1, 0, -1, 0, -1},
+//                {1, 0, 1, 0, 1, 0, 1, 0},
+//                {0, -1, 0, -1, 0, -1, 0, -1},
+//                {1, 0, 1, 0, 1, 0, 1, 0}
+//        };
 //        board = new int[][] {
 //                {0, 0, 0, 0, 0, 0, 0, 0},
 //                {0, 0, 0, 0, 0, 0, 0, 0},
@@ -285,10 +285,6 @@ public class State {
 //        return directions[(player + 1) / 2];
     }
 
-    private static int letterToNumber (char letter) {
-        return lettersToNumbers.getOrDefault(letter, -1);
-    }
-
 
     // PUBLIC METHODS
     public static char symbol(int field) {
@@ -335,6 +331,7 @@ public class State {
         if (cols.size() != rows.size()) return false;
         if (cols.size() <= 1) return false;
         for (int i = 0; i < cols.size(); i++) {
+            rows.set(i, rows.get(i) - 1);
             if (!checkUserInput(cols.get(i), rows.get(i))) return false;
             rows.set(i, coordinatesToNumber(rows.get(i), letterToNumber(cols.get(i))));
         }
@@ -414,6 +411,10 @@ public class State {
 //    public boolean gameOver() {
 //        return false;
 //    }
+
+    public static int letterToNumber (char letter) {
+        return lettersToNumbers.getOrDefault(letter, -1);
+    }
 
     public void printBoard () {
         for (int row = 0; row < dimension; row++) {
