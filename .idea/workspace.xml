@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Add draws support&#10;&#10;AI now relies on its heuristic only (no win detection)">
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Fix draw counter reset">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HParam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Heuristic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MinMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinMax.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/State.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
@@ -81,7 +86,7 @@
       <workItem from="1657963663477" duration="5818000" />
       <workItem from="1657991482484" duration="7284000" />
       <workItem from="1658046819700" duration="4995000" />
-      <workItem from="1658404489771" duration="2709000" />
+      <workItem from="1658404489771" duration="7283000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1657570133924</created>
@@ -223,7 +228,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658406894677</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Fix draw counter reset">
+      <created>1658407511446</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1658407511446</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,6 +284,7 @@
     <MESSAGE value="Start configuring UI" />
     <MESSAGE value="Complete UI" />
     <MESSAGE value="Add draws support&#10;&#10;AI now relies on its heuristic only (no win detection)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add draws support&#10;&#10;AI now relies on its heuristic only (no win detection)" />
+    <MESSAGE value="Fix draw counter reset" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix draw counter reset" />
   </component>
 </project>

@@ -22,6 +22,7 @@ public class MinMax {
                 int eval = minimax(child, depth - 1, heuristic, alpha, beta, maximizingPlayer, false);
 //                System.err.println("depth=" + depth + " isMax=" + isPlayerMaximizing + " H=" + eval);
                 if (maxEval < eval) {
+//                if (maxEval <= eval) {
                     best = child;
                     maxEval = eval;
                 }
@@ -56,6 +57,7 @@ public class MinMax {
                 int eval = minimax(child, depth - 1, heuristic, alpha, beta, maximizingPlayer, true);
 //                System.err.println("depth=" + depth + " isMax=" + isPlayerMaximizing + " H=" + eval);
                 if (eval < minEval) {
+//                if (eval <= minEval) {
                     best = child;
                     minEval = eval;
                 }

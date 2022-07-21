@@ -555,14 +555,8 @@ public class State {
         return sum;
     }
 
-    public int getNumberOfMovablePawns (int player) {
-        int sum = 0;
-        return sum;
-    }
-
-    public int getNumberOfMovableKings (int player) {
-        int sum = 0;
-        return sum;
+    public int getNumberOfPossibleMoves (int player) {
+        return getPossibleMoves(player).size();
     }
 
 
