@@ -15,6 +15,10 @@ public class Heuristic {
         return map;
     }
 
+    public static int enumToInt (HParam p) {
+        return enumToInt.get(p);
+    }
+
     public Heuristic() {
         this((short)0);     // TODO: Losować wartości
     }
@@ -33,14 +37,15 @@ public class Heuristic {
     }
 
     public int evaluate (State state, int player) {
-        int winner = state.heuristicWinner(player);
-        if (winner == player) return Integer.MAX_VALUE;
-        if (winner == state.opponent(player)) return Integer.MIN_VALUE;
+//        int winner = state.heuristicWinner(player);
+//        if (winner == player) return Integer.MAX_VALUE;
+//        if (winner == state.opponent(player)) return Integer.MIN_VALUE;
         int[] params = getParams(state, player);
         int sum = 0;
         for (int i = 0; i < numberOfParams; i++) {
             sum += params[i] * paramWeights[i];
         }
+//        System.out.println("H: " + sum);
         return sum;
     }
 
@@ -49,6 +54,8 @@ public class Heuristic {
         for (int i = 0; i < numberOfParams; i++) params[i] = 0; // TODO
         params[enumToInt.get(HParam.PAWNS)] = state.getNumberOfPawns(player);
         params[enumToInt.get(HParam.KINGS)] = state.getNumberOfKings(player);
+        params[enumToInt.get(HParam.ENEMY_PAWNS)] = state.getNumberOfPawns(state.opponent(player));
+        params[enumToInt.get(HParam.ENEMY_KINGS)] = state.getNumberOfKings(state.opponent(player));
         params[enumToInt.get(HParam.SAFE_PAWNS)] = state.getNumberOfSafePawns(player);
         params[enumToInt.get(HParam.SAFE_KINGS)] = state.getNumberOfSafeKings(player);
         params[enumToInt.get(HParam.MOVABLE_PAWNS)] = state.getNumberOfMovablePawns(player);

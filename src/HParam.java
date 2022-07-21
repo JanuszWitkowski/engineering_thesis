@@ -1,6 +1,8 @@
 public enum HParam {
     PAWNS,
     KINGS,
+    ENEMY_PAWNS,
+    ENEMY_KINGS,
     SAFE_PAWNS,
     SAFE_KINGS,
     MOVABLE_PAWNS,

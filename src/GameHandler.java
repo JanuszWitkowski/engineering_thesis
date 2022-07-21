@@ -19,19 +19,44 @@ public class GameHandler {
         this.board = board;
     }
 
-    public void run () {
+    public void resetBoard () {
+        board.initBoard();
+    }
+
+    public void printBoard () {
+        board.printBoard();
+    }
+
+    public void printBoardWithCoordinates () {
         board.printBoardWithCoordinates();
-        int winner = board.winner();
-        while (winner == 0) {
+    }
+
+    public int computerDuel () {
+        assert player1 instanceof PlayerComputer;
+        assert player2 instanceof PlayerComputer;
+//                printBoardWithCoordinates();
+        while (!board.gameOver()) {
+            player1.makeMove(board);
+//                printBoardWithCoordinates();
+            if (board.gameOver()) break;
+            player2.makeMove(board);
+//                printBoardWithCoordinates();
+        }
+        return board.winner();
+    }
+
+    public int run () {
+        board.printBoardWithCoordinates();
+        while (!board.gameOver()) {
             player1.makeMove(board);
             board.printBoardWithCoordinates();
-            winner = board.winner();
-            if (winner != 0) break;
+            if (board.gameOver()) break;
             player2.makeMove(board);
             board.printBoardWithCoordinates();
-            winner = board.winner();
         }
+        int winner = board.winner();
         System.out.println("---[ GAME OVER ]---");
         System.out.println("ZWYCIEZCA: " + winner + " (" + State.symbol(winner) + ")");
+        return winner;
     }
 }

@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Start configuring UI">
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Complete UI">
+      <change afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PlayerHuman.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlayerHuman.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HParam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Heuristic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MinMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinMax.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PlayerComputer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlayerComputer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/State.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,10 +43,11 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;protected&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Test">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Checkers" />
@@ -48,8 +55,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Test" />
+      <module name="Checkers" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Test" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -71,7 +86,9 @@
       <workItem from="1657800618975" duration="9764000" />
       <workItem from="1657889439150" duration="11660000" />
       <workItem from="1657963663477" duration="5818000" />
-      <workItem from="1657991482484" duration="5359000" />
+      <workItem from="1657991482484" duration="7284000" />
+      <workItem from="1658046819700" duration="4995000" />
+      <workItem from="1658404489771" duration="2258000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1657570133924</created>
@@ -199,7 +216,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657969057985</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Complete UI">
+      <created>1657997161253</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1657997161253</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -246,6 +270,7 @@
     <MESSAGE value="Merge commit" />
     <MESSAGE value="Make HParam enum to integer conversion for indexing in Heuristic" />
     <MESSAGE value="Start configuring UI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Start configuring UI" />
+    <MESSAGE value="Complete UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Complete UI" />
   </component>
 </project>

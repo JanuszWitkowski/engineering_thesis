@@ -7,6 +7,8 @@ public class State {
     private final int dimension;
     private int[][] board;
     private int currentPlayer = 1;
+    private int drawCounter = 0;
+    private static final int maxMovesForDraw = 40;
     private ArrayList<Integer> creationMove = null;
     private ArrayList<Integer> lastMove = null;
     private ArrayList<ArrayList<Integer>> currentPlayerMoves;
@@ -68,24 +70,6 @@ public class State {
 
 
     // PRIVATE METHODS
-    private void initBoard () {
-        for (int row = 0; row < dimension; row++) {
-            for (int col = 0; col < dimension; col++) {
-                board[row][col] = 0;
-            }
-        }
-        for (int row = 0; row < 3; row += 2) {
-            for (int col = 0; col < dimension; col += 2) {
-                board[dimension - row - 1][col] = 1;
-                board[row][col+1] = -1;
-            }
-        }
-        for (int col = 0; col < dimension; col += 2) {
-            board[1][col] = -1;
-            board[6][col+1] = 1;
-        }
-    }
-
     private void initBoardTemplate () {     // tmp
 //        board = new int[][] {
 //                {0, 0, 0, 0, 0, 0, 0, 0},
@@ -157,6 +141,7 @@ public class State {
         if ((fromRow - destRow) % 2 == 0) {     // capture pawn
             int captRow = (fromRow + destRow) / 2, captCol = (fromCol + destCol) / 2;
             this.board[captRow][captCol] = 0;
+            drawCounter = 0;
         }
         this.board[destRow][destCol] = this.board[fromRow][fromCol];
         this.board[fromRow][fromCol] = 0;
@@ -287,6 +272,26 @@ public class State {
 
 
     // PUBLIC METHODS
+    public void initBoard () {
+        for (int row = 0; row < dimension; row++) {
+            for (int col = 0; col < dimension; col++) {
+                board[row][col] = 0;
+            }
+        }
+        for (int row = 0; row < 3; row += 2) {
+            for (int col = 0; col < dimension; col += 2) {
+                board[dimension - row - 1][col] = 1;
+                board[row][col+1] = -1;
+            }
+        }
+        for (int col = 0; col < dimension; col += 2) {
+            board[1][col] = -1;
+            board[6][col+1] = 1;
+        }
+        currentPlayer = 1;
+        currentPlayerMoves = getPossibleMoves(currentPlayer);
+    }
+
     public static char symbol(int field) {
         if (field < -2 || field > 2) return '?';
         return playerSymbol[field + 2];
@@ -350,6 +355,7 @@ public class State {
     public void makeMove (ArrayList<Integer> moveList) {
         lastMove = moveList;
         currentPlayer = opponent();
+        ++drawCounter;
         if (moveList.isEmpty()) return;
         int prevMove = moveList.get(0);
         for (int move = 1; move < moveList.size(); move++) {
@@ -408,9 +414,10 @@ public class State {
         return children;
     }
 
-//    public boolean gameOver() {
-//        return false;
-//    }
+    public boolean gameOver() {
+        if (drawCounter >= maxMovesForDraw) return true;
+        return winner() != 0;
+    }
 
     public static int letterToNumber (char letter) {
         return lettersToNumbers.getOrDefault(letter, -1);
