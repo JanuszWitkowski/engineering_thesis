@@ -34,16 +34,16 @@ public class Test {
         short[] weights1 = new short[HParam.values().length], weights2 = new short[HParam.values().length];
         weights1[Heuristic.enumToInt(HParam.PAWNS)] = (short)10;
         weights1[Heuristic.enumToInt(HParam.KINGS)] = (short)50;
-        weights1[Heuristic.enumToInt(HParam.ENEMY_PAWNS)] = (short)-10;
-        weights1[Heuristic.enumToInt(HParam.ENEMY_KINGS)] = (short)-50;
-        weights2[Heuristic.enumToInt(HParam.PAWNS)] = (short)-10;
+        weights1[Heuristic.enumToInt(HParam.ENEMY_PAWNS)] = (short)-20;
+        weights1[Heuristic.enumToInt(HParam.ENEMY_KINGS)] = (short)-100;
+        weights2[Heuristic.enumToInt(HParam.PAWNS)] = (short)0;
         weights2[Heuristic.enumToInt(HParam.KINGS)] = (short)0;
-        weights2[Heuristic.enumToInt(HParam.ENEMY_PAWNS)] = (short)10;
+        weights2[Heuristic.enumToInt(HParam.ENEMY_PAWNS)] = (short)0;
         weights2[Heuristic.enumToInt(HParam.ENEMY_KINGS)] = (short)0;
         Heuristic h1 = new Heuristic(weights1);
         Heuristic h2 = new Heuristic(weights2);
         PlayerComputer c1 = new PlayerComputer(h1, 5);
         PlayerComputer c2 = new PlayerComputer(h2, 5);
-        multipleDuels(c1, c2, 10);
+        multipleDuels(c1, c2, 100);
     }
 }

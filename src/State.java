@@ -290,6 +290,7 @@ public class State {
         }
         currentPlayer = 1;
         currentPlayerMoves = getPossibleMoves(currentPlayer);
+        drawCounter = 0;
     }
 
     public static char symbol(int field) {
