@@ -56,8 +56,8 @@ public class Heuristic {
         params[enumToInt.get(HParam.KINGS)] = state.getNumberOfKings(player);
         params[enumToInt.get(HParam.ENEMY_PAWNS)] = state.getNumberOfPawns(state.opponent(player));
         params[enumToInt.get(HParam.ENEMY_KINGS)] = state.getNumberOfKings(state.opponent(player));
-        params[enumToInt.get(HParam.SAFE_PAWNS)] = state.getNumberOfSafePawns(player);
-        params[enumToInt.get(HParam.SAFE_KINGS)] = state.getNumberOfSafeKings(player);
+//        params[enumToInt.get(HParam.SAFE_PAWNS)] = state.getNumberOfSafePawns(player);
+//        params[enumToInt.get(HParam.SAFE_KINGS)] = state.getNumberOfSafeKings(player);
         params[enumToInt.get(HParam.POSSIBLE_MOVES)] = state.getNumberOfPossibleMoves(player);
         params[enumToInt.get(HParam.ENEMY_POSSIBLE_MOVES)] = state.getNumberOfPossibleMoves(state.opponent(player));
         return params;

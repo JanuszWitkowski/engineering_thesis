@@ -31,7 +31,7 @@ public class Test {
     }
 
     public static void main (String[] args) {
-        int depth1 = 7, depth2 = 7;
+        int depth1 = 7, depth2 = 3;
         short[] weights1 = new short[HParam.values().length], weights2 = new short[HParam.values().length];
         weights1[Heuristic.enumToInt(HParam.PAWNS)] = (short)20;
         weights1[Heuristic.enumToInt(HParam.KINGS)] = (short)20;

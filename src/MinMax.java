@@ -41,7 +41,6 @@ public class MinMax {
                 }
                 if (alpha < eval) alpha = eval;
                 if (beta <= alpha) break;
-
             }
             if (best != null) state.makeMove(best.creationMove());    // Wykonaj najlepszy ruch na oryginalnej planszy.
 //            if (depth == 5) System.out.println("d=" + depth + " Making move: " + best.creationMove());

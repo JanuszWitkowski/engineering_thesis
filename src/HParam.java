@@ -3,8 +3,6 @@ public enum HParam {
     KINGS,
     ENEMY_PAWNS,
     ENEMY_KINGS,
-    SAFE_PAWNS,
-    SAFE_KINGS,
     POSSIBLE_MOVES,
     ENEMY_POSSIBLE_MOVES
 }

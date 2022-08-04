@@ -12,6 +12,7 @@ public class State {
     private ArrayList<Integer> creationMove = null;
     private ArrayList<Integer> lastMove = null;
     private ArrayList<ArrayList<Integer>> currentPlayerMoves;
+    private ArrayList<ArrayList<Integer>> opponentMoves;
     private static final int[] directions = new int[]{1, -1};
     private static final char[] playerSymbol = new char[]{'X', 'x', ' ', 'o', 'O'};
     private static final char[] numbersToBigLetters = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'};
@@ -46,7 +47,8 @@ public class State {
         this.board = new int[this.dimension][this.dimension];
         initBoard();
 //        initBoardTemplate();
-        this.currentPlayerMoves = getPossibleMoves(currentPlayer);
+//        this.currentPlayerMoves = getPossibleMoves(currentPlayer);
+//        this.opponentMoves = getPossibleMoves(opponent());
     }
 
     public State (State state) {
@@ -290,6 +292,7 @@ public class State {
         }
         currentPlayer = 1;
         currentPlayerMoves = getPossibleMoves(currentPlayer);
+//        opponentMoves = getPossibleMoves(opponent());
         drawCounter = 0;
     }
 
@@ -370,6 +373,7 @@ public class State {
             board[row][col] = board[row][col] * 2;
         }
         currentPlayerMoves = getPossibleMoves(currentPlayer);
+//        opponentMoves = getPossibleMoves(opponent());
     }
 
     public ArrayList<ArrayList<Integer>> getPossibleMoves (int player) {
@@ -556,7 +560,9 @@ public class State {
     }
 
     public int getNumberOfPossibleMoves (int player) {
+        if (player == currentPlayer) return currentPlayerMoves.size();
         return getPossibleMoves(player).size();
+//        return 0;
     }
 
 
