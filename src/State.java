@@ -358,7 +358,6 @@ public class State {
 
     public void makeMove (ArrayList<Integer> moveList) {
         lastMove = moveList;
-        currentPlayer = opponent();
         ++drawCounter;
         if (moveList.isEmpty()) return;
         int prevMove = moveList.get(0);
@@ -369,9 +368,11 @@ public class State {
         }
         // damka
         int row = numberToRow(prevMove), col = numberToCol(prevMove);
-        if ((row == 0 || row == dimension - 1) && !isKing(row, col)) {
+        int boarder = ownerOfField(row, col) == 1 ? 0 : dimension - 1;
+        if (row == boarder && !isKing(row, col)) {
             board[row][col] = board[row][col] * 2;
         }
+        currentPlayer = opponent();
         currentPlayerMoves = getPossibleMoves(currentPlayer);
 //        opponentMoves = getPossibleMoves(opponent());
     }
@@ -580,7 +581,7 @@ public class State {
     }
 
     public int opponent (int player) {
-        return (-1) * this.currentPlayer;
+        return (-1) * player;
     }
 
     public int opponent () {

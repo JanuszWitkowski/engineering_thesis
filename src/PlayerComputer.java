@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class PlayerComputer extends Player {
     private final int depth;
     private final Heuristic heuristic;
@@ -25,7 +27,9 @@ public class PlayerComputer extends Player {
     @Override
     public void makeMove (State board) {
 //        System.out.println("Wykonuję ruch...");
-        m.minimax(board, depth, heuristic, alpha, beta, playerNumber, true);
+//        m.minimax(board, depth, heuristic, alpha, beta, playerNumber, true);
+        int eval = m.minimax(board, depth, heuristic, alpha, beta, playerNumber, true);
+        System.out.println("Wykonałem ruch o wartości oceny " + eval + ". Obecne parametry: " + Arrays.toString(heuristic.getParamsDebug(board, playerNumber)));
     }
 
     public int depth () {

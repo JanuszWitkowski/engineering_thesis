@@ -43,7 +43,7 @@ public class Heuristic {
         int[] params = getParams(state, player);
         int sum = 0;
         for (int i = 0; i < numberOfParams; i++) {
-            sum += params[i] * paramWeights[i];
+            sum += params[i] * (int)paramWeights[i];
         }
 //        System.out.println("H: " + sum);
         return sum;
@@ -61,5 +61,9 @@ public class Heuristic {
         params[enumToInt.get(HParam.POSSIBLE_MOVES)] = state.getNumberOfPossibleMoves(player);
         params[enumToInt.get(HParam.ENEMY_POSSIBLE_MOVES)] = state.getNumberOfPossibleMoves(state.opponent(player));
         return params;
+    }
+
+    public int[] getParamsDebug (State state, int player) {
+        return getParams(state, player);
     }
 }

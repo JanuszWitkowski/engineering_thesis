@@ -11,18 +11,13 @@ public class MinMax {
         if (depth == 0) return heuristic.evaluate(state, maximizingPlayer);
 
         State best = null;
-//        int winner = state.currentPlayerWinning();
         if (isPlayerMaximizing) {
-//            if (winner == 1) return Integer.MAX_VALUE;
-//            if (winner == -1) return Integer.MIN_VALUE;
             int maxEval = Integer.MIN_VALUE;
             double maxEps = 0.0;
             for (State child : state.getChildren()) {
-//                if (depth == 5) System.out.println("d=" + depth + " child move: " + child.creationMove());
                 int eval = minimax(child, depth - 1, heuristic, alpha, beta, maximizingPlayer, false);
-//                System.err.println("depth=" + depth + " isMax=" + isPlayerMaximizing + " H=" + eval);
+                System.out.println(depth + ":" + isPlayerMaximizing + ":" + eval);
                 if (maxEval < eval) {
-//                if (maxEval <= eval) {
                     best = child;
                     maxEval = eval;
                 }
@@ -43,20 +38,16 @@ public class MinMax {
                 if (beta <= alpha) break;
             }
             if (best != null) state.makeMove(best.creationMove());    // Wykonaj najlepszy ruch na oryginalnej planszy.
-//            if (depth == 5) System.out.println("d=" + depth + " Making move: " + best.creationMove());
-//            System.err.println("\tdepth=" + depth + " isMax=" + isPlayerMaximizing + " HMax=" + maxEval);
+            System.out.println(depth + ":-" + isPlayerMaximizing + "->" + maxEval);
             return maxEval;
         }
         else {
-//            if (winner == 1) return Integer.MIN_VALUE;
-//            if (winner == -1) return Integer.MAX_VALUE;
             int minEval = Integer.MAX_VALUE;
             double minEps = 1.0;
             for (State child : state.getChildren()) {
                 int eval = minimax(child, depth - 1, heuristic, alpha, beta, maximizingPlayer, true);
-//                System.err.println("depth=" + depth + " isMax=" + isPlayerMaximizing + " H=" + eval);
+                System.out.println(depth + ":" + isPlayerMaximizing + ":" + eval);
                 if (eval < minEval) {
-//                if (eval <= minEval) {
                     best = child;
                     minEval = eval;
                 }
@@ -71,7 +62,7 @@ public class MinMax {
                 if (beta <= alpha) break;
             }
             if (best != null) state.makeMove(best.creationMove());
-//            System.err.println("\tdepth=" + depth + " isMax=" + isPlayerMaximizing + " HMin=" + minEval);
+            System.out.println(depth + ":-" + isPlayerMaximizing + "-> " + minEval);
             return minEval;
         }
     }
