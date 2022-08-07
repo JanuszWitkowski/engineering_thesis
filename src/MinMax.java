@@ -16,7 +16,7 @@ public class MinMax {
             double maxEps = 0.0;
             for (State child : state.getChildren()) {
                 int eval = minimax(child, depth - 1, heuristic, alpha, beta, maximizingPlayer, false);
-                System.out.println(depth + ":" + isPlayerMaximizing + ":" + eval);
+//                System.out.println(depth + ":" + isPlayerMaximizing + ":" + eval);
                 if (maxEval < eval) {
                     best = child;
                     maxEval = eval;
@@ -38,7 +38,7 @@ public class MinMax {
                 if (beta <= alpha) break;
             }
             if (best != null) state.makeMove(best.creationMove());    // Wykonaj najlepszy ruch na oryginalnej planszy.
-            System.out.println(depth + ":-" + isPlayerMaximizing + "->" + maxEval);
+//            System.out.println(depth + ":-" + isPlayerMaximizing + "->" + maxEval);
             return maxEval;
         }
         else {
@@ -46,7 +46,7 @@ public class MinMax {
             double minEps = 1.0;
             for (State child : state.getChildren()) {
                 int eval = minimax(child, depth - 1, heuristic, alpha, beta, maximizingPlayer, true);
-                System.out.println(depth + ":" + isPlayerMaximizing + ":" + eval);
+//                System.out.println(depth + ":" + isPlayerMaximizing + ":" + eval);
                 if (eval < minEval) {
                     best = child;
                     minEval = eval;
@@ -62,7 +62,7 @@ public class MinMax {
                 if (beta <= alpha) break;
             }
             if (best != null) state.makeMove(best.creationMove());
-            System.out.println(depth + ":-" + isPlayerMaximizing + "-> " + minEval);
+//            System.out.println(depth + ":-" + isPlayerMaximizing + "-> " + minEval);
             return minEval;
         }
     }

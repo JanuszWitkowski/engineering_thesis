@@ -11,7 +11,7 @@ public class PlayerHuman extends Player {
     }
 
     @Override
-    public void makeMove (State board) {
+    public void makeMove (State board, int playerNumber) {    // TODO: Poprawić żeby dało się robić ruchy więcej niż 2-polowe!!!
         String input;
         char col;
         int row, n;

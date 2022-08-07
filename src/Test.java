@@ -32,35 +32,35 @@ public class Test {
 
     private static short[] getWeights1 () {
         short[] weights1 = new short[HParam.values().length];
-        weights1[Heuristic.enumToInt(HParam.PAWNS)] = (short)2;
-        weights1[Heuristic.enumToInt(HParam.KINGS)] = (short)5;
-        weights1[Heuristic.enumToInt(HParam.ENEMY_PAWNS)] = (short)-2;
-        weights1[Heuristic.enumToInt(HParam.ENEMY_KINGS)] = (short)-5;
-        weights1[Heuristic.enumToInt(HParam.POSSIBLE_MOVES)] = (short)1;
-        weights1[Heuristic.enumToInt(HParam.ENEMY_POSSIBLE_MOVES)] = (short)-1;
+        weights1[Heuristic.enumToInt(HParam.PAWNS)] = (short)-2;
+        weights1[Heuristic.enumToInt(HParam.KINGS)] = (short)-5;
+        weights1[Heuristic.enumToInt(HParam.ENEMY_PAWNS)] = (short)2;
+        weights1[Heuristic.enumToInt(HParam.ENEMY_KINGS)] = (short)5;
+        weights1[Heuristic.enumToInt(HParam.POSSIBLE_MOVES)] = (short)-1;
+        weights1[Heuristic.enumToInt(HParam.ENEMY_POSSIBLE_MOVES)] = (short)1;
         return weights1;
     }
 
     private static short[] getWeights2 () {
         short[] weights2 = new short[HParam.values().length];
-        weights2[Heuristic.enumToInt(HParam.PAWNS)] = (short)0;
-        weights2[Heuristic.enumToInt(HParam.KINGS)] = (short)0;
-        weights2[Heuristic.enumToInt(HParam.ENEMY_PAWNS)] = (short)0;
-        weights2[Heuristic.enumToInt(HParam.ENEMY_KINGS)] = (short)0;
-        weights2[Heuristic.enumToInt(HParam.POSSIBLE_MOVES)] = (short)0;
-        weights2[Heuristic.enumToInt(HParam.ENEMY_POSSIBLE_MOVES)] = (short)0;
+        weights2[Heuristic.enumToInt(HParam.PAWNS)] = (short)2;
+        weights2[Heuristic.enumToInt(HParam.KINGS)] = (short)5;
+        weights2[Heuristic.enumToInt(HParam.ENEMY_PAWNS)] = (short)-2;
+        weights2[Heuristic.enumToInt(HParam.ENEMY_KINGS)] = (short)-5;
+        weights2[Heuristic.enumToInt(HParam.POSSIBLE_MOVES)] = (short)1;
+        weights2[Heuristic.enumToInt(HParam.ENEMY_POSSIBLE_MOVES)] = (short)-1;
         return weights2;
     }
 
 
     private static void testAIvsAI () {
-        int depth1 = 3, depth2 = 3;
+        int depth1 = 3, depth2 = 3, numberOfDuels = 10;
         short[] weights1 = getWeights1(), weights2 = getWeights2();
         Heuristic h1 = new Heuristic(weights1);
         Heuristic h2 = new Heuristic(weights2);
         PlayerComputer c1 = new PlayerComputer(h1, depth1);
         PlayerComputer c2 = new PlayerComputer(h2, depth2);
-        multipleDuels(c1, c2, 1);
+        multipleDuels(c1, c2, numberOfDuels);
     }
 
     private static void testHumanVsAI () {
@@ -75,7 +75,7 @@ public class Test {
 
 
     public static void main (String[] args) {
-//        testAIvsAI();
-        testHumanVsAI();
+        testAIvsAI();
+//        testHumanVsAI();
     }
 }

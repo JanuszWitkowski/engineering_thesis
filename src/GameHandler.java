@@ -1,6 +1,8 @@
 public class GameHandler {
     private final Player player1;
     private final Player player2;
+    private static final int player1Number = 1;
+    private static final int player2Number = -1;
     private final State board;
 
     public GameHandler () {
@@ -13,9 +15,9 @@ public class GameHandler {
 
     public GameHandler (Player player1, Player player2, State board) {
         this.player1 = player1;
-        player1.playerNumber(1);
+//        player1.playerNumber(1);
         this.player2 = player2;
-        player2.playerNumber(-1);
+//        player2.playerNumber(-1);
         this.board = board;
     }
 
@@ -36,10 +38,10 @@ public class GameHandler {
         assert player2 instanceof PlayerComputer;
 //                printBoardWithCoordinates();
         while (!board.gameOver()) {
-            player1.makeMove(board);
+            player1.makeMove(board, player1Number);
 //                printBoardWithCoordinates();
             if (board.gameOver()) break;
-            player2.makeMove(board);
+            player2.makeMove(board, player2Number);
 //                printBoardWithCoordinates();
         }
         return board.winner();
@@ -48,10 +50,10 @@ public class GameHandler {
     public int run () {
         board.printBoardWithCoordinates();
         while (!board.gameOver()) {
-            player1.makeMove(board);
+            player1.makeMove(board, player1Number);
             board.printBoardWithCoordinates();
             if (board.gameOver()) break;
-            player2.makeMove(board);
+            player2.makeMove(board, player2Number);
             board.printBoardWithCoordinates();
         }
         int winner = board.winner();
