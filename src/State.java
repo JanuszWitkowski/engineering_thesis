@@ -45,10 +45,9 @@ public class State {
     public State (int dimension) {
         this.dimension = dimension;
         this.board = new int[this.dimension][this.dimension];
-        initBoard();
-//        initBoardTemplate();
-//        this.currentPlayerMoves = getPossibleMoves(currentPlayer);
-//        this.opponentMoves = getPossibleMoves(opponent());
+//        initBoard();
+        initBoardTemplate();
+        this.currentPlayerMoves = getPossibleMoves(currentPlayer);
     }
 
     public State (State state) {

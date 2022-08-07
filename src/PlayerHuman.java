@@ -11,7 +11,7 @@ public class PlayerHuman extends Player {
     }
 
     @Override
-    public void makeMove (State board, int playerNumber) {    // TODO: Poprawić żeby dało się robić ruchy więcej niż 2-polowe!!!
+    public void makeMove (State board, int playerNumber) {
         String input;
         char col;
         int row, n;
@@ -73,7 +73,7 @@ public class PlayerHuman extends Player {
                     continue;
                 }
                 for (ArrayList<Integer> move : board.currentPlayerMoves())
-                    if (move.get(numberOfMoves) != n) moves.remove(move);
+                    if (move.size() <= numberOfMoves || move.get(numberOfMoves) != n) moves.remove(move);
                 if (moves.isEmpty()) {
                     System.out.println("BŁĄD 06: Niedozwolony ruch.");
                     continue;

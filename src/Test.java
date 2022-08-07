@@ -75,7 +75,7 @@ public class Test {
 
 
     public static void main (String[] args) {
-        testAIvsAI();
-//        testHumanVsAI();
+//        testAIvsAI();
+        testHumanVsAI();
     }
 }
