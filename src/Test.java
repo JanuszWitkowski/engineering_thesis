@@ -42,6 +42,8 @@ public class Test {
         weights[Heuristic.enumToInt(HParam.ENEMY_KINGS)] = (short)-5;
         weights[Heuristic.enumToInt(HParam.SAFE_PAWNS)] = (short)4;
         weights[Heuristic.enumToInt(HParam.SAFE_KINGS)] = (short)8;
+        weights[Heuristic.enumToInt(HParam.ENEMY_SAFE_PAWNS)] = (short)-6;
+        weights[Heuristic.enumToInt(HParam.ENEMY_SAFE_KINGS)] = (short)-3;
         weights[Heuristic.enumToInt(HParam.POSSIBLE_MOVES)] = (short)1;
         weights[Heuristic.enumToInt(HParam.ENEMY_POSSIBLE_MOVES)] = (short)-1;
         return weights;
@@ -49,14 +51,16 @@ public class Test {
 
     private static short[] getWeights2 () {
         short[] weights = new short[HParam.values().length];
-        weights[Heuristic.enumToInt(HParam.PAWNS)] = (short)4;
-        weights[Heuristic.enumToInt(HParam.KINGS)] = (short)1;
-        weights[Heuristic.enumToInt(HParam.ENEMY_PAWNS)] = (short)-3;
-        weights[Heuristic.enumToInt(HParam.ENEMY_KINGS)] = (short)-5;
-        weights[Heuristic.enumToInt(HParam.SAFE_PAWNS)] = (short)6;
-        weights[Heuristic.enumToInt(HParam.SAFE_KINGS)] = (short)3;
-        weights[Heuristic.enumToInt(HParam.POSSIBLE_MOVES)] = (short)1;
-        weights[Heuristic.enumToInt(HParam.ENEMY_POSSIBLE_MOVES)] = (short)-1;
+        weights[Heuristic.enumToInt(HParam.PAWNS)] = (short)-4;
+        weights[Heuristic.enumToInt(HParam.KINGS)] = (short)-1;
+        weights[Heuristic.enumToInt(HParam.ENEMY_PAWNS)] = (short)3;
+        weights[Heuristic.enumToInt(HParam.ENEMY_KINGS)] = (short)5;
+        weights[Heuristic.enumToInt(HParam.SAFE_PAWNS)] = (short)-6;
+        weights[Heuristic.enumToInt(HParam.SAFE_KINGS)] = (short)-3;
+        weights[Heuristic.enumToInt(HParam.ENEMY_SAFE_PAWNS)] = (short)4;
+        weights[Heuristic.enumToInt(HParam.ENEMY_SAFE_KINGS)] = (short)8;
+        weights[Heuristic.enumToInt(HParam.POSSIBLE_MOVES)] = (short)-1;
+        weights[Heuristic.enumToInt(HParam.ENEMY_POSSIBLE_MOVES)] = (short)1;
         return weights;
     }
 
@@ -82,7 +86,7 @@ public class Test {
 
 
     public static void main (String[] args) {
-        testAIvsAI(5, 5, 100);
+        testAIvsAI(5, 5, 10);
 //        testHumanVsAI();
     }
 }

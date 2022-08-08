@@ -106,6 +106,8 @@ public class Heuristic {
         params[enumToInt.get(HParam.ENEMY_KINGS)] = paramEnemyKings(state, player);
         params[enumToInt.get(HParam.SAFE_PAWNS)] = paramSafePawns(state, player);
         params[enumToInt.get(HParam.SAFE_KINGS)] = paramSafeKings(state, player);
+        params[enumToInt.get(HParam.ENEMY_SAFE_PAWNS)] = paramEnemySafePawns(state, player);
+        params[enumToInt.get(HParam.ENEMY_SAFE_KINGS)] = paramEnemySafeKings(state, player);
         params[enumToInt.get(HParam.POSSIBLE_MOVES)] = paramPossibleMoves(state, player);
         params[enumToInt.get(HParam.ENEMY_POSSIBLE_MOVES)] = paramEnemyPossibleMoves(state, player);
         return params;
@@ -139,6 +141,14 @@ public class Heuristic {
 
     private int paramSafeKings (State s, int p) {
         return s.getNumberOfSafeKings(p);
+    }
+
+    private int paramEnemySafePawns (State s, int p) {
+        return s.getNumberOfSafePawns(s.opponent(p));
+    }
+
+    private int paramEnemySafeKings (State s, int p) {
+        return s.getNumberOfSafeKings(s.opponent(p));
     }
 
     private int paramPossibleMoves (State s, int p) {

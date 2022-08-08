@@ -8,6 +8,8 @@ public enum HParam {
     ENEMY_KINGS,
     SAFE_PAWNS,     // adjacent to the wall
     SAFE_KINGS,
+    ENEMY_SAFE_PAWNS,
+    ENEMY_SAFE_KINGS,
     POSSIBLE_MOVES,
     ENEMY_POSSIBLE_MOVES
 }
