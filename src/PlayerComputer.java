@@ -1,11 +1,13 @@
-import java.util.Arrays;
-
+/**
+ * Klasa odpowiedzialna za obsługę zachowań i ruchów SI.
+ * Przechowuje informacje o głębokości przeszukiwań, używanej heurystyce, oraz startowych wartościach do alfa-beta-cięć.
+ */
 public class PlayerComputer extends Player {
     private final int depth;
     private final Heuristic heuristic;
-    private final MinMax m = new MinMax();
-    private final int alpha = Integer.MIN_VALUE;
-    private final int beta = Integer.MAX_VALUE;
+    private final MinMax m = new MinMax();  // TODO: Może przenieść MinMaxa poza graczy, żeby był tylko jeden?
+    private static final int alpha = Integer.MIN_VALUE;
+    private static final int beta = Integer.MAX_VALUE;
 
     public PlayerComputer () {
         super();
@@ -24,20 +26,14 @@ public class PlayerComputer extends Player {
         return true;
     }
 
+    /**
+     * Uruchamia algorytm minimax na głębokości oraz danym stanie gry i wykonuje optymalny (zdaniem algorytmu) ruch.
+     * @param board Stan gry w którym należy wykonać ruch.
+     * @param playerNumber Numer gracza, potrzebny do oceny heurystycznej z odpowiedniej perspektywy.
+     */
     @Override
     public void makeMove (State board, int playerNumber) {
-//        System.out.println("Wykonuję ruch...");
-//        System.out.println("Ruch gracza " + playerNumber);
         m.minimax(board, depth, heuristic, alpha, beta, playerNumber, true);
-//        int eval = m.minimax(board, depth, heuristic, alpha, beta, playerNumber, true);
-//        System.out.println("Wykonałem ruch o wartości oceny " + eval + ". Obecne parametry: " + Arrays.toString(heuristic.getParamsDebug(board, playerNumber)));
     }
 
-    public int depth () {
-        return this.depth;
-    }
-
-    public Heuristic heuristic () {
-        return this.heuristic;
-    }
 }

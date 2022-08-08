@@ -1,5 +1,9 @@
 import java.util.Arrays;
 
+/**
+ * Klasa testująca program.
+ * Główna metoda uruchamia podane podmetody testowe.
+ */
 public class Test {
 
     private static void multipleDuels (PlayerComputer player1, PlayerComputer player2, int numberOfDoubleDuels) {
@@ -10,12 +14,12 @@ public class Test {
             System.out.println(i + "/" + numberOfDoubleDuels);
 
 //            game1.printBoard();
-            results[0][i] = game1.computerDuel();
+            results[0][i] = game1.quickGame();
 //            game1.printBoard();
             game1.resetBoard();
 
 //            game2.printBoard();
-            results[1][i] = game2.computerDuel();
+            results[1][i] = game2.quickGame();
 //            game2.printBoard();
             game2.resetBoard();
         }
@@ -53,8 +57,7 @@ public class Test {
     }
 
 
-    private static void testAIvsAI () {
-        int depth1 = 3, depth2 = 3, numberOfDuels = 10;
+    private static void testAIvsAI (int depth1, int depth2, int numberOfDuels) {
         short[] weights1 = getWeights1(), weights2 = getWeights2();
         Heuristic h1 = new Heuristic(weights1);
         Heuristic h2 = new Heuristic(weights2);
@@ -75,7 +78,7 @@ public class Test {
 
 
     public static void main (String[] args) {
-//        testAIvsAI();
-        testHumanVsAI();
+        testAIvsAI(5, 5, 10);
+//        testHumanVsAI();
     }
 }

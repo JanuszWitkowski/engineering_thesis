@@ -1,8 +1,18 @@
 import java.util.EnumMap;
+import java.util.Random;
 
+/**
+ * Obsługuje liczenie wartości funkcji oceny heurystycznej.
+ * Ocena heurystyczna opiera się o szereg parametrów (jak np. liczba pionków, dostępnych ruchów), którym każda heurystyka
+ * przypisuje wagi. Suma ważona tych parametrów daje wartość oceny danego stanu gry.
+ */
 public class Heuristic {
-    private short[] paramWeights;
+    private short[] paramWeights;   // TODO: Może zrobić final?
     private final int numberOfParams = HParam.values().length;
+
+    /**
+     * Mapa ujednolicająca translację typu wyliczeniowego na indeksy tablicy parametrów i ich wag.
+     */
     private static final EnumMap<HParam, Integer> enumToInt = generateEnumToInt();
 
     private static EnumMap<HParam, Integer> generateEnumToInt () {
@@ -19,10 +29,25 @@ public class Heuristic {
         return enumToInt.get(p);
     }
 
-    public Heuristic() {
-        this((short)0);     // TODO: Losować wartości
+    /**
+     * Konstruktor losujący wartości wag. W trakcie implementacji algorytmu genetycznego może się okazać,
+     * że logikę tworzenia wag parametrów należy umieścić poza odpowiedzialność klasy heurystyki.
+     */
+    public Heuristic() {    // TODO: Zastanowić się czy losować wartości w konstruktorze, czy poza nim (chodzi o występowanie klasy Random).
+        paramWeights = new short[numberOfParams];
+        Random rng = new Random();
+        int rangeMin = Short.MIN_VALUE, rangeMax = Short.MAX_VALUE;
+        int range = rangeMax - rangeMin + 1;
+        for (int i = 0; i < numberOfParams; ++i) {
+            paramWeights[i] = (short)(rng.nextInt(range) + rangeMin);
+        }
     }
 
+    /**
+     * Konstruktor służący bardziej jako narzędzie do testowania/debugowania.
+     * Ustawia wartość wagi każdego parametru na jedną podaną wartość.
+     * @param v Wartość do przypisania dla wagi każdego parametru
+     */
     public Heuristic (short v) {
         short[] values = new short[numberOfParams];
         for (int i = 0; i < numberOfParams; i++) {
@@ -36,33 +61,50 @@ public class Heuristic {
         this.paramWeights = values;
     }
 
+    /**
+     * Narzędzie służące mutacji w algorytmie genetycznym. Może się okazać nieprzydatne
+     * jeśli wyjmiemy z tej klasy logikę tworzenia tablicy wag.
+     * @param index Numer parametru do zaaplikowania mutacji
+     * @param value Nowa wartość wagi parametru po mutacji
+     */
+    public void changeParamWeight (int index, short value) {
+        this.paramWeights[index] = value;
+    }
+
+    /**
+     * Funkcja oceny heurystycznej.
+     * @param state Obecny stan gry
+     * @param player Numer gracza z którego perspektywy należy wyliczyć wartość oceny
+     * @return Wartość funkcji oceny heurystycznej danego pola dla danego gracza
+     */
     public int evaluate (State state, int player) {
-//        int winner = state.heuristicWinner(player);
-//        if (winner == player) return Integer.MAX_VALUE;
-//        if (winner == state.opponent(player)) return Integer.MIN_VALUE;
         int[] params = getParams(state, player);
         int sum = 0;
         for (int i = 0; i < numberOfParams; i++) {
             sum += params[i] * (int)paramWeights[i];
         }
-//        System.out.println("H: " + sum);
         return sum;
     }
 
+    /**
+     * Funkcja pomocnicza, wykorzystywana w funkcji oceny heurystycznej.
+     * @param state Obecny stan gry
+     * @param player Numer gracza z którego perspektywy należy wyliczyć wartość oceny
+     * @return Tablica wartości parametrów danego stanu gry (np. liczba pionków)
+     */
     private int[] getParams (State state, int player) {
         int[] params = new int[numberOfParams];
-        for (int i = 0; i < numberOfParams; i++) params[i] = 0; // TODO
+        for (int i = 0; i < numberOfParams; i++) params[i] = 0; // TODO: Tymczasowe rozwiązanie, w pełenj implementacji należy usunąć.
         params[enumToInt.get(HParam.PAWNS)] = state.getNumberOfPawns(player);
         params[enumToInt.get(HParam.KINGS)] = state.getNumberOfKings(player);
         params[enumToInt.get(HParam.ENEMY_PAWNS)] = state.getNumberOfPawns(state.opponent(player));
         params[enumToInt.get(HParam.ENEMY_KINGS)] = state.getNumberOfKings(state.opponent(player));
-//        params[enumToInt.get(HParam.SAFE_PAWNS)] = state.getNumberOfSafePawns(player);
-//        params[enumToInt.get(HParam.SAFE_KINGS)] = state.getNumberOfSafeKings(player);
         params[enumToInt.get(HParam.POSSIBLE_MOVES)] = state.getNumberOfPossibleMoves(player);
         params[enumToInt.get(HParam.ENEMY_POSSIBLE_MOVES)] = state.getNumberOfPossibleMoves(state.opponent(player));
         return params;
     }
 
+    // TODO: Funkcja do debugowania, po ukończeniu projektu należy usunąć.
     public int[] getParamsDebug (State state, int player) {
         return getParams(state, player);
     }

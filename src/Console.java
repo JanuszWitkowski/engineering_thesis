@@ -1,7 +1,11 @@
+/**
+ * Celem tej klasy jest dostęp do escape code'ów i kolorów w konsoli.
+ */
 public class Console {
 
     // Reset
     public static final String RESET = "\033[0m";  // Text Reset
+    public static final String CLEAR = "\033[H\033[2J"; // Clear the Console
 
     // Regular Colors
     public static final String BLACK = "\033[0;30m";   // BLACK

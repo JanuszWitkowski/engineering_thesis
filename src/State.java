@@ -2,26 +2,29 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+/**
+ * Klasa odpowiedzialna za obsługę stanów gry, ruchów na planszy, wyznaczania legalnych ruchów i wyznaczania
+ * wartości parametrów dla funkcji oceny heurystycznej w minimaxie.
+ * Jedna z najważniejszych klas w projekcie. Jej obiektami są stany rozgrywki.
+ */
 public class State {
     // FIELDS
     private final int dimension;
     private int[][] board;
     private int currentPlayer = 1;
-    private int drawCounter = 0;
-    private static final int maxMovesForDraw = 40;
-    private ArrayList<Integer> creationMove = null;
-    private ArrayList<Integer> lastMove = null;
+    private int noCaptureCounter = 0;    // Licznik ruchów bez bicia.
+    private static final int maxNoCaptureMovesForDraw = 40; // Maksymalna liczba ruchów bez bicia po której gra kończy się remisem.
+    private ArrayList<Integer> creationMove = null;     // Ruch który przyczynił się do stworzenia tego stanu gry.
+    private ArrayList<Integer> lastMove = null;     // Zachowuje poprzedni podruch w całym ruchu, aby sprawdzić np. bicia.
     private ArrayList<ArrayList<Integer>> currentPlayerMoves;
-    private ArrayList<ArrayList<Integer>> opponentMoves;
-    private static final int[] directions = new int[]{1, -1};
     private static final char[] playerSymbol = new char[]{'X', 'x', ' ', 'o', 'O'};
     private static final char[] numbersToBigLetters = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'};
     private static final char[] numbersToSmallLetters = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'};
-    private static final HashMap<Character, Integer> lettersToNumbers = initLettersToNumbers();
-    private static final String[] playerColors = new String[] {
+    private static final HashMap<Character, Integer> lettersToNumbers = initLettersToNumbers(); // Nakładka na współrzędne.
+    private static final String[] playerColors = new String[] {     // Kolory pionków w konsoli.
             Console.RED_BOLD, Console.RED, "", Console.BLUE, Console.BLUE_BOLD
     };
-    private static final String[] backgroundColors = new String[] {
+    private static final String[] backgroundColors = new String[] { // Kolory pól w konsoli.
             "", Console.BLACK_BACKGROUND, Console.WHITE_BACKGROUND
     };
 
@@ -45,19 +48,9 @@ public class State {
     public State (int dimension) {
         this.dimension = dimension;
         this.board = new int[this.dimension][this.dimension];
-//        initBoard();
-        initBoardTemplate();
-        this.currentPlayerMoves = getPossibleMoves(currentPlayer);
-    }
-
-    public State (State state) {
-        this.dimension = state.dimension();
-        this.board = new int[this.dimension][this.dimension];
-        this.currentPlayer = state.currentPlayer();
-        copyBoard(state);
-        this.creationMove = state.creationMove();
-        this.lastMove = state.lastMove();
-        this.currentPlayerMoves = state.currentPlayerMoves();
+        initBoard();
+//        initBoardTemplate();
+//        this.currentPlayerMoves = getPossibleMoves(currentPlayer);
     }
 
     public State (State state, ArrayList<Integer> moveList) {
@@ -71,6 +64,10 @@ public class State {
 
 
     // PRIVATE METHODS
+
+    /**
+     * Funkcja do debugowania, pozwala sprawdzać przypadki szczególne.
+     */
     private void initBoardTemplate () {     // tmp
 //        board = new int[][] {
 //                {0, 0, 0, 0, 0, 0, 0, 0},
@@ -126,23 +123,31 @@ public class State {
         return board[row][col] % 2 == 0;
     }
 
+    /**
+     * Determinuje właściciela pola na podstawie wartości na tym polu.
+     * @param field Wartość w polu
+     * @return 1 jeśli pole zajmuje pionek 1 lub 2, -1 jeśli pole zajmuje pionek -1 lub -2, 0 jeśli pole wynosi 0
+     */
     private int ownerOfField (int field) {
-        if (field == 0) return 0;
-        if (field > 0) return 1;
-        return -1;
-//        return field == 0 ? 0 : field > 0 ? 1 : -1;
-//        return Integer.compare(field, 0);
+        return Integer.compare(field, 0);
     }
 
     private int ownerOfField (int row, int col) {
         return ownerOfField(board[row][col]);
     }
 
+    /**
+     * Wykonuje pojedynczy ruch między jednym polem a drugim. Obsługuje bicia.
+     * @param fromRow Rząd pierwszego pola
+     * @param fromCol Kolumna pierwszego pola
+     * @param destRow Rząd drugiego pola
+     * @param destCol Kolumna drugiego pola
+     */
     private void makeOneMove (int fromRow, int fromCol, int destRow, int destCol) {
         if ((fromRow - destRow) % 2 == 0) {     // capture pawn
             int captRow = (fromRow + destRow) / 2, captCol = (fromCol + destCol) / 2;
             this.board[captRow][captCol] = 0;
-            drawCounter = 0;
+            noCaptureCounter = 0;
         }
         this.board[destRow][destCol] = this.board[fromRow][fromCol];
         this.board[fromRow][fromCol] = 0;
@@ -154,14 +159,16 @@ public class State {
         makeOneMove(fromRow, fromCol, destRow, destCol);
     }
 
-    private void makeOneMove (Pair from, Pair dest) {
-        makeOneMove(from.l(), from.r(), dest.l(), dest.r());
-    }
-
     private boolean isInsideTheBoard(int row, int col) {
         return row >= 0 && row < dimension && col >= 0 && col < dimension;
     }
 
+    /**
+     * Znajduje możliwe ruchy bez bić.
+     * @param row Rząd pionka
+     * @param col kolumna pionka
+     * @return Lista możliwych ruchów dla danego pionka (bez bić)
+     */
     private ArrayList<ArrayList<Integer>> getAdjacentMovesForOnePiece(int row, int col) {
         ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
         if (board[row][col] != 0) {
@@ -184,6 +191,11 @@ public class State {
         return possibleMoves;
     }
 
+    /**
+     * Rozbicie drzewa bić na ruch.
+     * @param tree Liść drzewa z którego chcemy wyznaczyć ruch
+     * @return Ruch w postaci listy pól
+     */
     private ArrayList<Integer> getMoveFromTree (Node tree) {
         ArrayList<Integer> move = new ArrayList<>();
         if (tree.height() > 0) {
@@ -196,6 +208,17 @@ public class State {
         return move;
     }
 
+    /**
+     * Rekurencyjna metoda wyznaczająca wszystkie możliwe bicia z jednego pola.
+     * Umożliwia to budowana tutaj struktura drzewa bić.
+     * @param parent Poprzedni wierzchołek drzewa bić
+     * @param height Dotychczasowa wysokość drzewa bić
+     * @param moves Lista ruchów do której wpisywany jest powstały z drzewa ruch
+     * @param row Rząd rozpatrywanego pola
+     * @param col Kolumna rozpatrywanego pola
+     * @param dr Kierunek góra/dół w którym rozpatrujemy bicie dla zwykłego pionka ("dr" means "row difference")
+     * @param isKing Informacja czy należy rozpatrzeć też bicie w kierunku przeciwnym niż pokazuje dr
+     */
     private void buildCaptureMove (Node parent, int height, ArrayList<ArrayList<Integer>> moves, int row, int col, int dr, boolean isKing) {
         Node next = new Node(coordinatesToNumber(row, col), height + 1, parent);
         int adjRow, adjCol, newRow, newCol;
@@ -234,7 +257,13 @@ public class State {
         }
     }
 
-    private ArrayList<ArrayList<Integer>> getCaptureMovesForOnePiece(int row, int col, int n) {
+    /**
+     * Znajduje możliwe bicia dla danego pionka.
+     * @param row Rząd pionka
+     * @param col kolumna pionka
+     * @return Lista możliwych bić
+     */
+    private ArrayList<ArrayList<Integer>> getCaptureMovesForOnePiece(int row, int col) {
         ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
         if (board[row][col] != 0) {
             ArrayList<ArrayList<Integer>> captureMoves = new ArrayList<>();
@@ -256,23 +285,18 @@ public class State {
         return possibleMoves;
     }
 
-    private ArrayList<ArrayList<Integer>> getCaptureMovesForOnePiece(int row, int col) {
-        return getCaptureMovesForOnePiece(row, col, coordinatesToNumber(row, col));
-    }
-
-    private ArrayList<ArrayList<Integer>> getCaptureMovesForOnePiece(int n) {
-        return getCaptureMovesForOnePiece(numberToRow(n), numberToCol(n), n);
-    }
-
     private static int direction (int field) {
         if (field == 0) return 0;
         else if (field > 0) return -1;
         return 1;
-//        return directions[(player + 1) / 2];
     }
 
 
     // PUBLIC METHODS
+
+    /**
+     * Reset planszy i wszystkich parametrów.
+     */
     public void initBoard () {
         for (int row = 0; row < dimension; row++) {
             for (int col = 0; col < dimension; col++) {
@@ -291,8 +315,7 @@ public class State {
         }
         currentPlayer = 1;
         currentPlayerMoves = getPossibleMoves(currentPlayer);
-//        opponentMoves = getPossibleMoves(opponent());
-        drawCounter = 0;
+        noCaptureCounter = 0;
     }
 
     public static char symbol(int field) {
@@ -305,6 +328,12 @@ public class State {
         return playerColors[field + 2];
     }
 
+    /**
+     * Wprowadza system numerowania pól na planszy jako alternatywny sposób na wyłuskanie pola.
+     * @param row Rząd pola
+     * @param col Kolumna pola
+     * @return Numer pola w nowym systemie
+     */
     public int coordinatesToNumber (int row, int col) {
         int n = dimension * row + col + 1;
         return ((n + row + 1) % 2) * (n + 1) / 2;
@@ -326,38 +355,35 @@ public class State {
         return 2 * ((number - 1) % (dimension/2)) + ((2 * (number - 1) / dimension) + 1) % 2;
     }
 
-    public boolean checkUserInput (char col, int row) {
-        return isInsideTheBoard(row, letterToNumber(col));
+    public boolean isUserInputInvalid(char col, int row) {
+        return !isInsideTheBoard(row, letterToNumber(col));
     }
 
-    public boolean checkUserInput (int number) {
-        if (number < 0 || number > dimension * dimension / 2) return false;
-        return isInsideTheBoard(numberToRow(number), numberToCol(number));
+    public boolean isUserInputInvalid(int number) {
+        if (number < 0 || number > dimension * dimension / 2) return true;
+        return !isInsideTheBoard(numberToRow(number), numberToCol(number));
     }
 
-    public boolean submitUserInput (ArrayList<Character> cols, ArrayList<Integer> rows) {
-        if (cols.size() != rows.size()) return false;
-        if (cols.size() <= 1) return false;
-        for (int i = 0; i < cols.size(); i++) {
-            rows.set(i, rows.get(i) - 1);
-            if (!checkUserInput(cols.get(i), rows.get(i))) return false;
-            rows.set(i, coordinatesToNumber(rows.get(i), letterToNumber(cols.get(i))));
-        }
-        makeMove(rows);
-        return true;
-    }
-
+    /**
+     * Służy do przekazywania inputu od użytkownika i jego walidację. W razie powodzenia wykonuje ruch.
+     * @param numbers Lista ruchów od użytkownika
+     * @return TRUE jeśli walidacja przebiegła pomyślnie i wykonany został ruch; FALSE wp.p.
+     */
     public boolean submitUserInput (ArrayList<Integer> numbers) {
         if (numbers.size() <= 1) return false;
         for (Integer n : numbers)
-            if (!checkUserInput(n)) return false;
+            if (isUserInputInvalid(n)) return false;
         makeMove(numbers);
         return true;
     }
 
+    /**
+     * Wykonuje podany ruch na planszy. Nie waliduje ruchu przed jego wykonaniem!
+     * @param moveList Ruch do wykonania
+     */
     public void makeMove (ArrayList<Integer> moveList) {
         lastMove = moveList;
-        ++drawCounter;
+        ++noCaptureCounter;
         if (moveList.isEmpty()) return;
         int prevMove = moveList.get(0);
         for (int move = 1; move < moveList.size(); move++) {
@@ -373,9 +399,13 @@ public class State {
         }
         currentPlayer = opponent();
         currentPlayerMoves = getPossibleMoves(currentPlayer);
-//        opponentMoves = getPossibleMoves(opponent());
     }
 
+    /**
+     * Wyszukuje wszystkie możliwe do wykonania ruchy dla danego gracza.
+     * @param player Gracz którego ruchy chcemy otrzymać
+     * @return Lista ruchów danego gracza
+     */
     public ArrayList<ArrayList<Integer>> getPossibleMoves (int player) {
         ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
         boolean captureMoveDoesNotExists = true;
@@ -402,6 +432,10 @@ public class State {
         return possibleMoves;
     }
 
+    /**
+     * Tworzy nowe stany gry w oparciu o listę możliwych ruchów obecnego gracza.
+     * @return Lista stanów gry możliwych do uzyskania za pomocą jednego ruchu za obecnego stanu gry
+     */
     public ArrayList<State> getChildren () {
         ArrayList<State> children = new ArrayList<>();
         for (ArrayList<Integer> move : currentPlayerMoves) {
@@ -410,17 +444,8 @@ public class State {
         return children;
     }
 
-    public ArrayList<State> getChildren (int player) {
-        ArrayList<State> children = new ArrayList<>();
-        ArrayList<ArrayList<Integer>> possibleMoves = getPossibleMoves(currentPlayer);
-        for (ArrayList<Integer> moves : possibleMoves) {
-            children.add(new State(this, moves));
-        }
-        return children;
-    }
-
     public boolean gameOver() {
-        if (drawCounter >= maxMovesForDraw) return true;
+        if (noCaptureCounter >= maxNoCaptureMovesForDraw) return true;
         return winner() != 0;
     }
 
@@ -493,7 +518,6 @@ public class State {
         return currentPlayerMoves.isEmpty();
     }
 
-    // TODO: DODAĆ OPCJĘ REMISU (DAMKA VS DAMKA, 1 DAMKA VS 2 DAMKI NA WIELKIEJ PRZEKĄTNEJ)
     public int winner () {
         if (opponentHasNoPieces()) return currentPlayer;
         if (currentPlayerHasNoPieces()) return opponent();
@@ -501,24 +525,8 @@ public class State {
         return 0;
     }
 
-    public int currentPlayerWinning () {
-        if (opponentHasNoPieces()) return 1;
-        if (currentPlayerHasNoPieces()) return -1;
-        if (currentPlayerOutOfMoves()) return -1;
-        return 0;
-    }
-
 
     // HEURISTIC METHODS
-    public int heuristicWinner (int player) {
-        int opponent = opponent(player);
-        if (playerHasNoPieces(opponent(player))) return player;
-        if (playerHasNoPieces(player)) return opponent;
-        if (player == currentPlayer() && currentPlayerOutOfMoves()) return opponent;
-        if (player == opponent() && currentPlayerOutOfMoves()) return player;
-        return 0;
-    }
-
     public int getNumberOfPieces (int player) {
         int sum = 0;
         for (int[] row : board) {

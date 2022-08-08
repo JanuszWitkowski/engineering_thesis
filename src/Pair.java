@@ -1,2 +1,1 @@
-public record Pair(int l, int r) {
-}
+public record Pair(int l, int r) { }

@@ -1,3 +1,6 @@
+/**
+ * Służy do intuicyjnego porządkowania parametrów funkcji oceny heurystycznej.
+ */
 public enum HParam {
     PAWNS,
     KINGS,

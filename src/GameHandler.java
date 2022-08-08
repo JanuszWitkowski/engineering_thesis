@@ -1,3 +1,7 @@
+/**
+ * Odpowiedzialny za stworzenie, obsługę i przeprowadzenie pojedynczej gry.
+ * Przechowuje informacje o graczach, ich numerach, oraz stanie gry.
+ */
 public class GameHandler {
     private final Player player1;
     private final Player player2;
@@ -15,9 +19,7 @@ public class GameHandler {
 
     public GameHandler (Player player1, Player player2, State board) {
         this.player1 = player1;
-//        player1.playerNumber(1);
         this.player2 = player2;
-//        player2.playerNumber(-1);
         this.board = board;
     }
 
@@ -33,20 +35,25 @@ public class GameHandler {
         board.printBoardWithCoordinates();
     }
 
-    public int computerDuel () {
-        assert player1 instanceof PlayerComputer;
-        assert player2 instanceof PlayerComputer;
-//                printBoardWithCoordinates();
+    /**
+     * Przeprowadza grę bez drukowania planszy.
+     * Metoda wykorzystywana do szybkich gier, zazwyczaj między dwoma SI.
+     * @return Numer zwycięzcy
+     */
+    public int quickGame () {
         while (!board.gameOver()) {
             player1.makeMove(board, player1Number);
-//                printBoardWithCoordinates();
             if (board.gameOver()) break;
             player2.makeMove(board, player2Number);
-//                printBoardWithCoordinates();
         }
         return board.winner();
     }
 
+    /**
+     * Przeprowadza rozgrywkę z pełnym drukowaniem interfejsu.
+     * Służy do przeprowadzania gier z graczem ludzkim.
+     * @return Numer zwycięzcy
+     */
     public int run () {
         board.printBoardWithCoordinates();
         while (!board.gameOver()) {

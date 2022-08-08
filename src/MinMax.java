@@ -1,13 +1,31 @@
 import java.util.Random;
 
+/**
+ * Główną odpowiedzialnością tej klasy jest poprawne przeprowadzanie rozumowania minimax.
+ */
 public class MinMax {
+    /**
+     * Służy do losowych decyzji przyjmowania potencjalnych ruchów o tej samej wartości oceny.
+     */
     private final Random rng;
 
     public MinMax () {
         this.rng = new Random();
     }
 
+    /**
+     * Rekurencyjny algorytm minimax z alfa-beta-cięciami. Wykonuje ruch na planszy w trakcie działania.
+     * @param state Rozpatrywany stan gry
+     * @param depth Głębokość przeszukiwań, algorytm kończy przeszukiwania gdy tę głębokość osiągnie i zwraca wartość oceny
+     * @param heuristic Funkcja oceny heurystycznej
+     * @param alpha Minimalny wynik o którym wie gracz MAX, służy do optymalizacji w postaci alpha-beta-pruning
+     * @param beta Maksymalny wynik o którym wie gracz MIN, służy do optymalizacji w postaci alpha-beta-pruning
+     * @param maximizingPlayer Numer gracza z którego perspektywy należy wyznaczać wartość oceny
+     * @param isPlayerMaximizing Determinuje czy obecnie rozpatrujący gracz chce maksymalizować czy minimalizować wartość oceny
+     * @return Wartość potencjału ruchu który został wykonany
+     */
     public int minimax(State state, int depth, Heuristic heuristic, int alpha, int beta, int maximizingPlayer, boolean isPlayerMaximizing) {
+        // Gdy osiągniemy maksymalną głębokość przeszukiwań, zwracamy od razu wartość oceny danego stanu gry.
         if (depth == 0) return heuristic.evaluate(state, maximizingPlayer);
 
         State best = null;
@@ -15,8 +33,8 @@ public class MinMax {
             int maxEval = Integer.MIN_VALUE;
             double maxEps = 0.0;
             for (State child : state.getChildren()) {
+                // Rekurencyjnie przeszukaj przestrzeń stanów które można osiągnąć z obecnego stanu.
                 int eval = minimax(child, depth - 1, heuristic, alpha, beta, maximizingPlayer, false);
-//                System.out.println(depth + ":" + isPlayerMaximizing + ":" + eval);
                 if (maxEval < eval) {
                     best = child;
                     maxEval = eval;
@@ -35,10 +53,9 @@ public class MinMax {
                     }
                 }
                 if (alpha < eval) alpha = eval;
-                if (beta <= alpha) break;
+                if (beta <= alpha) break;   // Nie musimy przeszukiwać reszty przesztrzeni stanów jeśli możemy zastosować cięcie.
             }
             if (best != null) state.makeMove(best.creationMove());    // Wykonaj najlepszy ruch na oryginalnej planszy.
-//            System.out.println(depth + ":-" + isPlayerMaximizing + "->" + maxEval);
             return maxEval;
         }
         else {
@@ -46,7 +63,6 @@ public class MinMax {
             double minEps = 1.0;
             for (State child : state.getChildren()) {
                 int eval = minimax(child, depth - 1, heuristic, alpha, beta, maximizingPlayer, true);
-//                System.out.println(depth + ":" + isPlayerMaximizing + ":" + eval);
                 if (eval < minEval) {
                     best = child;
                     minEval = eval;
@@ -62,7 +78,6 @@ public class MinMax {
                 if (beta <= alpha) break;
             }
             if (best != null) state.makeMove(best.creationMove());
-//            System.out.println(depth + ":-" + isPlayerMaximizing + "-> " + minEval);
             return minEval;
         }
     }
