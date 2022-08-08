@@ -8,6 +8,10 @@ import java.util.HashMap;
  * Jedna z najważniejszych klas w projekcie. Jej obiektami są stany rozgrywki.
  */
 public class State {
+    // PRIVATE CLASSES
+    private record Pair(int l, int r) { }
+    private record Node(int moveValue, int height, Node parent) { }
+
     // FIELDS
     private final int dimension;
     private int[][] board;

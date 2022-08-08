@@ -5,7 +5,7 @@ import java.util.Random;
  */
 public class MinMax {
     /**
-     * Służy do losowych decyzji przyjmowania potencjalnych ruchów o tej samej wartości oceny.
+     * Służy do podejmowania losowych decyzji w przyjmowaniu potencjalnych ruchów o tej samej wartości oceny.
      */
     private final Random rng;
 
