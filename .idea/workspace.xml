@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Comment and clean-up code">
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Move Node and Pair record to State class as private">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MinMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinMax.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Node.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pair.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/State.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +89,7 @@
       <workItem from="1659706721046" duration="4753000" />
       <workItem from="1659714109245" duration="1163000" />
       <workItem from="1659878759101" duration="8106000" />
-      <workItem from="1659950749435" duration="10849000" />
+      <workItem from="1659950749435" duration="11712000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1657570133924</created>
@@ -277,7 +280,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659961598943</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Move Node and Pair record to State class as private">
+      <created>1659963600018</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1659963600018</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -307,7 +317,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Outline heuristic params" />
     <MESSAGE value="Build skeletons of some classes" />
     <MESSAGE value="Implement constructors for State class" />
     <MESSAGE value="Fix numbering fields" />
@@ -332,6 +341,7 @@
     <MESSAGE value="Fix issue with game results interpretation" />
     <MESSAGE value="Fix index out of bounds error in makeMove interface fo human" />
     <MESSAGE value="Comment and clean-up code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Comment and clean-up code" />
+    <MESSAGE value="Move Node and Pair record to State class as private" />
+    <option name="LAST_COMMIT_MESSAGE" value="Move Node and Pair record to State class as private" />
   </component>
 </project>

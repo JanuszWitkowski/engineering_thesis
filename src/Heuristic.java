@@ -86,6 +86,11 @@ public class Heuristic {
         return sum;
     }
 
+    // TODO: Funkcja do debugowania, po ukończeniu projektu należy usunąć.
+    public int[] getParamsDebug (State state, int player) {
+        return getParams(state, player);
+    }
+
     /**
      * Funkcja pomocnicza, wykorzystywana w funkcji oceny heurystycznej.
      * @param state Obecny stan gry
@@ -95,17 +100,43 @@ public class Heuristic {
     private int[] getParams (State state, int player) {
         int[] params = new int[numberOfParams];
         for (int i = 0; i < numberOfParams; i++) params[i] = 0; // TODO: Tymczasowe rozwiązanie, w pełenj implementacji należy usunąć.
-        params[enumToInt.get(HParam.PAWNS)] = state.getNumberOfPawns(player);
-        params[enumToInt.get(HParam.KINGS)] = state.getNumberOfKings(player);
-        params[enumToInt.get(HParam.ENEMY_PAWNS)] = state.getNumberOfPawns(state.opponent(player));
-        params[enumToInt.get(HParam.ENEMY_KINGS)] = state.getNumberOfKings(state.opponent(player));
-        params[enumToInt.get(HParam.POSSIBLE_MOVES)] = state.getNumberOfPossibleMoves(player);
-        params[enumToInt.get(HParam.ENEMY_POSSIBLE_MOVES)] = state.getNumberOfPossibleMoves(state.opponent(player));
+        params[enumToInt.get(HParam.PAWNS)] = paramPawns(state, player);
+        params[enumToInt.get(HParam.KINGS)] = paramKings(state, player);
+        params[enumToInt.get(HParam.ENEMY_PAWNS)] = paramEnemyPawns(state, player);
+        params[enumToInt.get(HParam.ENEMY_KINGS)] = paramEnemyKings(state, player);
+        params[enumToInt.get(HParam.POSSIBLE_MOVES)] = paramPossibleMoves(state, player);
+        params[enumToInt.get(HParam.ENEMY_POSSIBLE_MOVES)] = paramEnemyPossibleMoves(state, player);
         return params;
     }
 
-    // TODO: Funkcja do debugowania, po ukończeniu projektu należy usunąć.
-    public int[] getParamsDebug (State state, int player) {
-        return getParams(state, player);
+    /*
+    Poniżej znajdują się funkcje wyłuskujące wartości parametrów.
+    Rozbicie na funkcje pozwala na ewentualne nadpisywanie funkcji przez klasy dziedziczące
+    (jeśli np. chcemy podnieść liczbę damek do kwadratu).
+     */
+
+    private int paramPawns (State s, int p) {
+        return s.getNumberOfPawns(p);
     }
+
+    private int paramKings (State s, int p) {
+        return s.getNumberOfKings(p);
+    }
+
+    private int paramEnemyPawns (State s, int p) {
+        return s.getNumberOfPawns(s.opponent(p));
+    }
+
+    private int paramEnemyKings (State s, int p) {
+        return s.getNumberOfKings(s.opponent(p));
+    }
+
+    private int paramPossibleMoves (State s, int p) {
+        return s.getNumberOfPossibleMoves(p);
+    }
+
+    private int paramEnemyPossibleMoves (State s, int p) {
+        return s.getNumberOfPossibleMoves(s.opponent(p));
+    }
+
 }
