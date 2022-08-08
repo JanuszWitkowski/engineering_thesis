@@ -563,18 +563,33 @@ public class State {
 
     public int getNumberOfSafePawns (int player) {
         int sum = 0;
+        for (int row = 0; row < dimension-1; row++) {
+            if (ownerOfField(row, 0) == player && !isKing(row, 0)) ++sum;
+            if (ownerOfField(row + 1, dimension - 1) == player && !isKing(row + 1, dimension - 1)) ++sum;
+        }
+        for (int col = 0; col < dimension-1; col++) {
+            if (ownerOfField(dimension - 1, col) == player && !isKing(dimension - 1, col)) ++sum;
+            if (ownerOfField(0, col + 1) == player && !isKing(0, col + 1)) ++sum;
+        }
         return sum;
     }
 
     public int getNumberOfSafeKings (int player) {
         int sum = 0;
+        for (int row = 0; row < dimension-1; row++) {
+            if (ownerOfField(row, 0) == player && isKing(row, 0)) ++sum;
+            if (ownerOfField(row + 1, dimension - 1) == player && isKing(row + 1, dimension - 1)) ++sum;
+        }
+        for (int col = 0; col < dimension-1; col++) {
+            if (ownerOfField(dimension - 1, col) == player && isKing(dimension - 1, col)) ++sum;
+            if (ownerOfField(0, col + 1) == player && isKing(0, col + 1)) ++sum;
+        }
         return sum;
     }
 
     public int getNumberOfPossibleMoves (int player) {
         if (player == currentPlayer) return currentPlayerMoves.size();
         return getPossibleMoves(player).size();
-//        return 0;
     }
 
 

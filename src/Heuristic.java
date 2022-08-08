@@ -99,11 +99,13 @@ public class Heuristic {
      */
     private int[] getParams (State state, int player) {
         int[] params = new int[numberOfParams];
-        for (int i = 0; i < numberOfParams; i++) params[i] = 0; // TODO: Tymczasowe rozwiązanie, w pełenj implementacji należy usunąć.
+        for (int i = 0; i < numberOfParams; i++) params[i] = 0; // TODO: Tymczasowe rozwiązanie, w pełnej implementacji należy usunąć.
         params[enumToInt.get(HParam.PAWNS)] = paramPawns(state, player);
         params[enumToInt.get(HParam.KINGS)] = paramKings(state, player);
         params[enumToInt.get(HParam.ENEMY_PAWNS)] = paramEnemyPawns(state, player);
         params[enumToInt.get(HParam.ENEMY_KINGS)] = paramEnemyKings(state, player);
+        params[enumToInt.get(HParam.SAFE_PAWNS)] = paramSafePawns(state, player);
+        params[enumToInt.get(HParam.SAFE_KINGS)] = paramSafeKings(state, player);
         params[enumToInt.get(HParam.POSSIBLE_MOVES)] = paramPossibleMoves(state, player);
         params[enumToInt.get(HParam.ENEMY_POSSIBLE_MOVES)] = paramEnemyPossibleMoves(state, player);
         return params;
@@ -129,6 +131,14 @@ public class Heuristic {
 
     private int paramEnemyKings (State s, int p) {
         return s.getNumberOfKings(s.opponent(p));
+    }
+
+    private int paramSafePawns (State s, int p) {
+        return s.getNumberOfSafePawns(p);
+    }
+
+    private int paramSafeKings (State s, int p) {
+        return s.getNumberOfSafeKings(p);
     }
 
     private int paramPossibleMoves (State s, int p) {
