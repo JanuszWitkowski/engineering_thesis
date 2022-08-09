@@ -135,6 +135,7 @@ public class Heuristic {
         params[enumToInt(HParam.UPPERMOST_KINGS)] = paramUppermostKings(state, player);
         params[enumToInt(HParam.UPPERMOST_ENEMY_PAWNS)] = paramUppermostEnemyPawns(state, player);
         params[enumToInt(HParam.UPPERMOST_ENEMY_KINGS)] = paramUppermostEnemyKings(state, player);
+
         return params;
     }
 

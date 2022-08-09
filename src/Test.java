@@ -115,8 +115,8 @@ public class Test {
 
 
     public static void main (String[] args) {
-//        testAIvsAI(5, 5, 10);
+        testAIvsAI(5, 5, 10);
 //        testHumanVsAI();
-        testOneParam();
+//        testOneParam();
     }
 }

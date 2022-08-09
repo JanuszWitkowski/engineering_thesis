@@ -6,7 +6,7 @@ public enum HParam {
     KINGS,
     ENEMY_PAWNS,
     ENEMY_KINGS,
-    SAFE_PAWNS,     // adjacent to the wall
+    SAFE_PAWNS,     // adjacent to wall
     SAFE_KINGS,
     SAFE_ENEMY_PAWNS,
     SAFE_ENEMY_KINGS,
