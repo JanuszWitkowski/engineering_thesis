@@ -648,4 +648,38 @@ public class State {
         return sum;
     }
 
+    public int getNumberOfLowermostPawns (int player, boolean isKing) {
+        int sum = 0;
+        int row = player == 1 ? dimension - 2 : 0;
+        for (int i = 0; i < 2; ++i) {
+            for (int col = 0; col < dimension; ++col) {
+                if (ownerOfField(row, col) == player && isKing == isKing(row, col)) ++sum;
+            }
+            ++row;
+        }
+        return sum;
+    }
+
+    public int getNumberOfCentralPawns (int player, boolean isKing) {
+        int sum = 0;
+        int row1 = dimension / 2, row2 = row1 - 1;
+        for (int col = 0; col < dimension; ++col) {
+            if (ownerOfField(row1, col) == player && isKing == isKing(row1, col)) ++sum;
+            if (ownerOfField(row2, col) == player && isKing == isKing(row2, col)) ++sum;
+        }
+        return sum;
+    }
+
+    public int getNumberOfUppermostPawns (int player, boolean isKing) {
+        int sum = 0;
+        int row = player == 1 ? 0 : dimension - 3;
+        for (int i = 0; i < 3; ++i) {
+            for (int col = 0; col < dimension; ++col) {
+                if (ownerOfField(row, col) == player && isKing == isKing(row, col)) ++sum;
+            }
+            ++row;
+        }
+        return sum;
+    }
+
 }

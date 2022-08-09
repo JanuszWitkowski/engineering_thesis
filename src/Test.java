@@ -36,6 +36,7 @@ public class Test {
 
     private static short[] getWeights1 () {
         short[] weights = new short[HParam.values().length];
+        for (int i = 0; i < HParam.values().length; ++i) weights[i] = (short)0;
         weights[Heuristic.enumToInt(HParam.PAWNS)] = (short)0;
         weights[Heuristic.enumToInt(HParam.KINGS)] = (short)0;
         weights[Heuristic.enumToInt(HParam.ENEMY_PAWNS)] = (short)0;
@@ -59,6 +60,7 @@ public class Test {
 
     private static short[] getWeights2 () {
         short[] weights = new short[HParam.values().length];
+        for (int i = 0; i < HParam.values().length; ++i) weights[i] = (short)0;
         weights[Heuristic.enumToInt(HParam.PAWNS)] = (short)-4;
         weights[Heuristic.enumToInt(HParam.KINGS)] = (short)-1;
         weights[Heuristic.enumToInt(HParam.ENEMY_PAWNS)] = (short)3;
@@ -101,9 +103,20 @@ public class Test {
         game.run();
     }
 
+    private static void testOneParam () {
+        int depth = 3;
+        Heuristic h = new Heuristic((short)0);
+        h.changeParamWeight(Heuristic.enumToInt(HParam.CENTRAL_PAWNS), (short)1);
+        PlayerComputer p1 = new PlayerComputer(h, depth);
+        PlayerHuman p2 = new PlayerHuman();
+        GameHandler game = new GameHandler(p1, p2);
+        game.run();
+    }
+
 
     public static void main (String[] args) {
 //        testAIvsAI(5, 5, 10);
-        testHumanVsAI();
+//        testHumanVsAI();
+        testOneParam();
     }
 }
