@@ -48,8 +48,12 @@ public class Test {
         weights[Heuristic.enumToInt(HParam.MOVABLE_KINGS)] = (short)0;
         weights[Heuristic.enumToInt(HParam.MOVABLE_ENEMY_PAWNS)] = (short)0;
         weights[Heuristic.enumToInt(HParam.MOVABLE_ENEMY_KINGS)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.POSSIBLE_MOVES)] = (short)1;
+        weights[Heuristic.enumToInt(HParam.POSSIBLE_MOVES)] = (short)0;
         weights[Heuristic.enumToInt(HParam.POSSIBLE_ENEMY_MOVES)] = (short)0;
+        weights[Heuristic.enumToInt(HParam.DISTANCE_TO_PROMOTION)] = (short)0;
+        weights[Heuristic.enumToInt(HParam.DISTANCE_TO_ENEMY_PROMOTION)] = (short)0;
+        weights[Heuristic.enumToInt(HParam.UNOCCUPIED_PROMOTION_FIELDS)] = (short)0;
+        weights[Heuristic.enumToInt(HParam.UNOCCUPIED_ENEMY_PROMOTION_FIELDS)] = (short)1;
         return weights;
     }
 
@@ -69,6 +73,10 @@ public class Test {
         weights[Heuristic.enumToInt(HParam.MOVABLE_ENEMY_KINGS)] = (short)0;
         weights[Heuristic.enumToInt(HParam.POSSIBLE_MOVES)] = (short)-1;
         weights[Heuristic.enumToInt(HParam.POSSIBLE_ENEMY_MOVES)] = (short)1;
+        weights[Heuristic.enumToInt(HParam.DISTANCE_TO_PROMOTION)] = (short)1;
+        weights[Heuristic.enumToInt(HParam.DISTANCE_TO_ENEMY_PROMOTION)] = (short)-1;
+        weights[Heuristic.enumToInt(HParam.UNOCCUPIED_PROMOTION_FIELDS)] = (short)0;
+        weights[Heuristic.enumToInt(HParam.UNOCCUPIED_ENEMY_PROMOTION_FIELDS)] = (short)0;
         return weights;
     }
 

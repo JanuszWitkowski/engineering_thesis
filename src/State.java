@@ -67,6 +67,40 @@ public class State {
     }
 
 
+    // SETTERS & GETTERS
+    public int dimension () {
+        return this.dimension;
+    }
+
+    public int board (int row, int col) {
+        return this.board[row][col];
+    }
+
+    public int currentPlayer () {
+        return this.currentPlayer;
+    }
+
+    public int opponent (int player) {
+        return (-1) * player;
+    }
+
+    public int opponent () {
+        return opponent(currentPlayer);
+    }
+
+    public ArrayList<Integer> creationMove () {
+        return this.creationMove;
+    }
+
+    public ArrayList<Integer> lastMove () {
+        return this.lastMove;
+    }
+
+    public ArrayList<ArrayList<Integer>> currentPlayerMoves () {
+        return this.currentPlayerMoves;
+    }
+
+
     // PRIVATE METHODS
 
     /**
@@ -551,16 +585,6 @@ public class State {
         return sum;
     }
 
-//    public int getNumberOfKings (int player) {
-//        int sum = 0;
-//        for (int row = 0; row < dimension; row++) {
-//            for (int col = 0; col < dimension; col++) {
-//                if (ownerOfField(row, col) == player && isKing(row, col)) ++sum;
-//            }
-//        }
-//        return sum;
-//    }
-
     public int getNumberOfSafePawns (int player, boolean isKing) {
         int sum = 0;
         for (int row = 0; row < dimension-1; row++) {
@@ -574,19 +598,6 @@ public class State {
         return sum;
     }
 
-//    public int getNumberOfSafeKings (int player) {
-//        int sum = 0;
-//        for (int row = 0; row < dimension-1; row++) {
-//            if (ownerOfField(row, 0) == player && isKing(row, 0)) ++sum;
-//            if (ownerOfField(row + 1, dimension - 1) == player && isKing(row + 1, dimension - 1)) ++sum;
-//        }
-//        for (int col = 0; col < dimension-1; col++) {
-//            if (ownerOfField(dimension - 1, col) == player && isKing(dimension - 1, col)) ++sum;
-//            if (ownerOfField(0, col + 1) == player && isKing(0, col + 1)) ++sum;
-//        }
-//        return sum;
-//    }
-
     public int getNumberOfMovablePawns (int player, boolean isKing) {
         int sum = 0;
         for (int row = 0; row < dimension; row++) {
@@ -599,49 +610,42 @@ public class State {
         return sum;
     }
 
-//    public int getNumberOfMovableKings (int player) {
-//        int sum = 0;
-//        return sum;
-//    }
-
     public int getNumberOfPossibleMoves (int player) {
         if (player == currentPlayer) return currentPlayerMoves.size();
         return getPossibleMoves(player).size();
     }
 
-
-
-    // SETTERS & GETTERS
-    public int dimension () {
-        return this.dimension;
+    public int getAggregatedDistanceToPromotionLine (int player) {
+        int sum = 0;
+        if (player == 1) {
+            for (int row = 1; row < dimension; ++row) {
+                for (int col = 0; col < dimension; ++col) {
+                    if (ownerOfField(row, col) == player && !isKing(row, col)) {
+                        sum += row;
+                    }
+                }
+            }
+        }
+        else if (player == -1) {
+            for (int row = dimension - 2; row >= 0; --row) {
+                for (int col = 0; col < dimension; ++col) {
+                    if (ownerOfField(row, col) == player && !isKing(row, col)) {
+                        sum += dimension - row - 1;
+                    }
+                }
+            }
+        }
+        return sum;
     }
 
-    public int board (int row, int col) {
-        return this.board[row][col];
-    }
-
-    public int currentPlayer () {
-        return this.currentPlayer;
-    }
-
-    public int opponent (int player) {
-        return (-1) * player;
-    }
-
-    public int opponent () {
-        return opponent(currentPlayer);
-    }
-
-    public ArrayList<Integer> creationMove () {
-        return this.creationMove;
-    }
-
-    public ArrayList<Integer> lastMove () {
-        return this.lastMove;
-    }
-
-    public ArrayList<ArrayList<Integer>> currentPlayerMoves () {
-        return this.currentPlayerMoves;
+    public int getNumberOfUnoccupiedPromotionFields (int player) {
+        int sum = 0;
+        int promotionRow = player == 1 ? 0 : dimension - 1;
+        int col = player == 1 ? 1 : 0;
+        for (; col < dimension; col += 2) {
+            if (ownerOfField(promotionRow, col) == 0) ++sum;
+        }
+        return sum;
     }
 
 }

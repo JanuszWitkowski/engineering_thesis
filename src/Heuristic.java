@@ -114,6 +114,10 @@ public class Heuristic {
         params[enumToInt.get(HParam.MOVABLE_ENEMY_KINGS)] = paramMovableEnemyKings(state, player);
         params[enumToInt.get(HParam.POSSIBLE_MOVES)] = paramPossibleMoves(state, player);
         params[enumToInt.get(HParam.POSSIBLE_ENEMY_MOVES)] = paramPossibleEnemyMoves(state, player);
+        params[enumToInt(HParam.DISTANCE_TO_PROMOTION)] = paramDistanceToPromotion(state, player);
+        params[enumToInt(HParam.DISTANCE_TO_ENEMY_PROMOTION)] = paramDistanceToEnemyPromotion(state, player);
+        params[enumToInt(HParam.UNOCCUPIED_PROMOTION_FIELDS)] = paramUnoccupiedPromotionFields(state, player);
+        params[enumToInt(HParam.UNOCCUPIED_ENEMY_PROMOTION_FIELDS)] = paramUnoccupiedEnemyPromotionFields(state, player);
         return params;
     }
 
@@ -177,6 +181,22 @@ public class Heuristic {
 
     private int paramPossibleEnemyMoves(State s, int p) {
         return s.getNumberOfPossibleMoves(s.opponent(p));
+    }
+
+    private int paramDistanceToPromotion(State s, int p) {
+        return s.getAggregatedDistanceToPromotionLine(p);
+    }
+
+    private int paramDistanceToEnemyPromotion(State s, int p) {
+        return s.getAggregatedDistanceToPromotionLine(s.opponent(p));
+    }
+
+    private int paramUnoccupiedPromotionFields(State s, int p) {
+        return s.getNumberOfUnoccupiedPromotionFields(p);
+    }
+
+    private int paramUnoccupiedEnemyPromotionFields(State s, int p) {
+        return s.getNumberOfUnoccupiedPromotionFields(s.opponent(p));
     }
 
 }
