@@ -36,16 +36,20 @@ public class Test {
 
     private static short[] getWeights1 () {
         short[] weights = new short[HParam.values().length];
-        weights[Heuristic.enumToInt(HParam.PAWNS)] = (short)2;
-        weights[Heuristic.enumToInt(HParam.KINGS)] = (short)5;
-        weights[Heuristic.enumToInt(HParam.ENEMY_PAWNS)] = (short)-2;
-        weights[Heuristic.enumToInt(HParam.ENEMY_KINGS)] = (short)-5;
-        weights[Heuristic.enumToInt(HParam.SAFE_PAWNS)] = (short)4;
-        weights[Heuristic.enumToInt(HParam.SAFE_KINGS)] = (short)8;
-        weights[Heuristic.enumToInt(HParam.ENEMY_SAFE_PAWNS)] = (short)-6;
-        weights[Heuristic.enumToInt(HParam.ENEMY_SAFE_KINGS)] = (short)-3;
+        weights[Heuristic.enumToInt(HParam.PAWNS)] = (short)0;
+        weights[Heuristic.enumToInt(HParam.KINGS)] = (short)0;
+        weights[Heuristic.enumToInt(HParam.ENEMY_PAWNS)] = (short)0;
+        weights[Heuristic.enumToInt(HParam.ENEMY_KINGS)] = (short)0;
+        weights[Heuristic.enumToInt(HParam.SAFE_PAWNS)] = (short)0;
+        weights[Heuristic.enumToInt(HParam.SAFE_KINGS)] = (short)0;
+        weights[Heuristic.enumToInt(HParam.SAFE_ENEMY_PAWNS)] = (short)0;
+        weights[Heuristic.enumToInt(HParam.SAFE_ENEMY_KINGS)] = (short)0;
+        weights[Heuristic.enumToInt(HParam.MOVABLE_PAWNS)] = (short)0;
+        weights[Heuristic.enumToInt(HParam.MOVABLE_KINGS)] = (short)0;
+        weights[Heuristic.enumToInt(HParam.MOVABLE_ENEMY_PAWNS)] = (short)0;
+        weights[Heuristic.enumToInt(HParam.MOVABLE_ENEMY_KINGS)] = (short)0;
         weights[Heuristic.enumToInt(HParam.POSSIBLE_MOVES)] = (short)1;
-        weights[Heuristic.enumToInt(HParam.ENEMY_POSSIBLE_MOVES)] = (short)-1;
+        weights[Heuristic.enumToInt(HParam.POSSIBLE_ENEMY_MOVES)] = (short)0;
         return weights;
     }
 
@@ -57,10 +61,14 @@ public class Test {
         weights[Heuristic.enumToInt(HParam.ENEMY_KINGS)] = (short)5;
         weights[Heuristic.enumToInt(HParam.SAFE_PAWNS)] = (short)-6;
         weights[Heuristic.enumToInt(HParam.SAFE_KINGS)] = (short)-3;
-        weights[Heuristic.enumToInt(HParam.ENEMY_SAFE_PAWNS)] = (short)4;
-        weights[Heuristic.enumToInt(HParam.ENEMY_SAFE_KINGS)] = (short)8;
+        weights[Heuristic.enumToInt(HParam.SAFE_ENEMY_PAWNS)] = (short)4;
+        weights[Heuristic.enumToInt(HParam.SAFE_ENEMY_KINGS)] = (short)8;
+        weights[Heuristic.enumToInt(HParam.MOVABLE_PAWNS)] = (short)0;
+        weights[Heuristic.enumToInt(HParam.MOVABLE_KINGS)] = (short)0;
+        weights[Heuristic.enumToInt(HParam.MOVABLE_ENEMY_PAWNS)] = (short)0;
+        weights[Heuristic.enumToInt(HParam.MOVABLE_ENEMY_KINGS)] = (short)0;
         weights[Heuristic.enumToInt(HParam.POSSIBLE_MOVES)] = (short)-1;
-        weights[Heuristic.enumToInt(HParam.ENEMY_POSSIBLE_MOVES)] = (short)1;
+        weights[Heuristic.enumToInt(HParam.POSSIBLE_ENEMY_MOVES)] = (short)1;
         return weights;
     }
 
@@ -80,13 +88,14 @@ public class Test {
         Heuristic h = new Heuristic(weights);
         PlayerHuman p1 = new PlayerHuman();
         PlayerComputer p2 = new PlayerComputer(h, depth);
-        GameHandler game = new GameHandler(p1, p2);
+//        GameHandler game = new GameHandler(p1, p2);
+        GameHandler game = new GameHandler(p2, p1);
         game.run();
     }
 
 
     public static void main (String[] args) {
-        testAIvsAI(5, 5, 10);
-//        testHumanVsAI();
+//        testAIvsAI(5, 5, 10);
+        testHumanVsAI();
     }
 }

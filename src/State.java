@@ -541,56 +541,74 @@ public class State {
         return sum;
     }
 
-    public int getNumberOfPawns (int player) {
+    public int getNumberOfPawns (int player, boolean isKing) {
         int sum = 0;
         for (int row = 0; row < dimension; row++) {
             for (int col = 0; col < dimension; col++) {
-                if (ownerOfField(row, col) == player && !isKing(row, col)) ++sum;
+                if (ownerOfField(row, col) == player && isKing == isKing(row, col)) ++sum;
             }
         }
         return sum;
     }
 
-    public int getNumberOfKings (int player) {
+//    public int getNumberOfKings (int player) {
+//        int sum = 0;
+//        for (int row = 0; row < dimension; row++) {
+//            for (int col = 0; col < dimension; col++) {
+//                if (ownerOfField(row, col) == player && isKing(row, col)) ++sum;
+//            }
+//        }
+//        return sum;
+//    }
+
+    public int getNumberOfSafePawns (int player, boolean isKing) {
+        int sum = 0;
+        for (int row = 0; row < dimension-1; row++) {
+            if (ownerOfField(row, 0) == player && isKing == isKing(row, 0)) ++sum;
+            if (ownerOfField(row + 1, dimension - 1) == player && isKing == isKing(row + 1, dimension - 1)) ++sum;
+        }
+        for (int col = 0; col < dimension-1; col++) {
+            if (ownerOfField(dimension - 1, col) == player && isKing == isKing(dimension - 1, col)) ++sum;
+            if (ownerOfField(0, col + 1) == player && isKing == isKing(0, col + 1)) ++sum;
+        }
+        return sum;
+    }
+
+//    public int getNumberOfSafeKings (int player) {
+//        int sum = 0;
+//        for (int row = 0; row < dimension-1; row++) {
+//            if (ownerOfField(row, 0) == player && isKing(row, 0)) ++sum;
+//            if (ownerOfField(row + 1, dimension - 1) == player && isKing(row + 1, dimension - 1)) ++sum;
+//        }
+//        for (int col = 0; col < dimension-1; col++) {
+//            if (ownerOfField(dimension - 1, col) == player && isKing(dimension - 1, col)) ++sum;
+//            if (ownerOfField(0, col + 1) == player && isKing(0, col + 1)) ++sum;
+//        }
+//        return sum;
+//    }
+
+    public int getNumberOfMovablePawns (int player, boolean isKing) {
         int sum = 0;
         for (int row = 0; row < dimension; row++) {
             for (int col = 0; col < dimension; col++) {
-                if (ownerOfField(row, col) == player && isKing(row, col)) ++sum;
+                if (ownerOfField(row, col) == player && isKing == isKing(row, col)) {
+                    if (getAdjacentMovesForOnePiece(row, col).size() > 0) ++sum;
+                }
             }
         }
         return sum;
     }
 
-    public int getNumberOfSafePawns (int player) {
-        int sum = 0;
-        for (int row = 0; row < dimension-1; row++) {
-            if (ownerOfField(row, 0) == player && !isKing(row, 0)) ++sum;
-            if (ownerOfField(row + 1, dimension - 1) == player && !isKing(row + 1, dimension - 1)) ++sum;
-        }
-        for (int col = 0; col < dimension-1; col++) {
-            if (ownerOfField(dimension - 1, col) == player && !isKing(dimension - 1, col)) ++sum;
-            if (ownerOfField(0, col + 1) == player && !isKing(0, col + 1)) ++sum;
-        }
-        return sum;
-    }
-
-    public int getNumberOfSafeKings (int player) {
-        int sum = 0;
-        for (int row = 0; row < dimension-1; row++) {
-            if (ownerOfField(row, 0) == player && isKing(row, 0)) ++sum;
-            if (ownerOfField(row + 1, dimension - 1) == player && isKing(row + 1, dimension - 1)) ++sum;
-        }
-        for (int col = 0; col < dimension-1; col++) {
-            if (ownerOfField(dimension - 1, col) == player && isKing(dimension - 1, col)) ++sum;
-            if (ownerOfField(0, col + 1) == player && isKing(0, col + 1)) ++sum;
-        }
-        return sum;
-    }
+//    public int getNumberOfMovableKings (int player) {
+//        int sum = 0;
+//        return sum;
+//    }
 
     public int getNumberOfPossibleMoves (int player) {
         if (player == currentPlayer) return currentPlayerMoves.size();
         return getPossibleMoves(player).size();
     }
+
 
 
     // SETTERS & GETTERS

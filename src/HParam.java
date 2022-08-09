@@ -8,8 +8,12 @@ public enum HParam {
     ENEMY_KINGS,
     SAFE_PAWNS,     // adjacent to the wall
     SAFE_KINGS,
-    ENEMY_SAFE_PAWNS,
-    ENEMY_SAFE_KINGS,
+    SAFE_ENEMY_PAWNS,
+    SAFE_ENEMY_KINGS,
+    MOVABLE_PAWNS,  // can make any move (without counting in captures)
+    MOVABLE_KINGS,
+    MOVABLE_ENEMY_PAWNS,
+    MOVABLE_ENEMY_KINGS,
     POSSIBLE_MOVES,
-    ENEMY_POSSIBLE_MOVES
+    POSSIBLE_ENEMY_MOVES
 }

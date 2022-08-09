@@ -106,10 +106,14 @@ public class Heuristic {
         params[enumToInt.get(HParam.ENEMY_KINGS)] = paramEnemyKings(state, player);
         params[enumToInt.get(HParam.SAFE_PAWNS)] = paramSafePawns(state, player);
         params[enumToInt.get(HParam.SAFE_KINGS)] = paramSafeKings(state, player);
-        params[enumToInt.get(HParam.ENEMY_SAFE_PAWNS)] = paramEnemySafePawns(state, player);
-        params[enumToInt.get(HParam.ENEMY_SAFE_KINGS)] = paramEnemySafeKings(state, player);
+        params[enumToInt.get(HParam.SAFE_ENEMY_PAWNS)] = paramSafeEnemyPawns(state, player);
+        params[enumToInt.get(HParam.SAFE_ENEMY_KINGS)] = paramSafeEnemyKings(state, player);
+        params[enumToInt.get(HParam.MOVABLE_PAWNS)] = paramMovablePawns(state, player);
+        params[enumToInt.get(HParam.MOVABLE_KINGS)] = paramMovableKings(state, player);
+        params[enumToInt.get(HParam.MOVABLE_ENEMY_PAWNS)] = paramMovableEnemyPawns(state, player);
+        params[enumToInt.get(HParam.MOVABLE_ENEMY_KINGS)] = paramMovableEnemyKings(state, player);
         params[enumToInt.get(HParam.POSSIBLE_MOVES)] = paramPossibleMoves(state, player);
-        params[enumToInt.get(HParam.ENEMY_POSSIBLE_MOVES)] = paramEnemyPossibleMoves(state, player);
+        params[enumToInt.get(HParam.POSSIBLE_ENEMY_MOVES)] = paramPossibleEnemyMoves(state, player);
         return params;
     }
 
@@ -120,42 +124,58 @@ public class Heuristic {
      */
 
     private int paramPawns (State s, int p) {
-        return s.getNumberOfPawns(p);
+        return s.getNumberOfPawns(p, false);
     }
 
     private int paramKings (State s, int p) {
-        return s.getNumberOfKings(p);
+        return s.getNumberOfPawns(p, true);
     }
 
     private int paramEnemyPawns (State s, int p) {
-        return s.getNumberOfPawns(s.opponent(p));
+        return s.getNumberOfPawns(s.opponent(p), false);
     }
 
     private int paramEnemyKings (State s, int p) {
-        return s.getNumberOfKings(s.opponent(p));
+        return s.getNumberOfPawns(s.opponent(p), true);
     }
 
     private int paramSafePawns (State s, int p) {
-        return s.getNumberOfSafePawns(p);
+        return s.getNumberOfSafePawns(p, false);
     }
 
     private int paramSafeKings (State s, int p) {
-        return s.getNumberOfSafeKings(p);
+        return s.getNumberOfSafePawns(p, true);
     }
 
-    private int paramEnemySafePawns (State s, int p) {
-        return s.getNumberOfSafePawns(s.opponent(p));
+    private int paramSafeEnemyPawns(State s, int p) {
+        return s.getNumberOfSafePawns(s.opponent(p), false);
     }
 
-    private int paramEnemySafeKings (State s, int p) {
-        return s.getNumberOfSafeKings(s.opponent(p));
+    private int paramSafeEnemyKings(State s, int p) {
+        return s.getNumberOfSafePawns(s.opponent(p), true);
+    }
+
+    private int paramMovablePawns(State s, int p) {
+        return s.getNumberOfMovablePawns(p, false);
+    }
+
+    private int paramMovableKings(State s, int p) {
+        return s.getNumberOfMovablePawns(p, true);
+    }
+
+    private int paramMovableEnemyPawns(State s, int p) {
+        return s.getNumberOfMovablePawns(s.opponent(p), false);
+    }
+
+    private int paramMovableEnemyKings(State s, int p) {
+        return s.getNumberOfMovablePawns(s.opponent(p), true);
     }
 
     private int paramPossibleMoves (State s, int p) {
         return s.getNumberOfPossibleMoves(p);
     }
 
-    private int paramEnemyPossibleMoves (State s, int p) {
+    private int paramPossibleEnemyMoves(State s, int p) {
         return s.getNumberOfPossibleMoves(s.opponent(p));
     }
 
