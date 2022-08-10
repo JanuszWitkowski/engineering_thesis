@@ -106,7 +106,7 @@ public class Test {
     private static void testOneParam () {
         int depth = 3;
         Heuristic h = new Heuristic((short)0);
-        h.changeParamWeight(Heuristic.enumToInt(HParam.CENTRAL_PAWNS), (short)1);
+        h.changeParamWeight(Heuristic.enumToInt(HParam.LONER_ENEMY_PAWNS), (short)1);
         PlayerComputer p1 = new PlayerComputer(h, depth);
         PlayerHuman p2 = new PlayerHuman();
         GameHandler game = new GameHandler(p1, p2);
@@ -115,8 +115,8 @@ public class Test {
 
 
     public static void main (String[] args) {
-        testAIvsAI(5, 5, 10);
+//        testAIvsAI(5, 5, 10);
 //        testHumanVsAI();
-//        testOneParam();
+        testOneParam();
     }
 }

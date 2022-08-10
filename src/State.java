@@ -682,4 +682,26 @@ public class State {
         return sum;
     }
 
+    public int getNumberOfLonerPawns (int player, boolean isKing) {
+        int sum = 0;
+        for (int row = 0; row < dimension; ++row) {
+            for (int col = 0; col < dimension; ++col) {
+                if (ownerOfField(row, col) == player && isKing == isKing(row, col)) {
+                    int dr = 1, dc = 1;
+                    boolean isLoner = true;
+                    for (int i = 0; i < 4 && isLoner; ++i) {
+                        int newRow = row + dr, newCol = col + dc;
+                        if (isInsideTheBoard(newRow, newCol) && ownerOfField(newRow, newCol) != 0) {
+                            isLoner = false;
+                        }
+                        dr *= -1;
+                        dc *= dr;
+                    }
+                    if (isLoner) ++sum;
+                }
+            }
+        }
+        return sum;
+    }
+
 }

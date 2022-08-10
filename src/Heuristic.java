@@ -102,21 +102,21 @@ public class Heuristic {
         int[] params = new int[numberOfParams];
         for (int i = 0; i < numberOfParams; i++) params[i] = 0; // TODO: Tymczasowe rozwiązanie, w pełnej implementacji należy usunąć.
 
-        params[enumToInt.get(HParam.PAWNS)] = paramPawns(state, player);
-        params[enumToInt.get(HParam.KINGS)] = paramKings(state, player);
-        params[enumToInt.get(HParam.ENEMY_PAWNS)] = paramEnemyPawns(state, player);
-        params[enumToInt.get(HParam.ENEMY_KINGS)] = paramEnemyKings(state, player);
-        params[enumToInt.get(HParam.SAFE_PAWNS)] = paramSafePawns(state, player);
-        params[enumToInt.get(HParam.SAFE_KINGS)] = paramSafeKings(state, player);
-        params[enumToInt.get(HParam.SAFE_ENEMY_PAWNS)] = paramSafeEnemyPawns(state, player);
-        params[enumToInt.get(HParam.SAFE_ENEMY_KINGS)] = paramSafeEnemyKings(state, player);
+        params[enumToInt(HParam.PAWNS)] = paramPawns(state, player);
+        params[enumToInt(HParam.KINGS)] = paramKings(state, player);
+        params[enumToInt(HParam.ENEMY_PAWNS)] = paramEnemyPawns(state, player);
+        params[enumToInt(HParam.ENEMY_KINGS)] = paramEnemyKings(state, player);
+        params[enumToInt(HParam.SAFE_PAWNS)] = paramSafePawns(state, player);
+        params[enumToInt(HParam.SAFE_KINGS)] = paramSafeKings(state, player);
+        params[enumToInt(HParam.SAFE_ENEMY_PAWNS)] = paramSafeEnemyPawns(state, player);
+        params[enumToInt(HParam.SAFE_ENEMY_KINGS)] = paramSafeEnemyKings(state, player);
 
-        params[enumToInt.get(HParam.MOVABLE_PAWNS)] = paramMovablePawns(state, player);
-        params[enumToInt.get(HParam.MOVABLE_KINGS)] = paramMovableKings(state, player);
-        params[enumToInt.get(HParam.MOVABLE_ENEMY_PAWNS)] = paramMovableEnemyPawns(state, player);
-        params[enumToInt.get(HParam.MOVABLE_ENEMY_KINGS)] = paramMovableEnemyKings(state, player);
-        params[enumToInt.get(HParam.POSSIBLE_MOVES)] = paramPossibleMoves(state, player);
-        params[enumToInt.get(HParam.POSSIBLE_ENEMY_MOVES)] = paramPossibleEnemyMoves(state, player);
+        params[enumToInt(HParam.MOVABLE_PAWNS)] = paramMovablePawns(state, player);
+        params[enumToInt(HParam.MOVABLE_KINGS)] = paramMovableKings(state, player);
+        params[enumToInt(HParam.MOVABLE_ENEMY_PAWNS)] = paramMovableEnemyPawns(state, player);
+        params[enumToInt(HParam.MOVABLE_ENEMY_KINGS)] = paramMovableEnemyKings(state, player);
+        params[enumToInt(HParam.POSSIBLE_MOVES)] = paramPossibleMoves(state, player);
+        params[enumToInt(HParam.POSSIBLE_ENEMY_MOVES)] = paramPossibleEnemyMoves(state, player);
 
         params[enumToInt(HParam.DISTANCE_TO_PROMOTION)] = paramDistanceToPromotion(state, player);
         params[enumToInt(HParam.DISTANCE_TO_ENEMY_PROMOTION)] = paramDistanceToEnemyPromotion(state, player);
@@ -135,6 +135,11 @@ public class Heuristic {
         params[enumToInt(HParam.UPPERMOST_KINGS)] = paramUppermostKings(state, player);
         params[enumToInt(HParam.UPPERMOST_ENEMY_PAWNS)] = paramUppermostEnemyPawns(state, player);
         params[enumToInt(HParam.UPPERMOST_ENEMY_KINGS)] = paramUppermostEnemyKings(state, player);
+
+        params[enumToInt(HParam.LONER_PAWNS)] = paramLonerPawns(state, player);
+        params[enumToInt(HParam.LONER_KINGS)] = paramLonerKings(state, player);
+        params[enumToInt(HParam.LONER_ENEMY_PAWNS)] = paramLonerEnemyPawns(state, player);
+        params[enumToInt(HParam.LONER_ENEMY_KINGS)] = paramLonerEnemyKings(state, player);
 
         return params;
     }
@@ -263,6 +268,22 @@ public class Heuristic {
 
     private int paramUppermostEnemyKings (State s, int p) {
         return s.getNumberOfUppermostPawns(s.opponent(p), true);
+    }
+
+    private int paramLonerPawns (State s, int p) {
+        return s.getNumberOfLonerPawns(p, false);
+    }
+
+    private int paramLonerKings (State s, int p) {
+        return s.getNumberOfLonerPawns(p, true);
+    }
+
+    private int paramLonerEnemyPawns (State s, int p) {
+        return s.getNumberOfLonerPawns(s.opponent(p), false);
+    }
+
+    private int paramLonerEnemyKings (State s, int p) {
+        return s.getNumberOfLonerPawns(s.opponent(p), true);
     }
 
 }
