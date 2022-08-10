@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Add BLOCKING_PIECES and BLOCKING_LINES params">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PlayerComputer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlayerComputer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/State.java" afterDir="false" />
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Minor fix">
       <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -90,7 +87,7 @@
       <workItem from="1659878759101" duration="8106000" />
       <workItem from="1659950749435" duration="20535000" />
       <workItem from="1660041532322" duration="8199000" />
-      <workItem from="1660123161491" duration="15761000" />
+      <workItem from="1660123161491" duration="16421000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1657570133924</created>
@@ -358,7 +355,21 @@
       <option name="project" value="LOCAL" />
       <updated>1660139956311</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Make interface for testing specific params">
+      <created>1660140997437</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1660140997437</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Minor fix">
+      <created>1660141066845</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1660141066845</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -388,8 +399,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fix the computer always making moves from the same row" />
-    <MESSAGE value="Fix misc computer moves" />
     <MESSAGE value="Merge commit" />
     <MESSAGE value="Make HParam enum to integer conversion for indexing in Heuristic" />
     <MESSAGE value="Start configuring UI" />
@@ -413,6 +422,8 @@
     <MESSAGE value="Add &quot;loner pieces&quot; params" />
     <MESSAGE value="Add &quot;corner&quot; and patterns params" />
     <MESSAGE value="Add BLOCKING_PIECES and BLOCKING_LINES params" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add BLOCKING_PIECES and BLOCKING_LINES params" />
+    <MESSAGE value="Make interface for testing specific params" />
+    <MESSAGE value="Minor fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor fix" />
   </component>
 </project>
