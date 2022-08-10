@@ -141,6 +141,20 @@ public class Heuristic {
         params[enumToInt(HParam.LONER_ENEMY_PAWNS)] = paramLonerEnemyPawns(state, player);
         params[enumToInt(HParam.LONER_ENEMY_KINGS)] = paramLonerEnemyKings(state, player);
 
+        params[enumToInt(HParam.CORNER_PAWN)] = paramCornerPawn(state, player);
+        params[enumToInt(HParam.CORNER_KING)] = paramCornerKing(state, player);
+        params[enumToInt(HParam.CORNER_ENEMY_PAWN)] = paramCornerEnemyPawn(state, player);
+        params[enumToInt(HParam.CORNER_ENEMY_KING)] = paramCornerEnemyKing(state, player);
+
+        params[enumToInt(HParam.TRIANGLE_PATTERN)] = paramTrianglePattern(state, player);
+        params[enumToInt(HParam.OREO_PATTERN)] = paramOreoPattern(state, player);
+        params[enumToInt(HParam.BRIDGE_PATTERN)] = paramBridgePattern(state, player);
+        params[enumToInt(HParam.DOG_PATTERN)] = paramDogPattern(state, player);
+        params[enumToInt(HParam.ENEMY_TRIANGLE_PATTERN)] = paramEnemyTrianglePattern(state, player);
+        params[enumToInt(HParam.ENEMY_OREO_PATTERN)] = paramEnemyOreoPattern(state, player);
+        params[enumToInt(HParam.ENEMY_BRIDGE_PATTERN)] = paramEnemyBridgePattern(state, player);
+        params[enumToInt(HParam.ENEMY_DOG_PATTERN)] = paramEnemyDogPattern(state, player);
+
         return params;
     }
 
@@ -284,6 +298,54 @@ public class Heuristic {
 
     private int paramLonerEnemyKings (State s, int p) {
         return s.getNumberOfLonerPawns(s.opponent(p), true);
+    }
+
+    private int paramCornerPawn (State s, int p) {
+        return s.presenceOfCornerPawn(p, false) ? 1 : 0;
+    }
+
+    private int paramCornerKing (State s, int p) {
+        return s.presenceOfCornerPawn(p, true) ? 1 : 0;
+    }
+
+    private int paramCornerEnemyPawn (State s, int p) {
+        return s.presenceOfCornerPawn(s.opponent(p), false) ? 1 : 0;
+    }
+
+    private int paramCornerEnemyKing (State s, int p) {
+        return s.presenceOfCornerPawn(s.opponent(p), true) ? 1 : 0;
+    }
+
+    private int paramTrianglePattern (State s, int p) {
+        return s.presenceOfTrianglePattern(p) ? 1 : 0;
+    }
+
+    private int paramOreoPattern (State s, int p) {
+        return s.presenceOfOreoPattern(p) ? 1 : 0;
+    }
+
+    private int paramBridgePattern (State s, int p) {
+        return s.presenceOfBridgePattern(p) ? 1 : 0;
+    }
+
+    private int paramDogPattern (State s, int p) {
+        return s.presenceOfDogPattern(p) ? 1 : 0;
+    }
+
+    private int paramEnemyTrianglePattern (State s, int p) {
+        return s.presenceOfTrianglePattern(s.opponent(p)) ? 1 : 0;
+    }
+
+    private int paramEnemyOreoPattern (State s, int p) {
+        return s.presenceOfOreoPattern(s.opponent(p)) ? 1 : 0;
+    }
+
+    private int paramEnemyBridgePattern (State s, int p) {
+        return s.presenceOfBridgePattern(s.opponent(p)) ? 1 : 0;
+    }
+
+    private int paramEnemyDogPattern (State s, int p) {
+        return s.presenceOfDogPattern(s.opponent(p)) ? 1 : 0;
     }
 
 }

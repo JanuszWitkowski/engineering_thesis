@@ -35,5 +35,21 @@ public enum HParam {
     LONER_PAWNS,
     LONER_KINGS,
     LONER_ENEMY_PAWNS,
-    LONER_ENEMY_KINGS
+    LONER_ENEMY_KINGS,
+    CORNER_PAWN,
+    CORNER_KING,
+    CORNER_ENEMY_PAWN,
+    CORNER_ENEMY_KING,
+    TRIANGLE_PATTERN,   // pattern params can only have value of 0 or 1; patterns are taken from [1] page 6
+    OREO_PATTERN,
+    BRIDGE_PATTERN,
+    DOG_PATTERN,
+    ENEMY_TRIANGLE_PATTERN,
+    ENEMY_OREO_PATTERN,
+    ENEMY_BRIDGE_PATTERN,
+    ENEMY_DOG_PATTERN
 }
+
+/*  SOURCES
+[1] https://pages.mini.pw.edu.pl/~mandziukj/PRACE/es_init.pdf
+ */

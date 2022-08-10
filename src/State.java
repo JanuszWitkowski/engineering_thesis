@@ -704,4 +704,65 @@ public class State {
         return sum;
     }
 
+    public boolean presenceOfCornerPawn (int player, boolean isKing) {
+        int row, col;
+        if (player == 1) {
+            row = dimension - 1;
+            col = 0;
+        } else {
+            row = 0;
+            col = dimension - 1;
+        }
+        if (isKing) {
+            int tmp = row;
+            row = col;
+            col = tmp;
+        }
+        return ownerOfField(row, col) == player && isKing == isKing(row, col);
+    }
+
+    public boolean presenceOfTrianglePattern (int player) {     // UWAGA: DOSTOSOWANE DO dimension == 8 !!
+        int n1, n2, n3;
+        if (player == 1) {
+            n1 = 31; n2 = 27; n3 = 32;
+        } else {
+            n1 = 1; n2 = 6; n3 = 2;
+        }
+        Pair p1 = numberToPair(n1), p2 = numberToPair(n2), p3 = numberToPair(n3);
+        return ownerOfField(p1.l(), p1.r()) == player && ownerOfField(p2.l(), p2.r()) == player && ownerOfField(p3.l(), p3.r()) == player;
+    }
+
+    public boolean presenceOfOreoPattern (int player) {         // UWAGA: DOSTOSOWANE DO dimension == 8 !!
+        int n1, n2, n3;
+        if (player == 1) {
+            n1 = 30; n2 = 26; n3 = 31;
+        } else {
+            n1 = 2; n2 = 7; n3 = 3;
+        }
+        Pair p1 = numberToPair(n1), p2 = numberToPair(n2), p3 = numberToPair(n3);
+        return ownerOfField(p1.l(), p1.r()) == player && ownerOfField(p2.l(), p2.r()) == player && ownerOfField(p3.l(), p3.r()) == player;
+    }
+
+    public boolean presenceOfBridgePattern (int player) {       // UWAGA: DOSTOSOWANE DO dimension == 8 !!
+        int n1, n2;
+        if (player == 1) {
+            n1 = 30; n2 = 32;
+        } else {
+            n1 = 3; n2 = 1;
+        }
+        Pair p1 = numberToPair(n1), p2 = numberToPair(n2);
+        return ownerOfField(p1.l(), p1.r()) == player && ownerOfField(p2.l(), p2.r()) == player;
+    }
+
+    public boolean presenceOfDogPattern (int player) {          // UWAGA: DOSTOSOWANE DO dimension == 8 !!
+        int n1, n2;
+        if (player == 1) {
+            n1 = 32; n2 = 28;
+        } else {
+            n1 = 1; n2 = 5;
+        }
+        Pair p1 = numberToPair(n1), p2 = numberToPair(n2);
+        return ownerOfField(p1.l(), p1.r()) == player && ownerOfField(p2.l(), p2.r()) == opponent(player);
+    }
+
 }
