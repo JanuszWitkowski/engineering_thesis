@@ -166,7 +166,7 @@ public class Test {
     private static void testOneParamOneState () {
         int[][] board = new int[][] {
                 {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, -2, 0, 0, 0},
+                {0, 0, 0, 0, -1, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, -1, 0, 0, 0, -2, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0},
