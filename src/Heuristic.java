@@ -155,6 +155,13 @@ public class Heuristic {
         params[enumToInt(HParam.ENEMY_BRIDGE_PATTERN)] = paramEnemyBridgePattern(state, player);
         params[enumToInt(HParam.ENEMY_DOG_PATTERN)] = paramEnemyDogPattern(state, player);
 
+        params[enumToInt(HParam.BLOCKING_PIECES)] = paramBlockingPieces(state, player);
+        params[enumToInt(HParam.BLOCKING_LINES)] = paramBlockingLines(state, player);
+        params[enumToInt(HParam.LONGEST_BLOCKING_LINE)] = paramLongestBlockingLine(state, player);
+        params[enumToInt(HParam.BLOCKING_ENEMY_PIECES)] = paramBlockingEnemyPieces(state, player);
+        params[enumToInt(HParam.ENEMY_BLOCKING_LINES)] = paramEnemyBlockingLines(state, player);
+        params[enumToInt(HParam.LONGEST_ENEMY_BLOCKING_LINE)] = paramLongestEnemyBlockingLine(state, player);
+
         return params;
     }
 
@@ -346,6 +353,30 @@ public class Heuristic {
 
     private int paramEnemyDogPattern (State s, int p) {
         return s.presenceOfDogPattern(s.opponent(p)) ? 1 : 0;
+    }
+
+    private int paramBlockingPieces (State s, int p) {
+        return s.getNumberOfBlockingPieces(p);
+    }
+
+    private int paramBlockingLines (State s, int p) {
+        return s.getNumberOfBlockingLines(p);
+    }
+
+    private int paramLongestBlockingLine (State s, int p) {
+        return s.getLengthOfTheLongestBlockingLine(p);
+    }
+
+    private int paramBlockingEnemyPieces (State s, int p) {
+        return s.getNumberOfBlockingPieces(s.opponent(p));
+    }
+
+    private int paramEnemyBlockingLines (State s, int p) {
+        return s.getNumberOfBlockingLines(s.opponent(p));
+    }
+
+    private int paramLongestEnemyBlockingLine (State s, int p) {
+        return s.getLengthOfTheLongestBlockingLine(s.opponent(p));
     }
 
 }

@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class State {
     // PRIVATE CLASSES
     private record Pair(int l, int r) { }
-    private record Node(int moveValue, int height, Node parent) { }
+    private record Node(int value, int height, Node parent) { }
 
     // FIELDS
     private final int dimension;
@@ -238,7 +238,7 @@ public class State {
         ArrayList<Integer> move = new ArrayList<>();
         if (tree.height() > 0) {
             for (int i = tree.height(); i >= 0; i--) {
-                move.add(tree.moveValue());
+                move.add(tree.value());
                 tree = tree.parent();
             }
             Collections.reverse(move);
@@ -763,6 +763,83 @@ public class State {
         }
         Pair p1 = numberToPair(n1), p2 = numberToPair(n2);
         return ownerOfField(p1.l(), p1.r()) == player && ownerOfField(p2.l(), p2.r()) == opponent(player);
+    }
+
+    public int getNumberOfBlockingPieces (int player) {
+        int sum = 0;
+        int dr = player == 1 ? -1 : 1;
+        for (int row = 0; row < dimension; ++row) {
+            for (int col = 0; col < dimension; ++col) {
+                if (ownerOfField(row, col) == player) {
+                    if ((isInsideTheBoard(row + dr, col + 1) && ownerOfField(row + dr, col + 1) == player)
+                    || (isInsideTheBoard(row + dr, col - 1) && ownerOfField(row + dr, col - 1) == player))
+                        ++sum;
+                }
+            }
+        }
+        return sum;
+    }
+
+    public int getNumberOfBlockingLines (int player) {
+        int sum = 0;
+        boolean[][][] notYetVisited = new boolean[2][dimension][dimension];
+        for (int i = 0; i < 2; ++i)
+            for (int j = 0; j < dimension; ++j)
+                for (int k = 0; k < dimension; ++k)
+                    notYetVisited[i][j][k] = true;
+        for (int row = 0; row < dimension; ++row) {
+            for (int col = 0; col < dimension; ++col) {
+                if (ownerOfField(row, col) == player) {
+                    int dc = -1;
+                    for (int i = 0; i < 2; ++i) {
+                        int newRow = row + 1, newCol = col + dc;
+                        int lineCounter = 1;
+                        while (isInsideTheBoard(newRow, newCol) && notYetVisited[i][newRow][newCol]) {
+                            notYetVisited[i][newRow][newCol] = false;
+                            if (ownerOfField(newRow, newCol) == player) {
+                                ++lineCounter;
+                                ++newRow;
+                                newCol += dc;
+                            } else break;
+                        }
+                        if (lineCounter >= 3) ++sum;
+                        dc += 2;
+                    }
+                }
+            }
+        }
+        return sum;
+    }
+
+    public int getLengthOfTheLongestBlockingLine (int player) {
+        int maxLength = 0;
+        boolean[][][] notYetVisited = new boolean[2][dimension][dimension];
+        for (int i = 0; i < 2; ++i)
+            for (int j = 0; j < dimension; ++j)
+                for (int k = 0; k < dimension; ++k)
+                    notYetVisited[i][j][k] = true;
+        for (int row = 0; row < dimension; ++row) {
+            for (int col = 0; col < dimension; ++col) {
+                if (ownerOfField(row, col) == player) {
+                    int dc = -1;
+                    for (int i = 0; i < 2; ++i) {
+                        int newRow = row + 1, newCol = col + dc;
+                        int lineCounter = 1;
+                        while (isInsideTheBoard(newRow, newCol) && notYetVisited[i][newRow][newCol]) {
+                            notYetVisited[i][newRow][newCol] = false;
+                            if (ownerOfField(newRow, newCol) == player) {
+                                ++lineCounter;
+                                ++newRow;
+                                newCol += dc;
+                            } else break;
+                        }
+                        if (lineCounter >= 3 && maxLength < lineCounter) maxLength = lineCounter;
+                        dc += 2;
+                    }
+                }
+            }
+        }
+        return maxLength;
     }
 
 }

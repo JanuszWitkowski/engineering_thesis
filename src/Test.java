@@ -36,49 +36,49 @@ public class Test {
 
     private static short[] getWeights1 () {
         short[] weights = new short[HParam.values().length];
-        for (int i = 0; i < HParam.values().length; ++i) weights[i] = (short)0;
-        weights[Heuristic.enumToInt(HParam.PAWNS)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.KINGS)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.ENEMY_PAWNS)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.ENEMY_KINGS)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.SAFE_PAWNS)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.SAFE_KINGS)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.SAFE_ENEMY_PAWNS)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.SAFE_ENEMY_KINGS)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.MOVABLE_PAWNS)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.MOVABLE_KINGS)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.MOVABLE_ENEMY_PAWNS)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.MOVABLE_ENEMY_KINGS)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.POSSIBLE_MOVES)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.POSSIBLE_ENEMY_MOVES)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.DISTANCE_TO_PROMOTION)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.DISTANCE_TO_ENEMY_PROMOTION)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.UNOCCUPIED_PROMOTION_FIELDS)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.UNOCCUPIED_ENEMY_PROMOTION_FIELDS)] = (short)1;
+        for (int i = 0; i < HParam.values().length; ++i) weights[i] = (short)1;
+        weights[Heuristic.enumToInt(HParam.PAWNS)] = (short)10;
+        weights[Heuristic.enumToInt(HParam.KINGS)] = (short)30;
+        weights[Heuristic.enumToInt(HParam.ENEMY_PAWNS)] = (short)-5;
+        weights[Heuristic.enumToInt(HParam.ENEMY_KINGS)] = (short)-8;
+        weights[Heuristic.enumToInt(HParam.SAFE_PAWNS)] = (short)2;
+        weights[Heuristic.enumToInt(HParam.SAFE_KINGS)] = (short)10;
+        weights[Heuristic.enumToInt(HParam.SAFE_ENEMY_PAWNS)] = (short)-100;
+        weights[Heuristic.enumToInt(HParam.SAFE_ENEMY_KINGS)] = (short)-200;
+        weights[Heuristic.enumToInt(HParam.MOVABLE_PAWNS)] = (short)44;
+        weights[Heuristic.enumToInt(HParam.MOVABLE_KINGS)] = (short)77;
+        weights[Heuristic.enumToInt(HParam.MOVABLE_ENEMY_PAWNS)] = (short)-4;
+        weights[Heuristic.enumToInt(HParam.MOVABLE_ENEMY_KINGS)] = (short)-7;
+        weights[Heuristic.enumToInt(HParam.POSSIBLE_MOVES)] = (short)1;
+        weights[Heuristic.enumToInt(HParam.POSSIBLE_ENEMY_MOVES)] = (short)-1;
+        weights[Heuristic.enumToInt(HParam.DISTANCE_TO_PROMOTION)] = (short)-12;
+        weights[Heuristic.enumToInt(HParam.DISTANCE_TO_ENEMY_PROMOTION)] = (short)66;
+        weights[Heuristic.enumToInt(HParam.UNOCCUPIED_PROMOTION_FIELDS)] = (short)123;
+        weights[Heuristic.enumToInt(HParam.UNOCCUPIED_ENEMY_PROMOTION_FIELDS)] = (short)-123;
         return weights;
     }
 
     private static short[] getWeights2 () {
         short[] weights = new short[HParam.values().length];
-        for (int i = 0; i < HParam.values().length; ++i) weights[i] = (short)0;
-        weights[Heuristic.enumToInt(HParam.PAWNS)] = (short)-4;
-        weights[Heuristic.enumToInt(HParam.KINGS)] = (short)-1;
-        weights[Heuristic.enumToInt(HParam.ENEMY_PAWNS)] = (short)3;
-        weights[Heuristic.enumToInt(HParam.ENEMY_KINGS)] = (short)5;
-        weights[Heuristic.enumToInt(HParam.SAFE_PAWNS)] = (short)-6;
-        weights[Heuristic.enumToInt(HParam.SAFE_KINGS)] = (short)-3;
-        weights[Heuristic.enumToInt(HParam.SAFE_ENEMY_PAWNS)] = (short)4;
-        weights[Heuristic.enumToInt(HParam.SAFE_ENEMY_KINGS)] = (short)8;
-        weights[Heuristic.enumToInt(HParam.MOVABLE_PAWNS)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.MOVABLE_KINGS)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.MOVABLE_ENEMY_PAWNS)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.MOVABLE_ENEMY_KINGS)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.POSSIBLE_MOVES)] = (short)-1;
-        weights[Heuristic.enumToInt(HParam.POSSIBLE_ENEMY_MOVES)] = (short)1;
-        weights[Heuristic.enumToInt(HParam.DISTANCE_TO_PROMOTION)] = (short)1;
-        weights[Heuristic.enumToInt(HParam.DISTANCE_TO_ENEMY_PROMOTION)] = (short)-1;
-        weights[Heuristic.enumToInt(HParam.UNOCCUPIED_PROMOTION_FIELDS)] = (short)0;
-        weights[Heuristic.enumToInt(HParam.UNOCCUPIED_ENEMY_PROMOTION_FIELDS)] = (short)0;
+        for (int i = 0; i < HParam.values().length; ++i) weights[i] = (short)5;
+//        weights[Heuristic.enumToInt(HParam.PAWNS)] = (short)-4;
+//        weights[Heuristic.enumToInt(HParam.KINGS)] = (short)-1;
+//        weights[Heuristic.enumToInt(HParam.ENEMY_PAWNS)] = (short)3;
+//        weights[Heuristic.enumToInt(HParam.ENEMY_KINGS)] = (short)5;
+//        weights[Heuristic.enumToInt(HParam.SAFE_PAWNS)] = (short)-6;
+//        weights[Heuristic.enumToInt(HParam.SAFE_KINGS)] = (short)-3;
+//        weights[Heuristic.enumToInt(HParam.SAFE_ENEMY_PAWNS)] = (short)4;
+//        weights[Heuristic.enumToInt(HParam.SAFE_ENEMY_KINGS)] = (short)8;
+//        weights[Heuristic.enumToInt(HParam.MOVABLE_PAWNS)] = (short)0;
+//        weights[Heuristic.enumToInt(HParam.MOVABLE_KINGS)] = (short)0;
+//        weights[Heuristic.enumToInt(HParam.MOVABLE_ENEMY_PAWNS)] = (short)0;
+//        weights[Heuristic.enumToInt(HParam.MOVABLE_ENEMY_KINGS)] = (short)0;
+//        weights[Heuristic.enumToInt(HParam.POSSIBLE_MOVES)] = (short)-1;
+//        weights[Heuristic.enumToInt(HParam.POSSIBLE_ENEMY_MOVES)] = (short)1;
+//        weights[Heuristic.enumToInt(HParam.DISTANCE_TO_PROMOTION)] = (short)1;
+//        weights[Heuristic.enumToInt(HParam.DISTANCE_TO_ENEMY_PROMOTION)] = (short)-1;
+//        weights[Heuristic.enumToInt(HParam.UNOCCUPIED_PROMOTION_FIELDS)] = (short)0;
+//        weights[Heuristic.enumToInt(HParam.UNOCCUPIED_ENEMY_PROMOTION_FIELDS)] = (short)0;
         return weights;
     }
 
@@ -106,7 +106,7 @@ public class Test {
     private static void testOneParam () {
         int depth = 3;
         Heuristic h = new Heuristic((short)0);
-        h.changeParamWeight(Heuristic.enumToInt(HParam.DOG_PATTERN), (short)1);
+        h.changeParamWeight(Heuristic.enumToInt(HParam.LONGEST_BLOCKING_LINE), (short)1);
         PlayerComputer p1 = new PlayerComputer(h, depth);
         PlayerHuman p2 = new PlayerHuman();
         GameHandler game = new GameHandler(p1, p2);

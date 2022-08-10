@@ -26,7 +26,8 @@ public class MinMax {
      */
     public int minimax(State state, int depth, Heuristic heuristic, int alpha, int beta, int maximizingPlayer, boolean isPlayerMaximizing) {
         // Gdy osiągniemy maksymalną głębokość przeszukiwań, zwracamy od razu wartość oceny danego stanu gry.
-        if (depth == 0) return heuristic.evaluate(state, maximizingPlayer);
+//        if (depth == 0) return heuristic.evaluate(state, maximizingPlayer);
+        if (depth == 0) return 0;   // DEBUG
 
         State best = null;
         if (isPlayerMaximizing) {

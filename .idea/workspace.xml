@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Add &quot;loner pieces&quot; params">
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Add &quot;corner&quot; and patterns params">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HParam.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Heuristic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MinMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinMax.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +92,7 @@
       <workItem from="1659878759101" duration="8106000" />
       <workItem from="1659950749435" duration="20535000" />
       <workItem from="1660041532322" duration="8199000" />
-      <workItem from="1660123161491" duration="5834000" />
+      <workItem from="1660123161491" duration="14522000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1657570133924</created>
@@ -344,7 +346,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660125715678</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Add &quot;corner&quot; and patterns params">
+      <created>1660129290568</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1660129290568</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -374,7 +383,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Tune GameHandler and Player classes" />
     <MESSAGE value="Fix move generation&#10;&#10;The game works on minimax level.&#10;Need to implement better player handling for non-Computer players, parameter-data counter &amp; better heuristic." />
     <MESSAGE value="Fix the computer always making moves from the same row" />
     <MESSAGE value="Fix misc computer moves" />
@@ -399,6 +407,7 @@
     <MESSAGE value="Add &quot;lowermost/central/uppermost&quot; params" />
     <MESSAGE value="Minor changes" />
     <MESSAGE value="Add &quot;loner pieces&quot; params" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add &quot;loner pieces&quot; params" />
+    <MESSAGE value="Add &quot;corner&quot; and patterns params" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add &quot;corner&quot; and patterns params" />
   </component>
 </project>

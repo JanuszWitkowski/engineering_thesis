@@ -47,7 +47,13 @@ public enum HParam {
     ENEMY_TRIANGLE_PATTERN,
     ENEMY_OREO_PATTERN,
     ENEMY_BRIDGE_PATTERN,
-    ENEMY_DOG_PATTERN
+    ENEMY_DOG_PATTERN,
+    BLOCKING_PIECES,    // behind another friendly piece
+    BLOCKING_LINES,     // lines of at least 2 blocking pieces
+    LONGEST_BLOCKING_LINE,
+    BLOCKING_ENEMY_PIECES,
+    ENEMY_BLOCKING_LINES,
+    LONGEST_ENEMY_BLOCKING_LINE
 }
 
 /*  SOURCES
