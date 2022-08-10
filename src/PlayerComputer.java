@@ -34,6 +34,10 @@ public class PlayerComputer extends Player {
     @Override
     public void makeMove (State board, int playerNumber) {
         m.minimax(board, depth, heuristic, alpha, beta, playerNumber, true);
+    }
+
+    // TODO: Funkcja do debugowania i sprawdzania poprawności obliczeń parametrów. W finalnym zarysie projektu można usunąć.
+    public void printEval (State board, int playerNumber) {
         System.out.println("Wartość oceny: " + heuristic.evaluate(board, playerNumber));
     }
 

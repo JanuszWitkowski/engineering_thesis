@@ -34,6 +34,56 @@ public class Test {
         System.out.println("Przewaga graczy: " + sum1 + " vs " + sum2);
     }
 
+    private static void testSpecificBoard () {
+//        int[][] board = new int[][] {
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0}
+//        };
+        int[][] board = new int[][] {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, -2, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, -1, 0, 0, 0, -2, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, -1, 0, -2, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+//        int[][] board = new int[][] {
+//                {0, -1, 0, -1, 0, -1, 0, -1},
+//                {1, 0, 1, 0, 1, 0, 1, 0},
+//                {0, -1, 0, -1, 0, -1, 0, -1},
+//                {1, 0, 1, 0, 1, 0, 1, 0},
+//                {0, -1, 0, -1, 0, -1, 0, -1},
+//                {1, 0, 1, 0, 1, 0, 1, 0},
+//                {0, -1, 0, -1, 0, -1, 0, -1},
+//                {1, 0, 1, 0, 1, 0, 1, 0}
+//        };
+//        int[][] board = new int[][] {
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {-1, 0, 0, 0, 0, 0, 0, 0},
+//                {0, -1, 0, 0, 0, 0, 0, 0},
+//                {1, 0, 1, 0, 0, 0, 0, 0}
+//        };
+        State state = new State(board);
+        int depth = 3;
+        Heuristic h = new Heuristic((short)0);
+        PlayerComputer p1 = new PlayerComputer(h, depth);
+        PlayerHuman p2 = new PlayerHuman();
+        GameHandler game = new GameHandler(p1, p2, state);
+        game.run();
+    }
+
     private static short[] getWeights1 () {
         short[] weights = new short[HParam.values().length];
         for (int i = 0; i < HParam.values().length; ++i) weights[i] = (short)1;
@@ -103,7 +153,7 @@ public class Test {
         game.run();
     }
 
-    private static void testOneParam () {
+    private static void testOneParamInGame () {
         int depth = 3;
         Heuristic h = new Heuristic((short)0);
         h.changeParamWeight(Heuristic.enumToInt(HParam.LONGEST_BLOCKING_LINE), (short)1);
@@ -113,10 +163,30 @@ public class Test {
         game.run();
     }
 
+    private static void testOneParamOneState () {
+        int[][] board = new int[][] {
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, -2, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, -1, 0, 0, 0, -2, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, -1, 0, -2, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}
+        };
+        State state = new State(board);
+        Heuristic h = new Heuristic((short)0);
+        h.changeParamWeight(Heuristic.enumToInt(HParam.POSSIBLE_MOVES), (short)1);
+        int eval = h.evaluate(state, 1);
+        state.printBoardWithCoordinates();
+        System.out.println("Wartość oceny: " + eval);
+    }
+
 
     public static void main (String[] args) {
 //        testAIvsAI(5, 5, 10);
 //        testHumanVsAI();
-        testOneParam();
+//        testOneParamInGame();
+        testOneParamOneState();
     }
 }

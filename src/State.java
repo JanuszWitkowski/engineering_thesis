@@ -53,10 +53,29 @@ public class State {
         this.dimension = dimension;
         this.board = new int[this.dimension][this.dimension];
         initBoard();
-//        initBoardTemplate();
-//        this.currentPlayerMoves = getPossibleMoves(currentPlayer);
     }
 
+    public State (int[][] board) {
+        this(board, 1);
+    }
+
+    /**
+     * Konstruktor do testowania specyficznych sytuacji na planszy.
+     * @param board Dana sytuacja na planszy
+     * @param currentPlayer Gracz który ma rozpocząć
+     */
+    public State (int[][] board, int currentPlayer) {
+        this.board = board;
+        this.dimension = board.length;
+        this.currentPlayer = currentPlayer;
+        this.currentPlayerMoves = getPossibleMoves(currentPlayer);
+    }
+
+    /**
+     * Konstruktor tworzący dziecko stanu po wykonaniu danego ruchu.
+     * @param state Stan-rodzic
+     * @param moveList Ruch który przechodzi ze stanu-rodzica do nowego stanu
+     */
     public State (State state, ArrayList<Integer> moveList) {
         this.dimension = state.dimension();
         this.board = new int[this.dimension][this.dimension];
@@ -102,52 +121,6 @@ public class State {
 
 
     // PRIVATE METHODS
-
-    /**
-     * Funkcja do debugowania, pozwala sprawdzać przypadki szczególne.
-     */
-    private void initBoardTemplate () {     // tmp
-//        board = new int[][] {
-//                {0, 0, 0, 0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0, 0, 0, 0}
-//        };
-        board = new int[][] {
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, -2, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, -1, 0, 0, 0, -2, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, -1, 0, -2, 0, 0, 0},
-                {0, 0, 0, 1, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0}
-        };
-//        board = new int[][] {
-//                {0, -1, 0, -1, 0, -1, 0, -1},
-//                {1, 0, 1, 0, 1, 0, 1, 0},
-//                {0, -1, 0, -1, 0, -1, 0, -1},
-//                {1, 0, 1, 0, 1, 0, 1, 0},
-//                {0, -1, 0, -1, 0, -1, 0, -1},
-//                {1, 0, 1, 0, 1, 0, 1, 0},
-//                {0, -1, 0, -1, 0, -1, 0, -1},
-//                {1, 0, 1, 0, 1, 0, 1, 0}
-//        };
-//        board = new int[][] {
-//                {0, 0, 0, 0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0, 0, 0, 0},
-//                {-1, 0, 0, 0, 0, 0, 0, 0},
-//                {0, -1, 0, 0, 0, 0, 0, 0},
-//                {1, 0, 1, 0, 0, 0, 0, 0}
-//        };
-    }
 
     private void copyBoard (State state) {
         for (int row = 0; row < dimension; row++) {

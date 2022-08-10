@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Add &quot;corner&quot; and patterns params">
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Add BLOCKING_PIECES and BLOCKING_LINES params">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HParam.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Heuristic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MinMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinMax.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PlayerComputer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlayerComputer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/State.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
@@ -92,7 +90,7 @@
       <workItem from="1659878759101" duration="8106000" />
       <workItem from="1659950749435" duration="20535000" />
       <workItem from="1660041532322" duration="8199000" />
-      <workItem from="1660123161491" duration="14522000" />
+      <workItem from="1660123161491" duration="15761000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1657570133924</created>
@@ -353,7 +351,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660129290568</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Add BLOCKING_PIECES and BLOCKING_LINES params">
+      <created>1660139956310</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1660139956311</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -383,7 +388,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fix move generation&#10;&#10;The game works on minimax level.&#10;Need to implement better player handling for non-Computer players, parameter-data counter &amp; better heuristic." />
     <MESSAGE value="Fix the computer always making moves from the same row" />
     <MESSAGE value="Fix misc computer moves" />
     <MESSAGE value="Merge commit" />
@@ -408,6 +412,7 @@
     <MESSAGE value="Minor changes" />
     <MESSAGE value="Add &quot;loner pieces&quot; params" />
     <MESSAGE value="Add &quot;corner&quot; and patterns params" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add &quot;corner&quot; and patterns params" />
+    <MESSAGE value="Add BLOCKING_PIECES and BLOCKING_LINES params" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add BLOCKING_PIECES and BLOCKING_LINES params" />
   </component>
 </project>
