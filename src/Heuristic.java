@@ -8,15 +8,15 @@ import java.util.Random;
  * przypisuje wagi. Suma ważona tych parametrów daje wartość oceny danego stanu gry.
  */
 public class Heuristic {
-    private short[] paramWeights;   // TODO: Może zrobić final?
-    private final int numberOfParams = HParam.values().length;
+    protected short[] paramWeights;   // TODO: Może zrobić final?
+    protected final int numberOfParams = HParam.values().length;
 
     /**
      * Mapa ujednolicająca translację typu wyliczeniowego na indeksy tablicy parametrów i ich wag.
      */
-    private static final EnumMap<HParam, Integer> enumToInt = generateEnumToInt();
+    protected static final EnumMap<HParam, Integer> enumToInt = generateEnumToInt();
 
-    private static EnumMap<HParam, Integer> generateEnumToInt () {
+    protected static EnumMap<HParam, Integer> generateEnumToInt () {
         EnumMap<HParam, Integer> map = new EnumMap<>(HParam.class);
         int i = 0;
         for (HParam param : HParam.values()) {
@@ -98,7 +98,7 @@ public class Heuristic {
      * @param player Numer gracza z którego perspektywy należy wyliczyć wartość oceny
      * @return Tablica wartości parametrów danego stanu gry (np. liczba pionków)
      */
-    private int[] getParams (State state, int player) {
+    protected int[] getParams (State state, int player) {
         int[] params = new int[numberOfParams];
         for (int i = 0; i < numberOfParams; i++) params[i] = 0; // TODO: Tymczasowe rozwiązanie, w pełnej implementacji należy usunąć.
 
@@ -143,8 +143,10 @@ public class Heuristic {
 
         params[enumToInt(HParam.CORNER_PAWN)] = paramCornerPawn(state, player);
         params[enumToInt(HParam.CORNER_KING)] = paramCornerKing(state, player);
+        params[enumToInt(HParam.DOUBLE_CORNER)] = paramDoubleCorner(state, player);
         params[enumToInt(HParam.CORNER_ENEMY_PAWN)] = paramCornerEnemyPawn(state, player);
         params[enumToInt(HParam.CORNER_ENEMY_KING)] = paramCornerEnemyKing(state, player);
+        params[enumToInt(HParam.DOUBLE_ENEMY_CORNER)] = paramDoubleEnemyCorner(state, player);
 
         params[enumToInt(HParam.TRIANGLE_PATTERN)] = paramTrianglePattern(state, player);
         params[enumToInt(HParam.OREO_PATTERN)] = paramOreoPattern(state, player);
@@ -171,211 +173,219 @@ public class Heuristic {
     (jeśli np. chcemy podnieść liczbę damek do kwadratu).
      */
 
-    private int paramPawns (State s, int p) {
+    protected int paramPawns (State s, int p) {
         return s.getNumberOfPawns(p, false);
     }
 
-    private int paramKings (State s, int p) {
+    protected int paramKings (State s, int p) {
         return s.getNumberOfPawns(p, true);
     }
 
-    private int paramEnemyPawns (State s, int p) {
+    protected int paramEnemyPawns (State s, int p) {
         return s.getNumberOfPawns(s.opponent(p), false);
     }
 
-    private int paramEnemyKings (State s, int p) {
+    protected int paramEnemyKings (State s, int p) {
         return s.getNumberOfPawns(s.opponent(p), true);
     }
 
-    private int paramSafePawns (State s, int p) {
+    protected int paramSafePawns (State s, int p) {
         return s.getNumberOfSafePawns(p, false);
     }
 
-    private int paramSafeKings (State s, int p) {
+    protected int paramSafeKings (State s, int p) {
         return s.getNumberOfSafePawns(p, true);
     }
 
-    private int paramSafeEnemyPawns(State s, int p) {
+    protected int paramSafeEnemyPawns(State s, int p) {
         return s.getNumberOfSafePawns(s.opponent(p), false);
     }
 
-    private int paramSafeEnemyKings(State s, int p) {
+    protected int paramSafeEnemyKings(State s, int p) {
         return s.getNumberOfSafePawns(s.opponent(p), true);
     }
 
-    private int paramMovablePawns(State s, int p) {
+    protected int paramMovablePawns(State s, int p) {
         return s.getNumberOfMovablePawns(p, false);
     }
 
-    private int paramMovableKings(State s, int p) {
+    protected int paramMovableKings(State s, int p) {
         return s.getNumberOfMovablePawns(p, true);
     }
 
-    private int paramMovableEnemyPawns(State s, int p) {
+    protected int paramMovableEnemyPawns(State s, int p) {
         return s.getNumberOfMovablePawns(s.opponent(p), false);
     }
 
-    private int paramMovableEnemyKings(State s, int p) {
+    protected int paramMovableEnemyKings(State s, int p) {
         return s.getNumberOfMovablePawns(s.opponent(p), true);
     }
 
-    private int paramPossibleMoves (State s, int p) {
+    protected int paramPossibleMoves (State s, int p) {
         return s.getNumberOfPossibleMoves(p);
     }
 
-    private int paramPossibleEnemyMoves(State s, int p) {
+    protected int paramPossibleEnemyMoves(State s, int p) {
         return s.getNumberOfPossibleMoves(s.opponent(p));
     }
 
-    private int paramDistanceToPromotion(State s, int p) {
+    protected int paramDistanceToPromotion(State s, int p) {
         return s.getAggregatedDistanceToPromotionLine(p);
     }
 
-    private int paramDistanceToEnemyPromotion(State s, int p) {
+    protected int paramDistanceToEnemyPromotion(State s, int p) {
         return s.getAggregatedDistanceToPromotionLine(s.opponent(p));
     }
 
-    private int paramUnoccupiedPromotionFields(State s, int p) {
+    protected int paramUnoccupiedPromotionFields(State s, int p) {
         return s.getNumberOfUnoccupiedPromotionFields(p);
     }
 
-    private int paramUnoccupiedEnemyPromotionFields(State s, int p) {
+    protected int paramUnoccupiedEnemyPromotionFields(State s, int p) {
         return s.getNumberOfUnoccupiedPromotionFields(s.opponent(p));
     }
 
-    private int paramLowermostPawns (State s, int p) {
+    protected int paramLowermostPawns (State s, int p) {
         return s.getNumberOfLowermostPawns(p, false);
     }
 
-    private int paramLowermostKings (State s, int p) {
+    protected int paramLowermostKings (State s, int p) {
         return s.getNumberOfLowermostPawns(p, true);
     }
 
-    private int paramLowermostEnemyPawns (State s, int p) {
+    protected int paramLowermostEnemyPawns (State s, int p) {
         return s.getNumberOfLowermostPawns(s.opponent(p), false);
     }
 
-    private int paramLowermostEnemyKings (State s, int p) {
+    protected int paramLowermostEnemyKings (State s, int p) {
         return s.getNumberOfLowermostPawns(s.opponent(p), true);
     }
 
-    private int paramCentralPawns (State s, int p) {
+    protected int paramCentralPawns (State s, int p) {
         return s.getNumberOfCentralPawns(p, false);
     }
 
-    private int paramCentralKings (State s, int p) {
+    protected int paramCentralKings (State s, int p) {
         return s.getNumberOfCentralPawns(p, true);
     }
 
-    private int paramCentralEnemyPawns (State s, int p) {
+    protected int paramCentralEnemyPawns (State s, int p) {
         return s.getNumberOfCentralPawns(s.opponent(p), false);
     }
 
-    private int paramCentralEnemyKings (State s, int p) {
+    protected int paramCentralEnemyKings (State s, int p) {
         return s.getNumberOfCentralPawns(s.opponent(p), true);
     }
 
-    private int paramUppermostPawns (State s, int p) {
+    protected int paramUppermostPawns (State s, int p) {
         return s.getNumberOfUppermostPawns(p, false);
     }
 
-    private int paramUppermostKings (State s, int p) {
+    protected int paramUppermostKings (State s, int p) {
         return s.getNumberOfUppermostPawns(p, true);
     }
 
-    private int paramUppermostEnemyPawns (State s, int p) {
+    protected int paramUppermostEnemyPawns (State s, int p) {
         return s.getNumberOfUppermostPawns(s.opponent(p), false);
     }
 
-    private int paramUppermostEnemyKings (State s, int p) {
+    protected int paramUppermostEnemyKings (State s, int p) {
         return s.getNumberOfUppermostPawns(s.opponent(p), true);
     }
 
-    private int paramLonerPawns (State s, int p) {
+    protected int paramLonerPawns (State s, int p) {
         return s.getNumberOfLonerPawns(p, false);
     }
 
-    private int paramLonerKings (State s, int p) {
+    protected int paramLonerKings (State s, int p) {
         return s.getNumberOfLonerPawns(p, true);
     }
 
-    private int paramLonerEnemyPawns (State s, int p) {
+    protected int paramLonerEnemyPawns (State s, int p) {
         return s.getNumberOfLonerPawns(s.opponent(p), false);
     }
 
-    private int paramLonerEnemyKings (State s, int p) {
+    protected int paramLonerEnemyKings (State s, int p) {
         return s.getNumberOfLonerPawns(s.opponent(p), true);
     }
 
-    private int paramCornerPawn (State s, int p) {
+    protected int paramCornerPawn (State s, int p) {
         return s.presenceOfCornerPawn(p, false) ? 1 : 0;
     }
 
-    private int paramCornerKing (State s, int p) {
+    protected int paramCornerKing (State s, int p) {
         return s.presenceOfCornerPawn(p, true) ? 1 : 0;
     }
 
-    private int paramCornerEnemyPawn (State s, int p) {
+    protected int paramDoubleCorner (State s, int p) {
+        return s.presenceOfDoubleCorner(p) ? 1 : 0;
+    }
+
+    protected int paramCornerEnemyPawn (State s, int p) {
         return s.presenceOfCornerPawn(s.opponent(p), false) ? 1 : 0;
     }
 
-    private int paramCornerEnemyKing (State s, int p) {
+    protected int paramCornerEnemyKing (State s, int p) {
         return s.presenceOfCornerPawn(s.opponent(p), true) ? 1 : 0;
     }
 
-    private int paramTrianglePattern (State s, int p) {
+    protected int paramDoubleEnemyCorner (State s, int p) {
+        return s.presenceOfDoubleCorner(s.opponent(p)) ? 1 : 0;
+    }
+
+    protected int paramTrianglePattern (State s, int p) {
         return s.presenceOfTrianglePattern(p) ? 1 : 0;
     }
 
-    private int paramOreoPattern (State s, int p) {
+    protected int paramOreoPattern (State s, int p) {
         return s.presenceOfOreoPattern(p) ? 1 : 0;
     }
 
-    private int paramBridgePattern (State s, int p) {
+    protected int paramBridgePattern (State s, int p) {
         return s.presenceOfBridgePattern(p) ? 1 : 0;
     }
 
-    private int paramDogPattern (State s, int p) {
+    protected int paramDogPattern (State s, int p) {
         return s.presenceOfDogPattern(p) ? 1 : 0;
     }
 
-    private int paramEnemyTrianglePattern (State s, int p) {
+    protected int paramEnemyTrianglePattern (State s, int p) {
         return s.presenceOfTrianglePattern(s.opponent(p)) ? 1 : 0;
     }
 
-    private int paramEnemyOreoPattern (State s, int p) {
+    protected int paramEnemyOreoPattern (State s, int p) {
         return s.presenceOfOreoPattern(s.opponent(p)) ? 1 : 0;
     }
 
-    private int paramEnemyBridgePattern (State s, int p) {
+    protected int paramEnemyBridgePattern (State s, int p) {
         return s.presenceOfBridgePattern(s.opponent(p)) ? 1 : 0;
     }
 
-    private int paramEnemyDogPattern (State s, int p) {
+    protected int paramEnemyDogPattern (State s, int p) {
         return s.presenceOfDogPattern(s.opponent(p)) ? 1 : 0;
     }
 
-    private int paramBlockingPieces (State s, int p) {
+    protected int paramBlockingPieces (State s, int p) {
         return s.getNumberOfBlockingPieces(p);
     }
 
-    private int paramBlockingLines (State s, int p) {
+    protected int paramBlockingLines (State s, int p) {
         return s.getNumberOfBlockingLines(p);
     }
 
-    private int paramLongestBlockingLine (State s, int p) {
+    protected int paramLongestBlockingLine (State s, int p) {
         return s.getLengthOfTheLongestBlockingLine(p);
     }
 
-    private int paramBlockingEnemyPieces (State s, int p) {
+    protected int paramBlockingEnemyPieces (State s, int p) {
         return s.getNumberOfBlockingPieces(s.opponent(p));
     }
 
-    private int paramEnemyBlockingLines (State s, int p) {
+    protected int paramEnemyBlockingLines (State s, int p) {
         return s.getNumberOfBlockingLines(s.opponent(p));
     }
 
-    private int paramLongestEnemyBlockingLine (State s, int p) {
+    protected int paramLongestEnemyBlockingLine (State s, int p) {
         return s.getLengthOfTheLongestBlockingLine(s.opponent(p));
     }
 

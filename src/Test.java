@@ -142,6 +142,10 @@ public class Test {
         multipleDuels(c1, c2, numberOfDuels);
     }
 
+    private static void testChildHeuristic () {
+        //
+    }
+
     private static void testHumanVsAI () {
         int depth = 3;
         short[] weights = getWeights1();
@@ -156,7 +160,7 @@ public class Test {
     private static void testOneParamInGame () {
         int depth = 3;
         Heuristic h = new Heuristic((short)0);
-        h.changeParamWeight(Heuristic.enumToInt(HParam.LONGEST_BLOCKING_LINE), (short)1);
+        h.changeParamWeight(Heuristic.enumToInt(HParam.DOUBLE_CORNER), (short)1);
         PlayerComputer p1 = new PlayerComputer(h, depth);
         PlayerHuman p2 = new PlayerHuman();
         GameHandler game = new GameHandler(p1, p2);
@@ -174,6 +178,16 @@ public class Test {
 //                {0, 0, 0, 0, 0, 0, 0, 0},
 //                {0, 0, 0, 0, 0, 0, 0, 0}
 //        };
+//        int[][] board = new int[][] {
+//                {0, -1, 0, -1, 0, -1, 0, -1},
+//                {-1, 0, -1, 0, -1, 0, -1, 0},
+//                {0, -1, 0, -1, 0, -1, 0, -1},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {1, 0, 1, 0, 1, 0, 1, 0},
+//                {0, 1, 0, 1, 0, 1, 0, 1},
+//                {1, 0, 1, 0, 1, 0, 1, 0}
+//        };
         int[][] board = new int[][] {
                 {0, -1, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0},
@@ -186,7 +200,7 @@ public class Test {
         };
         State state = new State(board);
         Heuristic h = new Heuristic((short)0);
-        h.changeParamWeight(Heuristic.enumToInt(HParam.LONGEST_BLOCKING_LINE), (short)1);
+        h.changeParamWeight(Heuristic.enumToInt(HParam.DOUBLE_CORNER), (short)1);
         int eval = h.evaluate(state, 1);
         state.printBoardWithCoordinates();
         System.out.println("Wartość oceny: " + eval);
@@ -198,5 +212,6 @@ public class Test {
 //        testHumanVsAI();
 //        testOneParamInGame();
         testOneParamOneState();
+//        testChildHeuristic();
     }
 }

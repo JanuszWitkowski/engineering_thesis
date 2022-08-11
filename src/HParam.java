@@ -38,9 +38,11 @@ public enum HParam {
     LONER_ENEMY_KINGS,
     CORNER_PAWN,
     CORNER_KING,
+    DOUBLE_CORNER,
     CORNER_ENEMY_PAWN,
     CORNER_ENEMY_KING,
-    TRIANGLE_PATTERN,   // pattern params can only have value of 0 or 1; patterns are taken from [1] page 6
+    DOUBLE_ENEMY_CORNER,
+    TRIANGLE_PATTERN,   // pattern params can only have value of 0 or 1; some patterns are taken from [1] page 6
     OREO_PATTERN,
     BRIDGE_PATTERN,
     DOG_PATTERN,

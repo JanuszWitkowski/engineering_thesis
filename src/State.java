@@ -694,6 +694,19 @@ public class State {
         return ownerOfField(row, col) == player && isKing == isKing(row, col);
     }
 
+    public boolean presenceOfDoubleCorner (int player) {
+        int n1, n2;
+        if (player == 1) {
+            n1 = 32; n2 = 28;
+        } else {
+            n1 = 1; n2 = 5;
+        }
+        Pair p1 = numberToPair(n1), p2 = numberToPair(n2);
+        int row1 = p1.l(), col1 = p1.r(), row2 = p2.l(), col2 = p2.r();
+        return ownerOfField(row1, col1) == player && !isKing(row1, col1) &&
+                ownerOfField(row2, col2) == player && !isKing(row2, col2);
+    }
+
     public boolean presenceOfTrianglePattern (int player) {     // UWAGA: DOSTOSOWANE DO dimension == 8 !!
         int n1, n2, n3;
         if (player == 1) {
