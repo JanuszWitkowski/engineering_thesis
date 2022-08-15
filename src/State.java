@@ -21,6 +21,7 @@ public class State {
     private ArrayList<Integer> creationMove = null;     // Ruch który przyczynił się do stworzenia tego stanu gry.
     private ArrayList<Integer> lastMove = null;     // Zachowuje poprzedni podruch w całym ruchu, aby sprawdzić np. bicia.
     private ArrayList<ArrayList<Integer>> currentPlayerMoves;
+//    private boolean captureMoveDoesNotExist = true;     // PROBLEM: Zmeinia się ten parametr nawet gdy sprawdzamy PossibleMoves dla oponenta...
     private static final char[] playerSymbol = new char[]{'X', 'x', ' ', 'o', 'O'};
     private static final char[] numbersToBigLetters = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'};
     private static final char[] numbersToSmallLetters = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'};
@@ -118,6 +119,10 @@ public class State {
     public ArrayList<ArrayList<Integer>> currentPlayerMoves () {
         return this.currentPlayerMoves;
     }
+
+//    public boolean captureMoveDoesNotExist() {
+//        return this.captureMoveDoesNotExist;
+//    }
 
 
     // PRIVATE METHODS
@@ -419,19 +424,19 @@ public class State {
      */
     public ArrayList<ArrayList<Integer>> getPossibleMoves (int player) {
         ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
-        boolean captureMoveDoesNotExists = true;
+        boolean captureMoveDoesNotExist = true;
         for (int row = 0; row < dimension; row++) {
             for (int col = 0; col < dimension; col++) {
                 if (ownerOfField(row, col) == player) {
                     ArrayList<ArrayList<Integer>> captureMoves = getCaptureMovesForOnePiece(row, col);
                     if (!captureMoves.isEmpty()) {
-                        captureMoveDoesNotExists = false;
+                        captureMoveDoesNotExist = false;
                         possibleMoves.addAll(captureMoves);
                     }
                 }
             }
         }
-        if (captureMoveDoesNotExists) {
+        if (captureMoveDoesNotExist) {
             for (int row = 0; row < dimension; row++) {
                 for (int col = 0; col < dimension; col++) {
                     if (ownerOfField(row, col) == player) {
@@ -586,6 +591,19 @@ public class State {
     public int getNumberOfPossibleMoves (int player) {
         if (player == currentPlayer) return currentPlayerMoves.size();
         return getPossibleMoves(player).size();
+    }
+
+    public boolean doesCaptureMoveExist (int player) {
+//        if (player == currentPlayer) return !captureMoveDoesNotExist();
+        return false;
+    }
+
+    public int getNumberOfCaptureMoves (int player) {
+        return 0;
+    }
+
+    public int getLengthOfTheLargestCaptureMove(int player) {
+        return 0;
     }
 
     public int getAggregatedDistanceToPromotionLine (int player) {

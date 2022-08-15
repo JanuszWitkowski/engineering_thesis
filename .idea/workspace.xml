@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Minor change">
-      <change afterPath="$PROJECT_DIR$/src/TmpHeuristic.java" afterDir="false" />
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Add DOUBLE_CORNER param">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HParam.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Heuristic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MinMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinMax.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/State.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +93,8 @@
       <workItem from="1660041532322" duration="8199000" />
       <workItem from="1660123161491" duration="16551000" />
       <workItem from="1660234709387" duration="1602000" />
-      <workItem from="1660237721638" duration="1532000" />
+      <workItem from="1660237721638" duration="4998000" />
+      <workItem from="1660570542218" duration="1978000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1657570133924</created>
@@ -383,7 +383,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660141725548</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Add DOUBLE_CORNER param">
+      <created>1660240808578</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1660240808578</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -413,7 +420,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Make HParam enum to integer conversion for indexing in Heuristic" />
     <MESSAGE value="Start configuring UI" />
     <MESSAGE value="Complete UI" />
     <MESSAGE value="Add draws support&#10;&#10;AI now relies on its heuristic only (no win detection)" />
@@ -438,6 +444,7 @@
     <MESSAGE value="Make interface for testing specific params" />
     <MESSAGE value="Minor fix" />
     <MESSAGE value="Minor change" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor change" />
+    <MESSAGE value="Add DOUBLE_CORNER param" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add DOUBLE_CORNER param" />
   </component>
 </project>
