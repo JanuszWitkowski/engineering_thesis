@@ -1,4 +1,9 @@
-import java.util.Arrays;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.EnumMap;
 import java.util.Random;
 
@@ -6,10 +11,13 @@ import java.util.Random;
  * Obsługuje liczenie wartości funkcji oceny heurystycznej.
  * Ocena heurystyczna opiera się o szereg parametrów (jak np. liczba pionków, dostępnych ruchów), którym każda heurystyka
  * przypisuje wagi. Suma ważona tych parametrów daje wartość oceny danego stanu gry.
+ * Klasa obsługuje również zapis/odczyt wag parametrów z pliku.
  */
 public class Heuristic {
     protected short[] paramWeights;   // TODO: Może zrobić final?
-    protected final int numberOfParams = HParam.values().length;
+    protected static final int numberOfParams = HParam.values().length;
+
+    protected static final String defaultSaveDirectory = "../../../heuristics/";
 
     /**
      * Mapa ujednolicająca translację typu wyliczeniowego na indeksy tablicy parametrów i ich wag.
@@ -60,6 +68,103 @@ public class Heuristic {
     public Heuristic (short[] values) {
         assert values.length == numberOfParams;
         this.paramWeights = values;
+    }
+
+    //Poniżej znajdują się metody do zapisu i odczytu wag parametrów heurystyki.
+
+    public static void savePopulation (short[][] population, String filename) {
+        int size = population.length;
+        assert size > 0;
+        int length = population[0].length;
+        assert length == numberOfParams;
+        try (FileWriter writer = new FileWriter(filename)) {
+            writer.write(length + " " + size + '\n');
+            for (int i = 0; i < size; ++i) {
+                for (int j = 0; j < length; ++j)
+                    writer.write(population[i][j] + " ");
+                writer.write("\n");
+            }
+            writer.write("\n");
+        } catch (IOException e) {
+            System.err.println("ERROR: Zapis populacji do pliku nie powiódł się.");
+        }
+    }
+
+    public static void savePopulation (short[][] population) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+        String filename = defaultSaveDirectory + dtf.format(LocalDateTime.now()) + ".txt";
+        savePopulation(population, filename);
+    }
+
+    public static void save (short[] values, String filename) {
+        int length = values.length;
+        assert length == numberOfParams;
+        try (FileWriter writer = new FileWriter(filename)) {
+            writer.write(length + " " + 1 + '\n');
+            for (int i = 0; i < length; ++i)
+                writer.write(values[i] + " ");
+            writer.write("\n");
+        } catch (IOException e) {
+            System.err.println("ERROR: Zapis heurystyki do pliku nie powiódł się.");
+        }
+    }
+
+    public static void save (short[] values) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+        String filename = defaultSaveDirectory + dtf.format(LocalDateTime.now()) + ".txt";
+        save(values, filename);
+    }
+
+    public void save (String filename) {
+        save(this.paramWeights, filename);
+    }
+
+    public void save () {
+        save(this.paramWeights);
+    }
+
+    public static short[][] loadPopulation (String filename) {
+        short[][] population = null;
+        try (FileReader reader = new FileReader(filename)) {
+            //
+        } catch (IOException e) {
+            System.err.println("ERROR: Odczyt populacji nie powiódł się.");
+        }
+        return population;
+    }
+
+    public static short[][] loadPopulation () {
+        return loadPopulation(defaultSaveDirectory);
+    }
+
+    public static short[] load (String filename) {
+        short[] values = null;
+        try (FileReader reader = new FileReader(filename)) {
+            int length = reader.read();
+        } catch (IOException e) {
+            System.err.println("ERROR: Odczyt populacji nie powiódł się.");
+        }
+        return values;
+    }
+
+    public static short[] load () {
+        return load(defaultSaveDirectory);
+    }
+
+    public static Heuristic loadAndRecreate (String filename) {
+        return null;
+    }
+
+    public static Heuristic loadAndRecreate () {
+        return loadAndRecreate(defaultSaveDirectory);
+    }
+
+    public void loadWeights (String filename) {
+        //
+    }
+
+    public void loadWeights () {
+        loadWeights(defaultSaveDirectory);
     }
 
     /**

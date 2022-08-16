@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Add DOUBLE_CORNER param">
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Add &quot;capture moves&quot; params WITH NO FUNCTIONALITY">
+      <change afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HParam.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Heuristic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MinMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinMax.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +93,8 @@
       <workItem from="1660123161491" duration="16551000" />
       <workItem from="1660234709387" duration="1602000" />
       <workItem from="1660237721638" duration="4998000" />
-      <workItem from="1660570542218" duration="1978000" />
+      <workItem from="1660570542218" duration="3098000" />
+      <workItem from="1660632407513" duration="7659000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1657570133924</created>
@@ -390,7 +390,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660240808578</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Add &quot;capture moves&quot; params WITH NO FUNCTIONALITY">
+      <created>1660574232750</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1660574232750</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -420,7 +427,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Start configuring UI" />
     <MESSAGE value="Complete UI" />
     <MESSAGE value="Add draws support&#10;&#10;AI now relies on its heuristic only (no win detection)" />
     <MESSAGE value="Fix draw counter reset" />
@@ -445,6 +451,7 @@
     <MESSAGE value="Minor fix" />
     <MESSAGE value="Minor change" />
     <MESSAGE value="Add DOUBLE_CORNER param" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add DOUBLE_CORNER param" />
+    <MESSAGE value="Add &quot;capture moves&quot; params WITH NO FUNCTIONALITY" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add &quot;capture moves&quot; params WITH NO FUNCTIONALITY" />
   </component>
 </project>

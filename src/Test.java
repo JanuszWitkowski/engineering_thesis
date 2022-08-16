@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 /**
@@ -206,12 +208,35 @@ public class Test {
         System.out.println("Wartość oceny: " + eval);
     }
 
+    private static void testDateTimeFormatter () {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+        LocalDateTime now = LocalDateTime.now();
+        String s = dtf.format(now) + ".txt";
+        System.out.println(s);
+    }
+
+    private static void testSave () {
+        short[] values = getWeights1();
+        System.out.println(Arrays.toString(values));
+        Heuristic.save(values);
+    }
+
+    private static void testLoad (String filename) {
+        short[] values = Heuristic.load(filename);
+        System.out.println(Arrays.toString(values));
+    }
+
+    private static void testSaveLoad () {
+        //
+    }
 
     public static void main (String[] args) {
-        testAIvsAI(5, 5, 10);
+//        testAIvsAI(5, 5, 10);
 //        testHumanVsAI();
 //        testOneParamInGame();
 //        testOneParamOneState();
 //        testChildHeuristic();
+//        testDateTimeFormatter();
+        testSave();
     }
 }
