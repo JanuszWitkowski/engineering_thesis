@@ -94,7 +94,7 @@ public class Genetic {
             // Zapisz populację i usuń poprzednią.
             FileHandler.savePopulation(population);
             FileHandler.removePopulationsExceptOne();
-            break;  // TODO: Remove this.
+            break;  // TODO: Remove this and implement proper stop condition.
         }
         // Przeprowadź ponowną selekcję i wyznacz najlepszego.
         selection(population);

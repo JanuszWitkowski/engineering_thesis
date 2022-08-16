@@ -1,5 +1,6 @@
 import java.util.EnumMap;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Obsługuje liczenie wartości funkcji oceny heurystycznej.
@@ -36,7 +37,7 @@ public class Heuristic {
      */
     public Heuristic() {    // TODO: Zastanowić się czy losować wartości w konstruktorze, czy poza nim (chodzi o występowanie klasy Random).
         paramWeights = new short[numberOfParams];
-        Random rng = new Random();
+        Random rng = ThreadLocalRandom.current();
         int rangeMin = Short.MIN_VALUE, rangeMax = Short.MAX_VALUE;
         int range = rangeMax - rangeMin + 1;
         for (int i = 0; i < numberOfParams; ++i) {

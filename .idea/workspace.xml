@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Start implementing GA (Genetic Algorithm)">
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Create outline for GA">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -98,7 +99,7 @@
       <workItem from="1660234709387" duration="1602000" />
       <workItem from="1660237721638" duration="4998000" />
       <workItem from="1660570542218" duration="3098000" />
-      <workItem from="1660632407513" duration="23081000" />
+      <workItem from="1660632407513" duration="23752000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1657570133924</created>
@@ -422,7 +423,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660669225131</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Create outline for GA">
+      <created>1660673365609</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1660673365609</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -453,7 +461,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Need to fix something in minimax or evaluation" />
     <MESSAGE value="Something is still wrong (?) with evaluating" />
     <MESSAGE value="Fix opponent(int player)" />
     <MESSAGE value="Fix issue with game results interpretation" />
@@ -478,6 +485,7 @@
     <MESSAGE value="Start implementing save\load methods for heuristics" />
     <MESSAGE value="Implement save\load methods for heuristics" />
     <MESSAGE value="Start implementing GA (Genetic Algorithm)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Start implementing GA (Genetic Algorithm)" />
+    <MESSAGE value="Create outline for GA" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create outline for GA" />
   </component>
 </project>
