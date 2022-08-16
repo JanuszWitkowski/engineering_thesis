@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Start implementing save\load methods for heuristics">
-      <change afterPath="$PROJECT_DIR$/src/FileHandler.java" afterDir="false" />
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Implement save\load methods for heuristics">
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-16_18-42-14.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Heuristic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MinMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinMax.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -101,7 +101,7 @@
       <workItem from="1660234709387" duration="1602000" />
       <workItem from="1660237721638" duration="4998000" />
       <workItem from="1660570542218" duration="3098000" />
-      <workItem from="1660632407513" duration="14026000" />
+      <workItem from="1660632407513" duration="18694000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1657570133924</created>
@@ -411,7 +411,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660642360017</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Implement save\load methods for heuristics">
+      <created>1660663657169</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1660663657169</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -442,7 +449,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Add draws support&#10;&#10;AI now relies on its heuristic only (no win detection)" />
     <MESSAGE value="Fix draw counter reset" />
     <MESSAGE value="Need to fix something in minimax or evaluation" />
     <MESSAGE value="Something is still wrong (?) with evaluating" />
@@ -467,6 +473,7 @@
     <MESSAGE value="Add DOUBLE_CORNER param" />
     <MESSAGE value="Add &quot;capture moves&quot; params WITH NO FUNCTIONALITY" />
     <MESSAGE value="Start implementing save\load methods for heuristics" />
-    <option name="LAST_COMMIT_MESSAGE" value="Start implementing save\load methods for heuristics" />
+    <MESSAGE value="Implement save\load methods for heuristics" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement save\load methods for heuristics" />
   </component>
 </project>

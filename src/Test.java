@@ -1,6 +1,7 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * Klasa testująca program.
@@ -235,6 +236,38 @@ public class Test {
         FileHandler.removeSingleHeuristics();
     }
 
+    private static void testPopulationSaveLoad () {
+        Random rng = new Random();
+        Genetic ga = new Genetic();
+        int populationSize = 100;
+        short[][] population1 = new short[populationSize][HParam.values().length];
+        for (short[] genotype : population1) {
+            for (int i = 0; i < HParam.values().length; ++i) {
+                genotype[i] = ga.randomShort();
+            }
+        }
+//        System.out.println(Arrays.deepToString(population1));
+        FileHandler.savePopulation(population1);
+        short[][] population2 = FileHandler.loadPopulation();
+//        System.out.println(Arrays.deepToString(population2));
+        FileHandler.removePopulationsExceptOne();
+        for (int i = 0; i < populationSize; ++i) {
+            for (int j = 0; j < HParam.values().length; ++j) {
+                if (population1[i][j] != population2[i][j]) {
+                    System.out.println("Brak zgodności!");
+                    return;
+                }
+            }
+        }
+    }
+
+    private static void testRandom () {
+        Random rng = new Random();
+        for (int i = 0; i < 100; ++i) {
+            System.out.print(rng.nextInt(3) + " ");
+        }
+    }
+
     public static void main (String[] args) {
 //        testAIvsAI(5, 5, 10);
 //        testHumanVsAI();
@@ -244,6 +277,8 @@ public class Test {
 //        testDateTimeFormatter();
 //        testSave();
 //        testLoad("heuristics/2022-08-16_15-30-18.txt");
-        testSaveLoad();
+//        testSaveLoad();
+        testPopulationSaveLoad();
+//        testRandom();
     }
 }

@@ -5,8 +5,11 @@ import java.util.Objects;
 
 public class FileHandler {
 
-    protected static final String singleHeuristicsDirectory = "heuristics/single";
-    protected static final String populationsDirectory = "heuristics/populations";
+    private static final String globalDirectory = "heuristics";
+    private static final String singleHeuristicsDirectory = globalDirectory + "/single";
+    private static final String populationsDirectory = globalDirectory + "/populations";
+    private static final String archiveDirectory = globalDirectory + "/archive";
+    private static final String gaOutputDirectory = globalDirectory + "/output";
 
 
     //Poniżej znajdują się metody do zapisu i odczytu wag parametrów heurystyki.
@@ -89,7 +92,7 @@ public class FileHandler {
         File dir = new File(populationsDirectory);
         File[] files = dir.listFiles((dir1, name) -> name.endsWith(".txt"));
         assert files != null;
-        return loadPopulation(files[files.length - 1].getName());
+        return loadPopulation(populationsDirectory + "/" + files[files.length - 1].getName());
     }
 
     public static short[] loadWeights (String filename) {
@@ -144,6 +147,23 @@ public class FileHandler {
             if (!file.isDirectory())
                 if (!file.delete())
                     System.err.println("ERROR: Błąd podczas usuwania plików.");
+    }
+
+    public static void removePopulationsExceptOne () {
+        File dir = new File(populationsDirectory);
+        File[] files = Objects.requireNonNull(dir.listFiles());
+        for (int i = 0; i < files.length - 1; ++i)
+            if (!files[i].isDirectory())
+                if (!files[i].delete())
+                    System.err.println("ERROR: Błąd podczas usuwania plików populacji.");
+    }
+
+    public static void removePopulationsExceptOne (String filename) {
+        File dir = new File(populationsDirectory);
+        for (File file: Objects.requireNonNull(dir.listFiles()))
+            if (!file.getName().equals(filename) && !file.isDirectory())
+                if (!file.delete())
+                    System.err.println("ERROR: Błąd podczas usuwania plików populacji poza jednym wybranym.");
     }
 
 }
