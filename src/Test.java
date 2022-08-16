@@ -218,16 +218,21 @@ public class Test {
     private static void testSave () {
         short[] values = getWeights1();
         System.out.println(Arrays.toString(values));
-        Heuristic.save(values);
+        FileHandler.saveWeights(values);
     }
 
     private static void testLoad (String filename) {
-        short[] values = Heuristic.load(filename);
+        short[] values = FileHandler.loadWeights(filename);
         System.out.println(Arrays.toString(values));
     }
 
     private static void testSaveLoad () {
-        //
+        short[] values = getWeights2();
+        System.out.println(Arrays.toString(values));
+        FileHandler.saveWeights(values);
+        values = FileHandler.loadWeights();
+        System.out.println(Arrays.toString(values));
+        FileHandler.removeSingleHeuristics();
     }
 
     public static void main (String[] args) {
@@ -237,6 +242,8 @@ public class Test {
 //        testOneParamOneState();
 //        testChildHeuristic();
 //        testDateTimeFormatter();
-        testSave();
+//        testSave();
+//        testLoad("heuristics/2022-08-16_15-30-18.txt");
+        testSaveLoad();
     }
 }

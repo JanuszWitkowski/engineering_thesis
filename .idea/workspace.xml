@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Add &quot;capture moves&quot; params WITH NO FUNCTIONALITY">
-      <change afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Start implementing save\load methods for heuristics">
+      <change afterPath="$PROJECT_DIR$/src/FileHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Heuristic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MinMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinMax.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,12 +37,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;protected&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "protected"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/heuristics/single" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.Test">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
@@ -94,7 +101,7 @@
       <workItem from="1660234709387" duration="1602000" />
       <workItem from="1660237721638" duration="4998000" />
       <workItem from="1660570542218" duration="3098000" />
-      <workItem from="1660632407513" duration="7659000" />
+      <workItem from="1660632407513" duration="14026000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1657570133924</created>
@@ -397,7 +404,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660574232750</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Start implementing save\load methods for heuristics">
+      <created>1660642360017</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1660642360017</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -427,7 +441,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Complete UI" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Add draws support&#10;&#10;AI now relies on its heuristic only (no win detection)" />
     <MESSAGE value="Fix draw counter reset" />
     <MESSAGE value="Need to fix something in minimax or evaluation" />
@@ -452,6 +466,7 @@
     <MESSAGE value="Minor change" />
     <MESSAGE value="Add DOUBLE_CORNER param" />
     <MESSAGE value="Add &quot;capture moves&quot; params WITH NO FUNCTIONALITY" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add &quot;capture moves&quot; params WITH NO FUNCTIONALITY" />
+    <MESSAGE value="Start implementing save\load methods for heuristics" />
+    <option name="LAST_COMMIT_MESSAGE" value="Start implementing save\load methods for heuristics" />
   </component>
 </project>
