@@ -59,12 +59,18 @@ public class FileHandler {
         saveWeights(values, filename);
     }
 
-    public void saveWeights(Heuristic h, String filename) {
+    public static void saveWeights(Heuristic h, String filename) {
         saveWeights(h.paramWeights, filename);
     }
 
-    public void saveWeights(Heuristic h) {
+    public static void saveWeights(Heuristic h) {
         saveWeights(h.paramWeights);
+    }
+
+    public static void saveGeneticOutput (short[] genotype) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+        String filename = gaOutputDirectory + "/" + dtf.format(LocalDateTime.now()) + ".txt";
+        saveWeights(genotype, filename);
     }
 
     public static short[][] loadPopulation (String filename) {
