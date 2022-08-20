@@ -73,6 +73,11 @@ public class Heuristic {
         this.paramWeights[index] = value;
     }
 
+    public void changeWeights (short[] values) {
+        assert values.length == this.paramWeights.length;
+        this.paramWeights = values;
+    }
+
     /**
      * Funkcja oceny heurystycznej.
      * @param state Obecny stan gry

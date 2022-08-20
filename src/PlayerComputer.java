@@ -26,6 +26,10 @@ public class PlayerComputer extends Player {
         return true;
     }
 
+    public void changeHeuristicWeights (short[] values) {
+        this.heuristic.changeWeights(values);
+    }
+
     /**
      * Uruchamia algorytm minimax na głębokości oraz danym stanie gry i wykonuje optymalny (zdaniem algorytmu) ruch.
      * @param board Stan gry w którym należy wykonać ruch.

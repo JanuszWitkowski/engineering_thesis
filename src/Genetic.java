@@ -7,24 +7,32 @@ public class Genetic {
 
 //    private final Random rng = new Random();
     private final Random rng = ThreadLocalRandom.current();
+    private final PlayerComputer player1, player2;
+    private final GameHandler game1, game2;
 
     private int populationSize;
     private int parentPopulationSize;
     private double mutationChance;
     private double mutationPercentage = 0.1;
+    private int playerDepth = 1;
 
     private short[] globalBest;
 
     public Genetic () {
-        this(100, 0.1, 0.1);
+        this(100, 0.1, 0.1, 1);
     }
 
-    public Genetic (int populationSize, double mutationChance, double mutationPercentage) {
+    public Genetic (int populationSize, double mutationChance, double mutationPercentage, int playerDepth) {
         while (populationSize % 4 != 0) ++populationSize;
         this.populationSize = populationSize;
         this.parentPopulationSize = populationSize / 2;
         this.mutationChance = mutationChance;
         this.mutationPercentage = mutationPercentage;
+        this.playerDepth = playerDepth;
+        this.player1 = new PlayerComputer(new Heuristic((short) 0), playerDepth);
+        this.player2 = new PlayerComputer(new Heuristic((short) 0), playerDepth);
+        this.game1 = new GameHandler(player1, player2);
+        this.game2 = new GameHandler(player2, player1);
     }
 
     public short randomShort () {
@@ -43,7 +51,39 @@ public class Genetic {
     }
 
     private short[][] selection (short[][] population) {
-        return null;
+        int popSize = population.length;
+        int[][] results = new int[popSize][4];
+        for (int p = 0; p < popSize; ++p) {
+            results[p][0] = p;
+            results[p][1] = 0;
+            results[p][2] = 0;
+            results[p][3] = 0;
+        }
+        // Ewaluacja osobników poprzez przeprowadzenie pojedynków każdy z każdym po 2 gry.
+        for (int p1 = 0; p1 < popSize; ++p1) {
+            for (int p2 = p1 + 1; p2 < popSize; ++p2) {
+                player1.changeHeuristicWeights(population[p1]);
+                player2.changeHeuristicWeights(population[p2]);
+                game1.resetBoard();
+                game2.resetBoard();
+                int result1 = game1.quickGame();
+                int result2 = game2.quickGame();
+                results[p1][1] += result1;
+                results[p2][2] += result1;
+                results[p1][2] += result2;
+                results[p2][1] += result2;
+            }
+        }
+        for (int p = 0; p < popSize; ++p) {
+            results[p][2] *= -1;
+            results[p][3] = results[p][1] + results[p][2];
+        }
+
+        /* REGUŁY SELEKCJI
+        Można zmienić w każdej chwili. */
+        // Sortowanie insertion-sort; TODO: Zmienić może na quick-sort?
+
+        return population;
     }
 
     private short[] crossover (short[] parentA, short[] parentB) {  // TODO: Może losować punkt Xoveru?
