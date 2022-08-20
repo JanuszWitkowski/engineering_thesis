@@ -162,6 +162,9 @@ public class FileHandler {
             if (!files[i].isDirectory())
                 if (!files[i].delete())
                     System.err.println("ERROR: Błąd podczas usuwania plików populacji.");
+        // DEBUG
+        files = Objects.requireNonNull(dir.listFiles());
+        System.out.println("File: " + files[0].getName() + " | " + files.length);
     }
 
     public static void removePopulationsExceptOne (String filename) {

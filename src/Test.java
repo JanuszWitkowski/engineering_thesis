@@ -268,6 +268,14 @@ public class Test {
         }
     }
 
+    private static void testGA () {
+        Genetic ga = new Genetic(20, 0.1, 0.2, 1);
+        short[][] startingPopulation = ga.createStartingPopulation();
+        short[] bestWeights = ga.GA(startingPopulation, 30);
+        System.out.println("BEST: " + Arrays.toString(bestWeights));
+        Heuristic h = new Heuristic(bestWeights);
+    }
+
     public static void main (String[] args) {
 //        testAIvsAI(5, 5, 10);
 //        testHumanVsAI();
@@ -278,7 +286,8 @@ public class Test {
 //        testSave();
 //        testLoad("heuristics/2022-08-16_15-30-18.txt");
 //        testSaveLoad();
-        testPopulationSaveLoad();
+//        testPopulationSaveLoad();
 //        testRandom();
+        testGA();
     }
 }

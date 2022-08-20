@@ -1,9 +1,44 @@
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Genetic {
+    private abstract static class StopCondition {
+        protected final long threshold;
+        protected StopCondition (long threshold) {
+            this.threshold = threshold;
+        }
+        abstract boolean conditionNotMet ();
+    }
+
+    private static class StopConditionTime extends StopCondition {
+        final Instant start = Instant.now();
+        protected StopConditionTime (long threshold) {
+            super(threshold);
+        }
+
+        @Override
+        boolean conditionNotMet() {
+            Instant finish = Instant.now();
+            return Duration.between(start, finish).toSeconds() <= threshold;
+        }
+    }
+
+    private static class StopConditionGenerations extends StopCondition {
+        long generations = 0;
+        protected StopConditionGenerations (long threshold) {
+            super(threshold);
+        }
+
+        @Override
+        boolean conditionNotMet() {
+            ++generations;
+            return generations < threshold;
+        }
+    }
+
     private static final int genotypeSize = HParam.values().length;
-    private static final int crossoverPoint = genotypeSize / 2;
 
 //    private final Random rng = new Random();
     private final Random rng = ThreadLocalRandom.current();
@@ -37,6 +72,11 @@ public class Genetic {
 
     public short randomShort () {
         return (short)(rng.nextInt(Short.MAX_VALUE - Short.MIN_VALUE + 1) + Short.MIN_VALUE);
+    }
+
+    // Temporary function for testing for Bytes.
+    public Byte randomByte () {
+        return (byte)(rng.nextInt(Byte.MAX_VALUE - Byte.MIN_VALUE + 1) + Byte.MIN_VALUE);
     }
 
     // Implementing Fisher–Yates shuffle
@@ -82,12 +122,27 @@ public class Genetic {
         /* REGUŁY SELEKCJI
         Można zmienić w każdej chwili. */
         // Sortowanie insertion-sort; TODO: Zmienić może na quick-sort?
+        for (int i = 1; i < popSize; ++i) {
+            for (int j = i; j > 0; --j) {
+                if (results[j][3] < results[j-1][3]) {
+                    int[] tmp = results[j];
+                    results[j] = results[j-1];
+                    results[j-1] = tmp;
+                }
+            }
+        }
 
-        return population;
+        // Wybierz najlepszych.
+        short[][] parents = new short[parentPopulationSize][population[0].length];
+        for (int i = 0; i < parentPopulationSize; ++i)
+            parents[i] = population[results[i][0]];
+
+        return parents;
     }
 
     private short[] crossover (short[] parentA, short[] parentB) {  // TODO: Może losować punkt Xoveru?
         short[] child = new short[genotypeSize];
+        int crossoverPoint = rng.nextInt(genotypeSize - 2) + 1;
         if (crossoverPoint >= 0)
             System.arraycopy(parentA, 0, child, 0, crossoverPoint);
         if (genotypeSize - crossoverPoint >= 0)
@@ -105,17 +160,20 @@ public class Genetic {
         short[][] population = new short[populationSize][genotypeSize];
         for (int i = 0; i < populationSize; ++i)
             for (int k = 0; k < genotypeSize; ++k)
-                population[i][k] = randomShort();
+//                population[i][k] = randomShort();
+                population[i][k] = randomByte();
         return population;
     }
 
-    public short[] GA (short[][] population) {
+    public short[] GA (short[][] population, long threshold) {
+        StopCondition stop = new StopConditionTime(threshold);
+        int gen = 0;
         // Dopóki nie osiągniemy kryterium stopu:
-        while (true) {
+        while (stop.conditionNotMet()) {
+            System.out.println("Generation " + ++gen);
             // Selekcja populacji rodziców (każdy gra z każdym, patrzymy kto ile wygrywał jako biały/czarny).
             short[][] parents = selection(population);
             // Krzyżowanie (wyznaczamy pary rodziców, każda para rodziców ma dwoje dzieci).
-            assert parents != null;
             shuffleArray(parents);
             short[][] children = new short[parentPopulationSize][genotypeSize];
             for (int i = 0; i < parentPopulationSize; i += 2) {
@@ -133,15 +191,13 @@ public class Genetic {
             }
             // Zapisz populację i usuń poprzednią.
             FileHandler.savePopulation(population);
-            FileHandler.removePopulationsExceptOne();
-            break;  // TODO: Remove this and implement proper stop condition.
+//            FileHandler.removePopulationsExceptOne();
         }
         // Przeprowadź ponowną selekcję i wyznacz najlepszego.
-        selection(population);
+        short[] best = selection(population)[0];
         // Zapisz do pliku w heuristics/output/ najlepszego i go zwróć.
-        FileHandler.saveGeneticOutput(globalBest);
-        return globalBest;
-        // (V2) Pętla to: Krzyżowanie, Mutacja, Selekcja. Dzięki temu nie powtarzamy selekcji po wyjściu z pętli.
+        FileHandler.saveGeneticOutput(best);
+        return best;
     }
 
 }
