@@ -51,7 +51,7 @@ public class Genetic {
     private double mutationPercentage = 0.1;
     private int playerDepth = 1;
 
-    private short[] globalBest;
+    private short[] bestSoFar;
 
     public Genetic () {
         this(100, 0.1, 0.1, 1);
@@ -88,6 +88,10 @@ public class Genetic {
             ar[index] = ar[i];
             ar[i] = tmp;
         }
+    }
+
+    private boolean areTwoGenotypesTheSame (short[] g1, short[] g2) {
+        return false;
     }
 
     private short[][] selection (short[][] population) {
@@ -133,6 +137,7 @@ public class Genetic {
         }
 
         // Wybierz najlepszych.
+        bestSoFar = population[results[0][0]];
         short[][] parents = new short[parentPopulationSize][population[0].length];
         for (int i = 0; i < parentPopulationSize; ++i)
             parents[i] = population[results[i][0]];
@@ -153,7 +158,9 @@ public class Genetic {
     private void mutation (short[] genotype) {
         int index = rng.nextInt(genotypeSize);
         double modifier = rng.nextBoolean() ? 1.0 : -1.0;
-        genotype[index] = (short) (genotype[index] + (short)(modifier * mutationPercentage * genotype[index]));
+//        genotype[index] = (short) (genotype[index] + (short)(modifier * mutationPercentage * genotype[index]));
+//        genotype[index] = randomShort();
+        genotype[index] = randomByte();
     }
 
     public short[][] createStartingPopulation () {
@@ -166,7 +173,9 @@ public class Genetic {
     }
 
     public short[] GA (short[][] population, long threshold) {
-        StopCondition stop = new StopConditionTime(threshold);
+        StopCondition stop;
+//        stop = new StopConditionTime(threshold);
+        stop = new StopConditionGenerations(threshold);
         int gen = 0;
         // Dopóki nie osiągniemy kryterium stopu:
         while (stop.conditionNotMet()) {
@@ -196,8 +205,8 @@ public class Genetic {
         // Przeprowadź ponowną selekcję i wyznacz najlepszego.
         short[] best = selection(population)[0];
         // Zapisz do pliku w heuristics/output/ najlepszego i go zwróć.
-        FileHandler.saveGeneticOutput(best);
-        return best;
+        FileHandler.saveGeneticOutput(bestSoFar);
+        return bestSoFar;
     }
 
 }
