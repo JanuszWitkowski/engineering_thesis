@@ -32,20 +32,6 @@ public class Heuristic {
     }
 
     /**
-     * Konstruktor losujący wartości wag. W trakcie implementacji algorytmu genetycznego może się okazać,
-     * że logikę tworzenia wag parametrów należy umieścić poza odpowiedzialność klasy heurystyki.
-     */
-    public Heuristic() {    // TODO: Zastanowić się czy losować wartości w konstruktorze, czy poza nim (chodzi o występowanie klasy Random).
-        paramWeights = new short[numberOfParams];
-        Random rng = ThreadLocalRandom.current();
-        int rangeMin = Short.MIN_VALUE, rangeMax = Short.MAX_VALUE;
-        int range = rangeMax - rangeMin + 1;
-        for (int i = 0; i < numberOfParams; ++i) {
-            paramWeights[i] = (short)(rng.nextInt(range) + rangeMin);
-        }
-    }
-
-    /**
      * Konstruktor służący bardziej jako narzędzie do testowania/debugowania.
      * Ustawia wartość wagi każdego parametru na jedną podaną wartość.
      * @param v Wartość do przypisania dla wagi każdego parametru

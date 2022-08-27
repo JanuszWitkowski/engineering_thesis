@@ -1,24 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Start implementation of selection method in GA">
-      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-27_12-20-07.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-27_12-20-04.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-27_12-20-05.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-27_12-20-06.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-27_12-20-07.txt" afterDir="false" />
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Implement testing methods for GA">
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-27_15-13-18.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-27_15-17-30.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RNG.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics/output/2022-08-20_21-18-43.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics/output/2022-08-20_21-23-36.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics/output/2022-08-20_21-28-31.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics/output/2022-08-20_21-32-25.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics/output/2022-08-20_21-42-17.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics/output/2022-08-20_21-49-54.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics/output/2022-08-21_11-03-25.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics/output/2022-08-21_11-08-11.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Heuristic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PlayerComputer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlayerComputer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -123,14 +112,7 @@
       <workItem from="1660632407513" duration="24568000" />
       <workItem from="1661013668705" duration="9461000" />
       <workItem from="1661072483671" duration="1597000" />
-      <workItem from="1661591874860" duration="3039000" />
-    </task>
-    <task id="LOCAL-00001" summary="Initial commit">
-      <created>1657570133924</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1657570133924</updated>
+      <workItem from="1661591874860" duration="10903000" />
     </task>
     <task id="LOCAL-00002" summary="Outline heuristic params">
       <created>1657575892305</created>
@@ -468,7 +450,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661017785705</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Implement testing methods for GA">
+      <created>1661596113020</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1661596113020</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -485,7 +474,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="origin/ga-stagnation" />
                       </list>
                     </value>
                   </entry>
@@ -499,7 +488,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Fix opponent(int player)" />
     <MESSAGE value="Fix issue with game results interpretation" />
     <MESSAGE value="Fix index out of bounds error in makeMove interface fo human" />
     <MESSAGE value="Comment and clean-up code" />
@@ -524,6 +512,7 @@
     <MESSAGE value="Create outline for GA" />
     <MESSAGE value="Minor change" />
     <MESSAGE value="Start implementation of selection method in GA" />
-    <option name="LAST_COMMIT_MESSAGE" value="Start implementation of selection method in GA" />
+    <MESSAGE value="Implement testing methods for GA" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement testing methods for GA" />
   </component>
 </project>

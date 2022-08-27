@@ -71,6 +71,10 @@ public class Genetic {
         this.game2 = new GameHandler(player2, player1);
     }
 
+    public int randomInt (int minValue, int maxValue) {
+        return rng.nextInt(maxValue - minValue + 1) + minValue;
+    }
+
     public short randomShort () {
         return (short)(rng.nextInt(Short.MAX_VALUE - Short.MIN_VALUE + 1) + Short.MIN_VALUE);
     }
@@ -96,6 +100,13 @@ public class Genetic {
             if (g1[i] == g2[i]) return true;
         }
         return false;
+    }
+
+    private boolean isGenotypeNotInPopulation (short[] genotype, short[][] population, int startIndex, int finishIndex) {
+        for (int i = startIndex; i < finishIndex; ++i) {
+            if (areTwoGenotypesTheSame(genotype, population[i])) return false;
+        }
+        return true;
     }
 
     private short[][] selection (short[][] population) {
@@ -173,6 +184,7 @@ public class Genetic {
                 } else break;
             }
         }
+        int max = results[0][1], min = results[popSize - 1][1];
 
         System.out.println("----SORTED----");
         for (int i = 0; i < popSize; ++i) {
@@ -182,8 +194,21 @@ public class Genetic {
 
         bestSoFar = population[results[0][0]];
         short[][] parents = new short[parentPopulationSize][genotypeSize];
-        for (int i = 0; i < parentPopulationSize; ++i)
-            parents[i] = population[results[i][0]];
+        int numberOfCurrentParents = 0;
+        for (int i = 0; i < popSize && numberOfCurrentParents < parentPopulationSize; ++i) {
+            if (RNG.randomInt(min, max) < results[i][1]) {
+                parents[numberOfCurrentParents] = population[results[i][0]];
+                ++numberOfCurrentParents;
+            }
+        }
+        int index = 0;
+        while (numberOfCurrentParents < parentPopulationSize) {
+//            if (isGenotypeNotInPopulation(population[index], parents, 0, numberOfCurrentParents)) {
+                parents[numberOfCurrentParents] = population[index];
+                ++numberOfCurrentParents;
+//            }
+            ++index;
+        }
         return parents;
     }
 
@@ -201,16 +226,16 @@ public class Genetic {
         int index = rng.nextInt(genotypeSize);
         double modifier = rng.nextBoolean() ? 1.0 : -1.0;
 //        genotype[index] = (short) (genotype[index] + (short)(modifier * mutationPercentage * genotype[index]));
-//        genotype[index] = randomShort();
-        genotype[index] = randomByte();
+        genotype[index] = randomShort();
+//        genotype[index] = randomByte();
     }
 
     public short[][] createStartingPopulation () {
         short[][] population = new short[populationSize][genotypeSize];
         for (int i = 0; i < populationSize; ++i)
             for (int k = 0; k < genotypeSize; ++k)
-//                population[i][k] = randomShort();
-                population[i][k] = randomByte();
+                population[i][k] = randomShort();
+//                population[i][k] = randomByte();
         return population;
     }
 
@@ -246,7 +271,8 @@ public class Genetic {
 //            FileHandler.removePopulationsExceptOne();
         }
         // Przeprowadź ponowną selekcję i wyznacz najlepszego.
-        short[] best = selection(population)[0];
+//        short[] best = selection(population)[0];
+        short[] best = selectionDebug(population)[0];
         // Zapisz do pliku w heuristics/output/ najlepszego i go zwróć.
         FileHandler.saveGeneticOutput(bestSoFar);
         return bestSoFar;
