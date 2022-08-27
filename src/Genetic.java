@@ -184,31 +184,47 @@ public class Genetic {
                 } else break;
             }
         }
-        int max = results[0][1], min = results[popSize - 1][1];
 
-        System.out.println("----SORTED----");
-        for (int i = 0; i < popSize; ++i) {
-            System.out.print(results[i][1] + " ");
+        int maxResult = results[0][1], minResult = results[popSize - 1][1];
+        long[] rouletteParting = new long[popSize];
+        long[] rouletteRandoms = new long[parentPopulationSize];
+        rouletteParting[popSize - 1] = 0;
+        for (int i = popSize - 2; i >= 0; --i) {
+            rouletteParting[i] = rouletteParting[i+1] + results[i][1] + minResult;
         }
-        System.out.println("\n--------------");
+        long maxParting = rouletteParting[0], minParting = 0;
+        for (int i = 0; i < parentPopulationSize; ++i) {
+            rouletteRandoms[i] = RNG.randomLong(minParting, maxParting);
+        }
+
+//        System.out.println("----SORTED----");
+//        for (int i = 0; i < popSize; ++i) {
+//            System.out.print(results[i][1] + " ");
+//        }
+//        System.out.println("\n--------------");
 
         bestSoFar = population[results[0][0]];
         short[][] parents = new short[parentPopulationSize][genotypeSize];
         int numberOfCurrentParents = 0;
-        for (int i = 0; i < popSize && numberOfCurrentParents < parentPopulationSize; ++i) {
-            if (RNG.randomInt(min, max) < results[i][1]) {
-                parents[numberOfCurrentParents] = population[results[i][0]];
-                ++numberOfCurrentParents;
-            }
-        }
-        int index = 0;
-        while (numberOfCurrentParents < parentPopulationSize) {
-//            if (isGenotypeNotInPopulation(population[index], parents, 0, numberOfCurrentParents)) {
-                parents[numberOfCurrentParents] = population[index];
-                ++numberOfCurrentParents;
+//        for (int i = 0; i < popSize && numberOfCurrentParents < parentPopulationSize; ++i) {
+//            if (RNG.randomInt(min, max) < results[i][1] && isGenotypeNotInPopulation(population[results[i][0]], parents, 0, numberOfCurrentParents)) {
+//                parents[numberOfCurrentParents] = population[results[i][0]];
+//                ++numberOfCurrentParents;
 //            }
-            ++index;
+//        }
+        for (int parent = 0; parent < parentPopulationSize; ++parent) {
+            int index = 0;
+            while (rouletteRandoms[parent] <= rouletteParting[index]) ++index;
+            parents[parent] = population[results[index - 1][0]];
         }
+//        int index = 0;
+//        while (numberOfCurrentParents < parentPopulationSize) {
+////            if (isGenotypeNotInPopulation(population[index], parents, 0, numberOfCurrentParents)) {
+//                parents[numberOfCurrentParents] = population[index];
+//                ++numberOfCurrentParents;
+////            }
+//            ++index;
+//        }
         return parents;
     }
 

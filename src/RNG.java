@@ -8,6 +8,14 @@ public class RNG {
         return rand.nextDouble();
     }
 
+    public static long randomLong (long minValue, long maxValue) {
+//        return rand.nextLong(maxValue - minValue + 1) + minValue;
+//        return rand.nextLong(minValue, maxValue + 1);
+        long l = rand.nextLong();
+        while (l < minValue || l > maxValue) l = rand.nextLong();
+        return l;
+    }
+
     public static int randomInt () {
         return rand.nextInt();
     }

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Implement testing methods for GA">
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-27_15-13-18.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-27_15-17-30.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RNG.java" afterDir="false" />
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Fight with GA stagnation p2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics/output/2022-08-27_15-18-08.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics/populations/2022-08-27_15-13-18.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics/populations/2022-08-27_15-17-30.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics/populations/2022-08-27_15-18-07.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics/populations/2022-08-27_15-18-08.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Heuristic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RNG.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RNG.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -112,14 +114,7 @@
       <workItem from="1660632407513" duration="24568000" />
       <workItem from="1661013668705" duration="9461000" />
       <workItem from="1661072483671" duration="1597000" />
-      <workItem from="1661591874860" duration="10903000" />
-    </task>
-    <task id="LOCAL-00002" summary="Outline heuristic params">
-      <created>1657575892305</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1657575892305</updated>
+      <workItem from="1661591874860" duration="14713000" />
     </task>
     <task id="LOCAL-00003" summary="Build skeletons of some classes">
       <created>1657627585036</created>
@@ -457,7 +452,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661596113020</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Fight with GA stagnation p2">
+      <created>1661606334307</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1661606334307</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -488,7 +490,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Fix issue with game results interpretation" />
     <MESSAGE value="Fix index out of bounds error in makeMove interface fo human" />
     <MESSAGE value="Comment and clean-up code" />
     <MESSAGE value="Move Node and Pair record to State class as private" />
@@ -513,6 +514,7 @@
     <MESSAGE value="Minor change" />
     <MESSAGE value="Start implementation of selection method in GA" />
     <MESSAGE value="Implement testing methods for GA" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement testing methods for GA" />
+    <MESSAGE value="Fight with GA stagnation p2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fight with GA stagnation p2" />
   </component>
 </project>
