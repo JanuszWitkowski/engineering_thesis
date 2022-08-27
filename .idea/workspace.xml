@@ -2,10 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Start implementation of selection method in GA">
-      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-21_11-03-25.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-21_11-08-11.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-27_12-20-07.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-27_12-20-04.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-27_12-20-05.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-27_12-20-06.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-27_12-20-07.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics/output/2022-08-20_21-18-43.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics/output/2022-08-20_21-23-36.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics/output/2022-08-20_21-28-31.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics/output/2022-08-20_21-32-25.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics/output/2022-08-20_21-42-17.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics/output/2022-08-20_21-49-54.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics/output/2022-08-21_11-03-25.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/heuristics/output/2022-08-21_11-08-11.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Heuristic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PlayerComputer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlayerComputer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,6 +37,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -105,6 +123,7 @@
       <workItem from="1660632407513" duration="24568000" />
       <workItem from="1661013668705" duration="9461000" />
       <workItem from="1661072483671" duration="1597000" />
+      <workItem from="1661591874860" duration="3039000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1657570133924</created>

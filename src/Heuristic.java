@@ -85,7 +85,8 @@ public class Heuristic {
      * @return Wartość funkcji oceny heurystycznej danego pola dla danego gracza
      */
     public int evaluate (State state, int player) {
-        int[] params = getParams(state, player);
+//        int[] params = getParams(state, player);
+        int [] params = getParamsDebug();
         int sum = 0;
         for (int i = 0; i < numberOfParams; i++) {
             sum += params[i] * (int)paramWeights[i];
@@ -94,8 +95,12 @@ public class Heuristic {
     }
 
     // TODO: Funkcja do debugowania, po ukończeniu projektu należy usunąć.
-    public int[] getParamsDebug (State state, int player) {
-        return getParams(state, player);
+    public int[] getParamsDebug () {
+        int[] params = new int[numberOfParams];
+        for (int i = 0; i < numberOfParams; ++i) {
+            params[i] = i;
+        }
+        return params;
     }
 
     /**

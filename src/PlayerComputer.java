@@ -41,8 +41,8 @@ public class PlayerComputer extends Player {
     }
 
     // TODO: Funkcja do debugowania i sprawdzania poprawności obliczeń parametrów. W finalnym zarysie projektu można usunąć.
-    public void printEval (State board, int playerNumber) {
-        System.out.println("Wartość oceny: " + heuristic.evaluate(board, playerNumber));
+    public int getEval () {
+        return heuristic.evaluate(null, 0);
     }
 
 }

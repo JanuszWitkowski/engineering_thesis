@@ -34,6 +34,7 @@ public class Genetic {
         @Override
         boolean conditionNotMet() {
             ++generations;
+//            System.out.println("condition: " + generations + " vs " + threshold);
             return generations < threshold;
         }
     }
@@ -91,6 +92,9 @@ public class Genetic {
     }
 
     private boolean areTwoGenotypesTheSame (short[] g1, short[] g2) {
+        for (int i = 0; i < genotypeSize; ++i) {
+            if (g1[i] == g2[i]) return true;
+        }
         return false;
     }
 
@@ -128,20 +132,58 @@ public class Genetic {
         // Sortowanie insertion-sort; TODO: Zmienić może na quick-sort?
         for (int i = 1; i < popSize; ++i) {
             for (int j = i; j > 0; --j) {
-                if (results[j][3] < results[j-1][3]) {
+                if (results[j-1][3] < results[j][3]) {
                     int[] tmp = results[j];
                     results[j] = results[j-1];
                     results[j-1] = tmp;
-                }
+                } else break;
             }
         }
 
+        // TODO: Funckja debugująca. Należy jej się pozbyć w finalnym projeckie.
+        System.out.println("----SORTED----");
+        for (int i = 0; i < popSize; ++i) {
+            System.out.print(results[i][3] + " ");
+        }
+        System.out.println("\n--------------");
+
         // Wybierz najlepszych.
         bestSoFar = population[results[0][0]];
-        short[][] parents = new short[parentPopulationSize][population[0].length];
+        short[][] parents = new short[parentPopulationSize][genotypeSize];
         for (int i = 0; i < parentPopulationSize; ++i)
             parents[i] = population[results[i][0]];
 
+        return parents;
+    }
+
+    private short[][] selectionDebug (short[][] population) {
+        int popSize = population.length;
+        int[][] results = new int[popSize][2];
+        for (int i = 0; i < popSize; ++i) {
+            results[i][0] = i;
+            player1.changeHeuristicWeights(population[i]);
+            results[i][1] = player1.getEval();
+        }
+        for (int i = 1; i < popSize; ++i) {
+            for (int j = i; j > 0; --j) {
+                if (results[j-1][1] < results[j][1]) {
+                    int[] tmp = results[j];
+                    results[j] = results[j-1];
+                    results[j-1] = tmp;
+                } else break;
+            }
+        }
+
+        System.out.println("----SORTED----");
+        for (int i = 0; i < popSize; ++i) {
+            System.out.print(results[i][1] + " ");
+        }
+        System.out.println("\n--------------");
+
+        bestSoFar = population[results[0][0]];
+        short[][] parents = new short[parentPopulationSize][genotypeSize];
+        for (int i = 0; i < parentPopulationSize; ++i)
+            parents[i] = population[results[i][0]];
         return parents;
     }
 
@@ -181,7 +223,8 @@ public class Genetic {
         while (stop.conditionNotMet()) {
             System.out.println("Generation " + ++gen);
             // Selekcja populacji rodziców (każdy gra z każdym, patrzymy kto ile wygrywał jako biały/czarny).
-            short[][] parents = selection(population);
+//            short[][] parents = selection(population);
+            short[][] parents = selectionDebug(population);
             // Krzyżowanie (wyznaczamy pary rodziców, każda para rodziców ma dwoje dzieci).
             shuffleArray(parents);
             short[][] children = new short[parentPopulationSize][genotypeSize];
