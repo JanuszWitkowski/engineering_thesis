@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="RNG.RANDOMLONG NEEDS FIXING!!">
-      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_15-45-59.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_17-36-27.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_18-00-07.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_18-00-27.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_15-45-58.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_15-45-59.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_17-36-27.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-00-06.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-00-07.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-00-27.txt" afterDir="false" />
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Fix randomLong">
+      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_18-30-32.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_18-31-36.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_18-31-52.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_18-31-58.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_18-34-50.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_18-35-06.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_18-35-26.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-30-31.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-30-32.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-31-35.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-31-36.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-31-52.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-31-58.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-34-50.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-35-06.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-35-26.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Heuristic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RNG.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RNG.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -121,14 +125,7 @@
       <workItem from="1661013668705" duration="9461000" />
       <workItem from="1661072483671" duration="1597000" />
       <workItem from="1661591874860" duration="15372000" />
-      <workItem from="1661692084063" duration="4522000" />
-    </task>
-    <task id="LOCAL-00004" summary="Implement constructors for State class">
-      <created>1657634417175</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1657634417175</updated>
+      <workItem from="1661692084063" duration="6464000" />
     </task>
     <task id="LOCAL-00005" summary="Fix numbering fields">
       <created>1657703473151</created>
@@ -466,7 +463,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661611691385</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Fix randomLong">
+      <created>1661702878645</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1661702878645</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -497,7 +501,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Comment and clean-up code" />
     <MESSAGE value="Move Node and Pair record to State class as private" />
     <MESSAGE value="Brake down getParams to smaller methods for overriding" />
     <MESSAGE value="Add SAFE_PAWNS and SAFE_KINGS param" />
@@ -522,6 +525,7 @@
     <MESSAGE value="Implement testing methods for GA" />
     <MESSAGE value="Fight with GA stagnation p2" />
     <MESSAGE value="RNG.RANDOMLONG NEEDS FIXING!!" />
-    <option name="LAST_COMMIT_MESSAGE" value="RNG.RANDOMLONG NEEDS FIXING!!" />
+    <MESSAGE value="Fix randomLong" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix randomLong" />
   </component>
 </project>

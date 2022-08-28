@@ -289,7 +289,7 @@ public class Test {
     }
 
     private static void testGA () {
-        Genetic ga = new Genetic(10, 0.2, 0.2, 1);
+        Genetic ga = new Genetic(20, 0.2, 0.2, 1);
         short[][] startingPopulation = ga.createStartingPopulation();
         short[] bestWeights = ga.GA(startingPopulation, 300);
         System.out.println("BEST: " + Arrays.toString(bestWeights));
