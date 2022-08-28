@@ -11,9 +11,13 @@ public class RNG {
     public static long randomLong (long minValue, long maxValue) {
 //        return rand.nextLong(maxValue - minValue + 1) + minValue;
 //        return rand.nextLong(minValue, maxValue + 1);
-        long l = rand.nextLong();
-        while (l < minValue || l > maxValue) l = rand.nextLong();
-        return l;
+//        long l = rand.nextLong();
+//        while (l < minValue || l > maxValue) l = rand.nextLong();
+//        return l;
+//        if (minValue >= Integer.MIN_VALUE && maxValue <= Integer.MAX_VALUE)
+//            return randomInt((int)minValue, (int)maxValue);
+//        return rand.nextLong(); // !!!
+        return (long)((rand.nextDouble() * (maxValue - minValue + 1)) + minValue);
     }
 
     public static int randomInt () {

@@ -283,10 +283,13 @@ public class Test {
         d.add(1.0 * (i1/i2));
         d.add((1.0 * i1) / (1.0 * i2));
         System.out.println(d);
+        double dee = 0.6;
+        long l = (long)(dee * 111);
+        System.out.println(l);
     }
 
     private static void testGA () {
-        Genetic ga = new Genetic(2000, 0.2, 0.2, 1);
+        Genetic ga = new Genetic(10, 0.2, 0.2, 1);
         short[][] startingPopulation = ga.createStartingPopulation();
         short[] bestWeights = ga.GA(startingPopulation, 300);
         System.out.println("BEST: " + Arrays.toString(bestWeights));

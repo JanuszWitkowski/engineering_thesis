@@ -185,23 +185,31 @@ public class Genetic {
             }
         }
 
-        int maxResult = results[0][1], minResult = results[popSize - 1][1];
-        long[] rouletteParting = new long[popSize];
-        long[] rouletteRandoms = new long[parentPopulationSize];
-        rouletteParting[popSize - 1] = 0;
-        for (int i = popSize - 2; i >= 0; --i) {
-            rouletteParting[i] = rouletteParting[i+1] + results[i][1] + minResult;
-        }
-        long maxParting = rouletteParting[0], minParting = 0;
-        for (int i = 0; i < parentPopulationSize; ++i) {
-            rouletteRandoms[i] = RNG.randomLong(minParting, maxParting);
-        }
-
 //        System.out.println("----SORTED----");
 //        for (int i = 0; i < popSize; ++i) {
 //            System.out.print(results[i][1] + " ");
 //        }
 //        System.out.println("\n--------------");
+
+        int maxResult = results[0][1], minResult = results[popSize - 1][1];
+        for (int i = 0; i < popSize; ++i) {
+            results[i][1] -= minResult;
+//            System.out.print(results[i][1] + " ");
+        }
+//        System.out.println();
+        long[] rouletteParting = new long[popSize];
+        long[] rouletteRandoms = new long[parentPopulationSize];
+        rouletteParting[popSize - 1] = results[popSize - 1][1];
+//        System.out.print("Parting: " + rouletteParting[popSize - 1]);
+        for (int i = popSize - 2; i >= 0; --i) {
+            rouletteParting[i] = rouletteParting[i+1] + results[i][1];
+//            System.out.print(" " + rouletteParting[i]);
+        }
+//        System.out.println();
+        long maxParting = rouletteParting[0];
+        for (int i = 0; i < parentPopulationSize; ++i) {
+            rouletteRandoms[i] = RNG.randomLong(0, maxParting);
+        }
 
         bestSoFar = population[results[0][0]];
         short[][] parents = new short[parentPopulationSize][genotypeSize];
@@ -214,8 +222,13 @@ public class Genetic {
 //        }
         for (int parent = 0; parent < parentPopulationSize; ++parent) {
             int index = 0;
-            while (rouletteRandoms[parent] <= rouletteParting[index]) ++index;
+//            System.out.println("index: " + index + "; rand: " + rouletteRandoms[parent] + "; part: " + rouletteParting[index]);
+            while (index < popSize && rouletteRandoms[parent] <= rouletteParting[index]) {
+//                System.out.println("index: " + index + "; rand: " + rouletteRandoms[parent] + "; part: " + rouletteParting[index]);
+                ++index;
+            }
             parents[parent] = population[results[index - 1][0]];
+            System.out.println("CHOSEN INDEX: " + index);
         }
 //        int index = 0;
 //        while (numberOfCurrentParents < parentPopulationSize) {
@@ -265,7 +278,7 @@ public class Genetic {
             System.out.println("Generation " + ++gen);
             // Selekcja populacji rodziców (każdy gra z każdym, patrzymy kto ile wygrywał jako biały/czarny).
 //            short[][] parents = selection(population);
-            short[][] parents = selectionDebug(population);
+            short[][] parents = selectionDebug(population); // TODO: Zmienić po debugu
             // Krzyżowanie (wyznaczamy pary rodziców, każda para rodziców ma dwoje dzieci).
             shuffleArray(parents);
             short[][] children = new short[parentPopulationSize][genotypeSize];
@@ -287,7 +300,7 @@ public class Genetic {
 //            FileHandler.removePopulationsExceptOne();
         }
         // Przeprowadź ponowną selekcję i wyznacz najlepszego.
-//        short[] best = selection(population)[0];
+//        short[] best = selection(population)[0];  // TODO: Zmienić po debugu
         short[] best = selectionDebug(population)[0];
         // Zapisz do pliku w heuristics/output/ najlepszego i go zwróć.
         FileHandler.saveGeneticOutput(bestSoFar);

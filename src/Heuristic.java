@@ -72,7 +72,7 @@ public class Heuristic {
      */
     public int evaluate (State state, int player) {
 //        int[] params = getParams(state, player);
-        int [] params = getParamsDebug();
+        int [] params = getParamsDebug();   // TODO: Zmienić po debugu
         int sum = 0;
         for (int i = 0; i < numberOfParams; i++) {
             sum += params[i] * (int)paramWeights[i];

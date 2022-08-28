@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Fight with GA stagnation p2">
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="RNG.RANDOMLONG NEEDS FIXING!!">
+      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_15-45-59.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_17-36-27.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_18-00-07.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_18-00-27.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_15-45-58.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_15-45-59.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_17-36-27.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-00-06.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-00-07.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-00-27.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics/output/2022-08-27_15-18-08.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics/populations/2022-08-27_15-13-18.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics/populations/2022-08-27_15-17-30.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics/populations/2022-08-27_15-18-07.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/heuristics/populations/2022-08-27_15-18-08.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Heuristic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/RNG.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RNG.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
@@ -114,14 +120,8 @@
       <workItem from="1660632407513" duration="24568000" />
       <workItem from="1661013668705" duration="9461000" />
       <workItem from="1661072483671" duration="1597000" />
-      <workItem from="1661591874860" duration="14713000" />
-    </task>
-    <task id="LOCAL-00003" summary="Build skeletons of some classes">
-      <created>1657627585036</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1657627585036</updated>
+      <workItem from="1661591874860" duration="15372000" />
+      <workItem from="1661692084063" duration="4522000" />
     </task>
     <task id="LOCAL-00004" summary="Implement constructors for State class">
       <created>1657634417175</created>
@@ -459,7 +459,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661606334307</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="RNG.RANDOMLONG NEEDS FIXING!!">
+      <created>1661611691385</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1661611691385</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -490,7 +497,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Fix index out of bounds error in makeMove interface fo human" />
     <MESSAGE value="Comment and clean-up code" />
     <MESSAGE value="Move Node and Pair record to State class as private" />
     <MESSAGE value="Brake down getParams to smaller methods for overriding" />
@@ -515,6 +521,7 @@
     <MESSAGE value="Start implementation of selection method in GA" />
     <MESSAGE value="Implement testing methods for GA" />
     <MESSAGE value="Fight with GA stagnation p2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fight with GA stagnation p2" />
+    <MESSAGE value="RNG.RANDOMLONG NEEDS FIXING!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="RNG.RANDOMLONG NEEDS FIXING!!" />
   </component>
 </project>
