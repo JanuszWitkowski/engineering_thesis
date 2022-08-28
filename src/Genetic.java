@@ -231,7 +231,7 @@ public class Genetic {
             } while (index < tmpPopSize && rouletteRandom <= rouletteParting.get(index));
             --index;
             parents[parent] = population[results[indexes.get(index)][0]]; // !!!
-            System.out.println("CHOSEN INDEX: " + indexes.get(index) + " (" + index + ")");
+            System.out.println("CHOSEN INDEX: " + indexes.get(index) + " (" + index + ")"); // TODO: Z jakiegoś powodu powtarzają sie np. zera, choć nie powinny!
             boolean isLastElement = index >= tmpPopSize - 1;
             long tmpResultValue = isLastElement ? rouletteParting.get(index) : rouletteParting.get(index) - rouletteParting.get(index + 1);
             rouletteParting.remove(index);
