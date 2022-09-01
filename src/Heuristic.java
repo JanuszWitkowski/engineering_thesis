@@ -83,8 +83,9 @@ public class Heuristic {
     // TODO: Funkcja do debugowania, po ukończeniu projektu należy usunąć.
     public int[] getParamsDebug () {
         int[] params = new int[numberOfParams];
+        int half = numberOfParams/2;
         for (int i = 0; i < numberOfParams; ++i) {
-            params[i] = i;
+            params[i] = i - half;
         }
         return params;
     }

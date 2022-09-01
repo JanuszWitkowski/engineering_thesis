@@ -2,24 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Fix randomLong">
-      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_18-30-32.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_18-31-36.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_18-31-52.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_18-31-58.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_18-34-50.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_18-35-06.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-28_18-35-26.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-30-31.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-30-32.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-31-35.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-31-36.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-31-52.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-31-58.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-34-50.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-35-06.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-08-28_18-35-26.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Heuristic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -126,6 +111,7 @@
       <workItem from="1661072483671" duration="1597000" />
       <workItem from="1661591874860" duration="15372000" />
       <workItem from="1661692084063" duration="6464000" />
+      <workItem from="1662057852691" duration="2177000" />
     </task>
     <task id="LOCAL-00005" summary="Fix numbering fields">
       <created>1657703473151</created>

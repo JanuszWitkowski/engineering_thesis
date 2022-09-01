@@ -52,6 +52,7 @@ public class Genetic {
     private double mutationChance;
     private double mutationPercentage = 0.1;
     private int playerDepth = 1;
+    private int selectionFactor = 50;
 
     private short[] bestSoFar;
 
@@ -168,6 +169,90 @@ public class Genetic {
         return parents;
     }
 
+//    private short[][] selectionDebugOld (short[][] population) {
+//        int popSize = population.length;
+//        int[][] results = new int[popSize][2];
+//        for (int i = 0; i < popSize; ++i) {
+//            results[i][0] = i;
+//            player1.changeHeuristicWeights(population[i]);
+//            results[i][1] = player1.getEval();
+//        }
+//        for (int i = 1; i < popSize; ++i) {
+//            for (int j = i; j > 0; --j) {
+//                if (results[j-1][1] < results[j][1]) {
+//                    int[] tmp = results[j];
+//                    results[j] = results[j-1];
+//                    results[j-1] = tmp;
+//                } else break;
+//            }
+//        }
+//        bestSoFar = population[results[0][0]];
+//
+////        System.out.println("----SORTED----");
+////        for (int i = 0; i < popSize; ++i) {
+////            System.out.print(results[i][1] + " ");
+////        }
+////        System.out.println("\n--------------");
+//
+//        int maxResult = results[0][1], minResult = results[popSize - 1][1];
+//        for (int i = 0; i < popSize; ++i) {
+//            results[i][1] -= minResult;
+////            System.out.print(results[i][1] + " ");
+//        }
+////        System.out.println();
+//        ArrayList<Long> rouletteParting = new ArrayList<>();
+//        for (int i = 0; i < popSize; ++i) {
+//            rouletteParting.add((long) 0);
+//        }
+//        rouletteParting.set(popSize - 1, (long) results[popSize - 1][1]);
+////        System.out.print("Parting: " + rouletteParting[popSize - 1]);
+//        for (int i = popSize - 2; i >= 0; --i) {
+//            rouletteParting.set(i, rouletteParting.get(i+1) + results[i][1]);
+////            System.out.print(" " + rouletteParting[i]);
+//        }
+////        System.out.println();
+//        long maxParting = rouletteParting.get(0);
+//
+//        short[][] parents = new short[parentPopulationSize][genotypeSize];
+////        int numberOfCurrentParents = 0;
+////        for (int i = 0; i < popSize && numberOfCurrentParents < parentPopulationSize; ++i) {
+////            if (RNG.randomInt(min, max) < results[i][1] && isGenotypeNotInPopulation(population[results[i][0]], parents, 0, numberOfCurrentParents)) {
+////                parents[numberOfCurrentParents] = population[results[i][0]];
+////                ++numberOfCurrentParents;
+////            }
+////        }
+//        ArrayList<Integer> indexes = new ArrayList<>();
+//        for (int i = 0; i < popSize; ++i) indexes.add(i);
+//        for (int parent = 0; parent < parentPopulationSize; ++parent) {
+//            int index = 0, tmpPopSize = popSize;
+//            long rouletteRandom = RNG.randomLong(0, maxParting);
+//            do {
+////                System.out.println("index: " + index + "; rand: " + rouletteRandoms[parent] + "; part: " + rouletteParting[index]);
+//                ++index;
+//            } while (index < tmpPopSize && rouletteRandom <= rouletteParting.get(index));
+//            --index;
+//            parents[parent] = population[results[indexes.get(index)][0]]; // !!!
+//            System.out.println("CHOSEN INDEX: " + indexes.get(index) + " (" + index + ")"); // TODO: Z jakiegoś powodu powtarzają sie np. zera, choć nie powinny!
+//            boolean isLastElement = index >= tmpPopSize - 1;
+//            long tmpResultValue = isLastElement ? rouletteParting.get(index) : rouletteParting.get(index) - rouletteParting.get(index + 1);
+//            rouletteParting.remove(index);
+//            indexes.remove(index);  // uważać na to!
+//            --tmpPopSize;
+//            for (int i = index - 1; i >= 0; --i) {
+//                rouletteParting.set(i, rouletteParting.get(i) - tmpResultValue);
+//            }
+//        }
+////        int index = 0;
+////        while (numberOfCurrentParents < parentPopulationSize) {
+//////            if (isGenotypeNotInPopulation(population[index], parents, 0, numberOfCurrentParents)) {
+////                parents[numberOfCurrentParents] = population[index];
+////                ++numberOfCurrentParents;
+//////            }
+////            ++index;
+////        }
+//        return parents;
+//    }
+
     private short[][] selectionDebug (short[][] population) {
         int popSize = population.length;
         int[][] results = new int[popSize][2];
@@ -176,14 +261,12 @@ public class Genetic {
             player1.changeHeuristicWeights(population[i]);
             results[i][1] = player1.getEval();
         }
-        for (int i = 1; i < popSize; ++i) {
-            for (int j = i; j > 0; --j) {
-                if (results[j-1][1] < results[j][1]) {
-                    int[] tmp = results[j];
-                    results[j] = results[j-1];
-                    results[j-1] = tmp;
-                } else break;
-            }
+        for (int j = popSize - 1; j > 0; --j) {
+            if (results[j-1][1] < results[j][1]) {
+                int[] tmp = results[j];
+                results[j] = results[j-1];
+                results[j-1] = tmp;
+            } else break;
         }
         bestSoFar = population[results[0][0]];
 
@@ -193,62 +276,43 @@ public class Genetic {
 //        }
 //        System.out.println("\n--------------");
 
-        int maxResult = results[0][1], minResult = results[popSize - 1][1];
         for (int i = 0; i < popSize; ++i) {
-            results[i][1] -= minResult;
-//            System.out.print(results[i][1] + " ");
+            results[i][1] += RNG.randomInt(selectionFactor);
         }
-//        System.out.println();
-        ArrayList<Long> rouletteParting = new ArrayList<>();
-        for (int i = 0; i < popSize; ++i) {
-            rouletteParting.add((long) 0);
-        }
-        rouletteParting.set(popSize - 1, (long) results[popSize - 1][1]);
-//        System.out.print("Parting: " + rouletteParting[popSize - 1]);
-        for (int i = popSize - 2; i >= 0; --i) {
-            rouletteParting.set(i, rouletteParting.get(i+1) + results[i][1]);
-//            System.out.print(" " + rouletteParting[i]);
-        }
-//        System.out.println();
-        long maxParting = rouletteParting.get(0);
 
-        short[][] parents = new short[parentPopulationSize][genotypeSize];
-//        int numberOfCurrentParents = 0;
-//        for (int i = 0; i < popSize && numberOfCurrentParents < parentPopulationSize; ++i) {
-//            if (RNG.randomInt(min, max) < results[i][1] && isGenotypeNotInPopulation(population[results[i][0]], parents, 0, numberOfCurrentParents)) {
-//                parents[numberOfCurrentParents] = population[results[i][0]];
-//                ++numberOfCurrentParents;
-//            }
-//        }
-        ArrayList<Integer> indexes = new ArrayList<>();
-        for (int i = 0; i < popSize; ++i) indexes.add(i);
-        for (int parent = 0; parent < parentPopulationSize; ++parent) {
-            int index = 0, tmpPopSize = popSize;
-            long rouletteRandom = RNG.randomLong(0, maxParting);
-            do {
-//                System.out.println("index: " + index + "; rand: " + rouletteRandoms[parent] + "; part: " + rouletteParting[index]);
-                ++index;
-            } while (index < tmpPopSize && rouletteRandom <= rouletteParting.get(index));
-            --index;
-            parents[parent] = population[results[indexes.get(index)][0]]; // !!!
-            System.out.println("CHOSEN INDEX: " + indexes.get(index) + " (" + index + ")"); // TODO: Z jakiegoś powodu powtarzają sie np. zera, choć nie powinny!
-            boolean isLastElement = index >= tmpPopSize - 1;
-            long tmpResultValue = isLastElement ? rouletteParting.get(index) : rouletteParting.get(index) - rouletteParting.get(index + 1);
-            rouletteParting.remove(index);
-            indexes.remove(index);  // uważać na to!
-            --tmpPopSize;
-            for (int i = index - 1; i >= 0; --i) {
-                rouletteParting.set(i, rouletteParting.get(i) - tmpResultValue);
+        for (int i = 1; i < popSize; ++i) {
+            for (int j = i; j > 0; --j) {
+                if (results[j-1][1] < results[j][1]) {
+                    int[] tmp = results[j];
+                    results[j] = results[j-1];
+                    results[j-1] = tmp;
+                } else break;
             }
         }
-//        int index = 0;
-//        while (numberOfCurrentParents < parentPopulationSize) {
-////            if (isGenotypeNotInPopulation(population[index], parents, 0, numberOfCurrentParents)) {
-//                parents[numberOfCurrentParents] = population[index];
-//                ++numberOfCurrentParents;
-////            }
-//            ++index;
-//        }
+
+        boolean[] candidatesFree = new boolean[popSize];
+        for (int i = 0; i < popSize; ++i) candidatesFree[i] = true;
+        short[][] parents = new short[parentPopulationSize][genotypeSize];
+        int numberOfParents = 0;
+        for (int i = 0; i < popSize && numberOfParents < parentPopulationSize; ++i) {
+            short[] candidate = population[results[i][0]];
+            if (isGenotypeNotInPopulation(candidate, parents, 0, numberOfParents)) {
+                parents[numberOfParents] = candidate;
+                ++numberOfParents;
+                candidatesFree[i] = false;
+            }
+        }
+        int index = 0;
+        while (numberOfParents < parentPopulationSize) {
+            short[] candidate = population[results[index][0]];
+            if (candidatesFree[index]) {
+                parents[numberOfParents] = candidate;
+                ++numberOfParents;
+                candidatesFree[index] = false;
+            }
+            ++index;
+        }
+
         return parents;
     }
 
@@ -265,9 +329,7 @@ public class Genetic {
     private void mutation (short[] genotype) {
         int index = rng.nextInt(genotypeSize);
         double modifier = rng.nextBoolean() ? 1.0 : -1.0;
-//        genotype[index] = (short) (genotype[index] + (short)(modifier * mutationPercentage * genotype[index]));
         genotype[index] = randomShort();
-//        genotype[index] = randomByte();
     }
 
     public short[][] createStartingPopulation () {
