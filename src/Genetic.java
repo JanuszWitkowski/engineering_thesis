@@ -53,13 +53,14 @@ public class Genetic {
     private short[] bestSoFar;
 
     public Genetic () {
-        this(100, 0.1, 1);
+        this(100, 50, 0.1, 1);
     }
 
-    public Genetic (int populationSize, double mutationChance, int playerDepth) {
+    public Genetic (int populationSize, int selectionFactor, double mutationChance, int playerDepth) {
         while (populationSize % 4 != 0) ++populationSize;
         this.populationSize = populationSize;
         this.parentPopulationSize = populationSize / 2;
+        this.selectionFactor = selectionFactor;
         this.mutationChance = mutationChance;
         this.player1 = new PlayerComputer(new Heuristic((short) 0), playerDepth);
         this.player2 = new PlayerComputer(new Heuristic((short) 0), playerDepth);
