@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Fix randomLong">
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Delete overly complicated version of selection">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Heuristic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MinMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinMax.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RNG.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RNG.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -111,21 +113,9 @@
       <workItem from="1661072483671" duration="1597000" />
       <workItem from="1661591874860" duration="15372000" />
       <workItem from="1661692084063" duration="6464000" />
-      <workItem from="1662057852691" duration="2177000" />
-    </task>
-    <task id="LOCAL-00005" summary="Fix numbering fields">
-      <created>1657703473151</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1657703473151</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Implement making moves on board">
-      <created>1657709899201</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1657709899201</updated>
+      <workItem from="1662057852691" duration="4076000" />
+      <workItem from="1662825666087" duration="3651000" />
+      <workItem from="1662883432278" duration="4740000" />
     </task>
     <task id="LOCAL-00007" summary="Add handlers classes for players">
       <created>1657718555135</created>
@@ -456,7 +446,21 @@
       <option name="project" value="LOCAL" />
       <updated>1661702878645</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Implement simple &quot;roulette&quot; selection and it works!">
+      <created>1662060222732</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1662060222732</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Delete overly complicated version of selection">
+      <created>1662060573513</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1662060573513</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -487,8 +491,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Move Node and Pair record to State class as private" />
-    <MESSAGE value="Brake down getParams to smaller methods for overriding" />
     <MESSAGE value="Add SAFE_PAWNS and SAFE_KINGS param" />
     <MESSAGE value="Add ENEMY_SAFE_PAWNS and ENEMY_SAFE_KINGS param" />
     <MESSAGE value="Add &quot;movable pieces&quot; params" />
@@ -512,6 +514,8 @@
     <MESSAGE value="Fight with GA stagnation p2" />
     <MESSAGE value="RNG.RANDOMLONG NEEDS FIXING!!" />
     <MESSAGE value="Fix randomLong" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix randomLong" />
+    <MESSAGE value="Implement simple &quot;roulette&quot; selection and it works!" />
+    <MESSAGE value="Delete overly complicated version of selection" />
+    <option name="LAST_COMMIT_MESSAGE" value="Delete overly complicated version of selection" />
   </component>
 </project>

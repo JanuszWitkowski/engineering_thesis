@@ -8,8 +8,6 @@ public class MinMax {
     /**
      * Służy do podejmowania losowych decyzji w przyjmowaniu potencjalnych ruchów o tej samej wartości oceny.
      */
-//    private final Random rng = new Random();
-    private final Random rng = ThreadLocalRandom.current();
 
     /**
      * Rekurencyjny algorytm minimax z alfa-beta-cięciami. Wykonuje ruch na planszy w trakcie działania.
@@ -44,7 +42,7 @@ public class MinMax {
                     Dla każdego stanu o maksymalnej wartości funkcji oceny heurystycznej losujemy epsilon
                     i przyjmujemy ten największy, zatem losowanie stanu jest sprawiedliwe.
                      */
-                    double eps = rng.nextDouble();
+                    double eps = RNG.randomDoubleFromZeroToOne();
                     if (maxEps < eps) {
                         best = child;
                         maxEps = eps;
@@ -66,7 +64,7 @@ public class MinMax {
                     minEval = eval;
                 }
                 else if (eval == minEval)  {
-                    double eps = rng.nextDouble();
+                    double eps = RNG.randomDoubleFromZeroToOne();
                     if (eps < minEps) {
                         best = child;
                         minEps = eps;

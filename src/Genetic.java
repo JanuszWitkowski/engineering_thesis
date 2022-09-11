@@ -42,54 +42,35 @@ public class Genetic {
 
     private static final int genotypeSize = HParam.values().length;
 
-//    private final Random rng = new Random();
-    private final Random rng = ThreadLocalRandom.current();
     private final PlayerComputer player1, player2;
     private final GameHandler game1, game2;
 
     private int populationSize;
     private int parentPopulationSize;
     private double mutationChance;
-    private double mutationPercentage = 0.1;
-    private int playerDepth = 1;
-    private int selectionFactor = 50;
+    private int selectionFactor = 20;
 
     private short[] bestSoFar;
 
     public Genetic () {
-        this(100, 0.1, 0.1, 1);
+        this(100, 0.1, 1);
     }
 
-    public Genetic (int populationSize, double mutationChance, double mutationPercentage, int playerDepth) {
+    public Genetic (int populationSize, double mutationChance, int playerDepth) {
         while (populationSize % 4 != 0) ++populationSize;
         this.populationSize = populationSize;
         this.parentPopulationSize = populationSize / 2;
         this.mutationChance = mutationChance;
-        this.mutationPercentage = mutationPercentage;
-        this.playerDepth = playerDepth;
         this.player1 = new PlayerComputer(new Heuristic((short) 0), playerDepth);
         this.player2 = new PlayerComputer(new Heuristic((short) 0), playerDepth);
         this.game1 = new GameHandler(player1, player2);
         this.game2 = new GameHandler(player2, player1);
     }
 
-    public int randomInt (int minValue, int maxValue) {
-        return rng.nextInt(maxValue - minValue + 1) + minValue;
-    }
-
-    public short randomShort () {
-        return (short)(rng.nextInt(Short.MAX_VALUE - Short.MIN_VALUE + 1) + Short.MIN_VALUE);
-    }
-
-    // Temporary function for testing for Bytes.
-    public Byte randomByte () {
-        return (byte)(rng.nextInt(Byte.MAX_VALUE - Byte.MIN_VALUE + 1) + Byte.MIN_VALUE);
-    }
-
     // Implementing Fisher–Yates shuffle
     private void shuffleArray(short[][] ar) {
         for (int i = ar.length - 1; i > 0; i--) {
-            int index = rng.nextInt(i + 1);
+            int index = RNG.randomInt(i + 1);
             // Simple swap
             short[] tmp = ar[index];
             ar[index] = ar[i];
@@ -114,6 +95,7 @@ public class Genetic {
     private short[][] selection (short[][] population) {
         int popSize = population.length;
         int[][] results = new int[popSize][4];
+        // 0 - index; 1 - wygrane w ataku; 2 - wygrane w obronie; 3 - ogólny wynik.
         for (int p = 0; p < popSize; ++p) {
             results[p][0] = p;
             results[p][1] = 0;
@@ -130,13 +112,12 @@ public class Genetic {
                 int result1 = game1.quickGame();
                 int result2 = game2.quickGame();
                 results[p1][1] += result1;
-                results[p2][2] += result1;
-                results[p1][2] += result2;
+                results[p2][2] -= result1;
+                results[p1][2] -= result2;
                 results[p2][1] += result2;
             }
         }
         for (int p = 0; p < popSize; ++p) {
-            results[p][2] *= -1;
             results[p][3] = results[p][1] + results[p][2];
         }
 
@@ -156,15 +137,67 @@ public class Genetic {
         // TODO: Funckja debugująca. Należy jej się pozbyć w finalnym projeckie.
         System.out.println("----SORTED----");
         for (int i = 0; i < popSize; ++i) {
+            System.out.print(results[i][0] + " ");
+        }
+        System.out.println();
+        for (int i = 0; i < popSize; ++i) {
             System.out.print(results[i][3] + " ");
         }
         System.out.println("\n--------------");
 
-        // Wybierz najlepszych.
+        // Wybierz najlepszego.
         bestSoFar = population[results[0][0]];
+
+        // Ruletka, czyli loteria osobników które przechodzą dalej.
+        for (int i = 0; i < popSize; ++i) {
+            results[i][3] += RNG.randomInt(selectionFactor);
+        }
+
+        for (int i = 1; i < popSize; ++i) {
+            for (int j = i; j > 0; --j) {
+                if (results[j-1][3] < results[j][3]) {
+                    int[] tmp = results[j];
+                    results[j] = results[j-1];
+                    results[j-1] = tmp;
+                } else break;
+            }
+        }
+
+        // TODO: Funckja debugująca. Należy jej się pozbyć w finalnym projeckie.
+        System.out.println("----SORTED POST ROULETTE----");
+        for (int i = 0; i < popSize; ++i) {
+            System.out.print(results[i][0] + " ");
+        }
+        System.out.println();
+        for (int i = 0; i < popSize; ++i) {
+            System.out.print(results[i][3] + " ");
+        }
+        System.out.println("\n--------------");
+
+        // W miarę możliwości dobieraj osobniki różne.
+        boolean[] candidatesFree = new boolean[popSize];
+        for (int i = 0; i < popSize; ++i) candidatesFree[i] = true;
         short[][] parents = new short[parentPopulationSize][genotypeSize];
-        for (int i = 0; i < parentPopulationSize; ++i)
-            parents[i] = population[results[i][0]];
+        int numberOfParents = 0;
+        for (int i = 0; i < popSize && numberOfParents < parentPopulationSize; ++i) {
+            short[] candidate = population[results[i][0]];
+            if (isGenotypeNotInPopulation(candidate, parents, 0, numberOfParents)) {
+                parents[numberOfParents] = candidate;
+                ++numberOfParents;
+                candidatesFree[i] = false;
+            }
+        }
+        // Dokończ populację rodziców duplikatami, aby nie było pustych miejsc.
+        int index = 0;
+        while (numberOfParents < parentPopulationSize) {
+            short[] candidate = population[results[index][0]];
+            if (candidatesFree[index]) {
+                parents[numberOfParents] = candidate;
+                ++numberOfParents;
+                candidatesFree[index] = false;
+            }
+            ++index;
+        }
 
         return parents;
     }
@@ -177,20 +210,26 @@ public class Genetic {
             player1.changeHeuristicWeights(population[i]);
             results[i][1] = player1.getEval();
         }
-        for (int j = popSize - 1; j > 0; --j) {
-            if (results[j-1][1] < results[j][1]) {
-                int[] tmp = results[j];
-                results[j] = results[j-1];
-                results[j-1] = tmp;
-            } else break;
+        for (int i = 1; i < popSize; ++i) {
+            for (int j = i; j > 0; --j) {
+                if (results[j-1][1] < results[j][1]) {
+                    int[] tmp = results[j];
+                    results[j] = results[j-1];
+                    results[j-1] = tmp;
+                } else break;
+            }
         }
         bestSoFar = population[results[0][0]];
 
-//        System.out.println("----SORTED----");
-//        for (int i = 0; i < popSize; ++i) {
-//            System.out.print(results[i][1] + " ");
-//        }
-//        System.out.println("\n--------------");
+        System.out.println("----SORTED----");
+        for (int i = 0; i < popSize; ++i) {
+            System.out.print(results[i][0] + " ");
+        }
+        System.out.println();
+        for (int i = 0; i < popSize; ++i) {
+            System.out.print(results[i][1] + " ");
+        }
+        System.out.println("\n--------------");
 
         for (int i = 0; i < popSize; ++i) {
             results[i][1] += RNG.randomInt(selectionFactor);
@@ -205,6 +244,16 @@ public class Genetic {
                 } else break;
             }
         }
+
+        System.out.println("----SORTED POST ROULETTE----");
+        for (int i = 0; i < popSize; ++i) {
+            System.out.print(results[i][0] + " ");
+        }
+        System.out.println();
+        for (int i = 0; i < popSize; ++i) {
+            System.out.print(results[i][1] + " ");
+        }
+        System.out.println("\n--------------");
 
         boolean[] candidatesFree = new boolean[popSize];
         for (int i = 0; i < popSize; ++i) candidatesFree[i] = true;
@@ -234,7 +283,7 @@ public class Genetic {
 
     private short[] crossover (short[] parentA, short[] parentB) {  // TODO: Może losować punkt Xoveru?
         short[] child = new short[genotypeSize];
-        int crossoverPoint = rng.nextInt(genotypeSize - 2) + 1;
+        int crossoverPoint = RNG.randomInt(genotypeSize - 2) + 1;
         if (crossoverPoint >= 0)
             System.arraycopy(parentA, 0, child, 0, crossoverPoint);
         if (genotypeSize - crossoverPoint >= 0)
@@ -243,17 +292,16 @@ public class Genetic {
     }
 
     private void mutation (short[] genotype) {
-        int index = rng.nextInt(genotypeSize);
-        double modifier = rng.nextBoolean() ? 1.0 : -1.0;
-        genotype[index] = randomShort();
+        int index = RNG.randomInt(genotypeSize);
+        double modifier = RNG.randomBool() ? 1.0 : -1.0;
+        genotype[index] = RNG.randomShort();
     }
 
     public short[][] createStartingPopulation () {
         short[][] population = new short[populationSize][genotypeSize];
         for (int i = 0; i < populationSize; ++i)
             for (int k = 0; k < genotypeSize; ++k)
-                population[i][k] = randomShort();
-//                population[i][k] = randomByte();
+                population[i][k] = RNG.randomShort();
         return population;
     }
 
@@ -266,8 +314,8 @@ public class Genetic {
         while (stop.conditionNotMet()) {
             System.out.println("Generation " + ++gen);
             // Selekcja populacji rodziców (każdy gra z każdym, patrzymy kto ile wygrywał jako biały/czarny).
-//            short[][] parents = selection(population);
-            short[][] parents = selectionDebug(population); // TODO: Zmienić po debugu
+            short[][] parents = selection(population);
+//            short[][] parents = selectionDebug(population); // TODO: Zmienić po debugu
             // Krzyżowanie (wyznaczamy pary rodziców, każda para rodziców ma dwoje dzieci).
             shuffleArray(parents);
             short[][] children = new short[parentPopulationSize][genotypeSize];
@@ -277,7 +325,7 @@ public class Genetic {
             }
             // Mutacje (szansa na mutację, zmieniamy jeden parametr o jakiś procent).
             for (short[] child : children)
-                if (rng.nextDouble() > mutationChance)
+                if (RNG.randomDoubleFromZeroToOne() > mutationChance)
                     mutation(child);
             // Połącz dzieci i rodziców w następną populację.
             for (int i = 0; i < parentPopulationSize; ++i) {
@@ -289,8 +337,8 @@ public class Genetic {
 //            FileHandler.removePopulationsExceptOne();
         }
         // Przeprowadź ponowną selekcję i wyznacz najlepszego.
-//        short[] best = selection(population)[0];  // TODO: Zmienić po debugu
-        short[] best = selectionDebug(population)[0];
+        short[] best = selection(population)[0];  // TODO: Zmienić po debugu
+//        short[] best = selectionDebug(population)[0];
         // Zapisz do pliku w heuristics/output/ najlepszego i go zwróć.
         FileHandler.saveGeneticOutput(bestSoFar);
         return bestSoFar;

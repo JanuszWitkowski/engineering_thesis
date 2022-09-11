@@ -238,13 +238,11 @@ public class Test {
     }
 
     private static void testPopulationSaveLoad () {
-        Random rng = new Random();
-        Genetic ga = new Genetic();
         int populationSize = 100;
         short[][] population1 = new short[populationSize][HParam.values().length];
         for (short[] genotype : population1) {
             for (int i = 0; i < HParam.values().length; ++i) {
-                genotype[i] = ga.randomShort();
+                genotype[i] = RNG.randomShort();
             }
         }
 //        System.out.println(Arrays.deepToString(population1));
@@ -263,10 +261,9 @@ public class Test {
     }
 
     private static void testRandom () {
-        Random rng = new Random();
         int min = -3, max = 3;
         for (int i = 0; i < 100; ++i) {
-            System.out.print((rng.nextInt(max - min + 1) + min) + " ");
+            System.out.print(RNG.randomInt(min, max) + " ");
         }
     }
 
@@ -289,9 +286,9 @@ public class Test {
     }
 
     private static void testGA () {
-        Genetic ga = new Genetic(2000, 0.2, 0.2, 1);
+        Genetic ga = new Genetic(20, 0.2, 1);
         short[][] startingPopulation = ga.createStartingPopulation();
-        short[] bestWeights = ga.GA(startingPopulation, 100);
+        short[] bestWeights = ga.GA(startingPopulation, 10);
         System.out.println("BEST: " + Arrays.toString(bestWeights));
         Heuristic h = new Heuristic(bestWeights);
     }

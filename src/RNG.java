@@ -9,14 +9,6 @@ public class RNG {
     }
 
     public static long randomLong (long minValue, long maxValue) {
-//        return rand.nextLong(maxValue - minValue + 1) + minValue;
-//        return rand.nextLong(minValue, maxValue + 1);
-//        long l = rand.nextLong();
-//        while (l < minValue || l > maxValue) l = rand.nextLong();
-//        return l;
-//        if (minValue >= Integer.MIN_VALUE && maxValue <= Integer.MAX_VALUE)
-//            return randomInt((int)minValue, (int)maxValue);
-//        return rand.nextLong(); // !!!
         return (long)((rand.nextDouble() * (maxValue - minValue + 1)) + minValue);
     }
 
@@ -32,8 +24,12 @@ public class RNG {
         return rand.nextInt(maxValue - minValue + 1) + minValue;
     }
 
+    public static short randomShort (short minValue, short maxValue) {
+        return (short)(rand.nextInt(maxValue - minValue + 1) + minValue);
+    }
+
     public static short randomShort () {
-        return (short)(rand.nextInt(Short.MAX_VALUE - Short.MIN_VALUE + 1) + Short.MIN_VALUE);
+        return randomShort(Short.MIN_VALUE, Short.MAX_VALUE);
     }
 
     // Temporary function for testing for Bytes.

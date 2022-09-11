@@ -1,6 +1,4 @@
 import java.util.EnumMap;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Obsługuje liczenie wartości funkcji oceny heurystycznej.
@@ -71,8 +69,8 @@ public class Heuristic {
      * @return Wartość funkcji oceny heurystycznej danego pola dla danego gracza
      */
     public int evaluate (State state, int player) {
-//        int[] params = getParams(state, player);
-        int [] params = getParamsDebug();   // TODO: Zmienić po debugu
+        int[] params = getParams(state, player);
+//        int [] params = getParamsDebug();   // TODO: Zmienić po debugu
         int sum = 0;
         for (int i = 0; i < numberOfParams; i++) {
             sum += params[i] * (int)paramWeights[i];
