@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -237,13 +238,11 @@ public class Test {
     }
 
     private static void testPopulationSaveLoad () {
-        Random rng = new Random();
-        Genetic ga = new Genetic();
         int populationSize = 100;
         short[][] population1 = new short[populationSize][HParam.values().length];
         for (short[] genotype : population1) {
             for (int i = 0; i < HParam.values().length; ++i) {
-                genotype[i] = ga.randomShort();
+                genotype[i] = RNG.randomShort();
             }
         }
 //        System.out.println(Arrays.deepToString(population1));
@@ -262,16 +261,34 @@ public class Test {
     }
 
     private static void testRandom () {
-        Random rng = new Random();
+        int min = -3, max = 3;
         for (int i = 0; i < 100; ++i) {
-            System.out.print(rng.nextInt(3) + " ");
+            System.out.print(RNG.randomInt(min, max) + " ");
         }
     }
 
+    private static void testDouble () {
+        int i1 = 12, i2 = 14;
+        ArrayList<Double> d = new ArrayList<>();
+//        d.add(i1/i2);
+        d.add(i1 / (double)i2);
+        d.add((double)i1 / i2);
+        d.add((double)(i1/i2));
+        d.add((double)i1/(double)i2);
+        d.add((1.0 * i1) / i2);
+        d.add(i1 / (1.0 * i2));
+        d.add(1.0 * (i1/i2));
+        d.add((1.0 * i1) / (1.0 * i2));
+        System.out.println(d);
+        double dee = 0.6;
+        long l = (long)(dee * 111);
+        System.out.println(l);
+    }
+
     private static void testGA () {
-        Genetic ga = new Genetic(2000, 0.2, 0.2, 1);
+        Genetic ga = new Genetic(20, 20, 0.2, 1);
         short[][] startingPopulation = ga.createStartingPopulation();
-        short[] bestWeights = ga.GA(startingPopulation, 12);
+        short[] bestWeights = ga.GA(startingPopulation, 10);
         System.out.println("BEST: " + Arrays.toString(bestWeights));
         Heuristic h = new Heuristic(bestWeights);
     }
@@ -289,5 +306,6 @@ public class Test {
 //        testPopulationSaveLoad();
 //        testRandom();
         testGA();
+//        testDouble();
     }
 }

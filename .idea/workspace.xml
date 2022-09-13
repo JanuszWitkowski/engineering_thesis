@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Start implementation of selection method in GA">
-      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-21_11-03-25.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-08-21_11-08-11.txt" afterDir="false" />
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Adjust the new selection method for game playing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +20,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -105,55 +106,11 @@
       <workItem from="1660632407513" duration="24568000" />
       <workItem from="1661013668705" duration="9461000" />
       <workItem from="1661072483671" duration="1597000" />
-    </task>
-    <task id="LOCAL-00001" summary="Initial commit">
-      <created>1657570133924</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1657570133924</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Outline heuristic params">
-      <created>1657575892305</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1657575892305</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Build skeletons of some classes">
-      <created>1657627585036</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1657627585036</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Implement constructors for State class">
-      <created>1657634417175</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1657634417175</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Fix numbering fields">
-      <created>1657703473151</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1657703473151</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Implement making moves on board">
-      <created>1657709899201</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1657709899201</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Add handlers classes for players">
-      <created>1657718555135</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1657718555135</updated>
+      <workItem from="1661591874860" duration="15372000" />
+      <workItem from="1661692084063" duration="6464000" />
+      <workItem from="1662057852691" duration="4076000" />
+      <workItem from="1662825666087" duration="3651000" />
+      <workItem from="1662883432278" duration="5600000" />
     </task>
     <task id="LOCAL-00008" summary="Adjust Minimax for edge cases">
       <created>1657720924424</created>
@@ -449,7 +406,56 @@
       <option name="project" value="LOCAL" />
       <updated>1661017785705</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Implement testing methods for GA">
+      <created>1661596113020</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1661596113020</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Fight with GA stagnation p2">
+      <created>1661606334307</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1661606334307</updated>
+    </task>
+    <task id="LOCAL-00052" summary="RNG.RANDOMLONG NEEDS FIXING!!">
+      <created>1661611691385</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1661611691385</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Fix randomLong">
+      <created>1661702878645</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1661702878645</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Implement simple &quot;roulette&quot; selection and it works!">
+      <created>1662060222732</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1662060222732</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Delete overly complicated version of selection">
+      <created>1662060573513</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1662060573513</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Adjust the new selection method for game playing">
+      <created>1662888941883</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1662888941883</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -466,7 +472,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="origin/ga-stagnation" />
                       </list>
                     </value>
                   </entry>
@@ -477,16 +483,29 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/master" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="master" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Fix opponent(int player)" />
-    <MESSAGE value="Fix issue with game results interpretation" />
-    <MESSAGE value="Fix index out of bounds error in makeMove interface fo human" />
-    <MESSAGE value="Comment and clean-up code" />
-    <MESSAGE value="Move Node and Pair record to State class as private" />
-    <MESSAGE value="Brake down getParams to smaller methods for overriding" />
-    <MESSAGE value="Add SAFE_PAWNS and SAFE_KINGS param" />
     <MESSAGE value="Add ENEMY_SAFE_PAWNS and ENEMY_SAFE_KINGS param" />
     <MESSAGE value="Add &quot;movable pieces&quot; params" />
     <MESSAGE value="Add &quot;promotion line&quot; params" />
@@ -505,6 +524,13 @@
     <MESSAGE value="Create outline for GA" />
     <MESSAGE value="Minor change" />
     <MESSAGE value="Start implementation of selection method in GA" />
-    <option name="LAST_COMMIT_MESSAGE" value="Start implementation of selection method in GA" />
+    <MESSAGE value="Implement testing methods for GA" />
+    <MESSAGE value="Fight with GA stagnation p2" />
+    <MESSAGE value="RNG.RANDOMLONG NEEDS FIXING!!" />
+    <MESSAGE value="Fix randomLong" />
+    <MESSAGE value="Implement simple &quot;roulette&quot; selection and it works!" />
+    <MESSAGE value="Delete overly complicated version of selection" />
+    <MESSAGE value="Adjust the new selection method for game playing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adjust the new selection method for game playing" />
   </component>
 </project>

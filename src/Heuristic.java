@@ -1,6 +1,4 @@
 import java.util.EnumMap;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Obsługuje liczenie wartości funkcji oceny heurystycznej.
@@ -29,20 +27,6 @@ public class Heuristic {
 
     public static int enumToInt (HParam p) {
         return enumToInt.get(p);
-    }
-
-    /**
-     * Konstruktor losujący wartości wag. W trakcie implementacji algorytmu genetycznego może się okazać,
-     * że logikę tworzenia wag parametrów należy umieścić poza odpowiedzialność klasy heurystyki.
-     */
-    public Heuristic() {    // TODO: Zastanowić się czy losować wartości w konstruktorze, czy poza nim (chodzi o występowanie klasy Random).
-        paramWeights = new short[numberOfParams];
-        Random rng = ThreadLocalRandom.current();
-        int rangeMin = Short.MIN_VALUE, rangeMax = Short.MAX_VALUE;
-        int range = rangeMax - rangeMin + 1;
-        for (int i = 0; i < numberOfParams; ++i) {
-            paramWeights[i] = (short)(rng.nextInt(range) + rangeMin);
-        }
     }
 
     /**
@@ -86,6 +70,7 @@ public class Heuristic {
      */
     public int evaluate (State state, int player) {
         int[] params = getParams(state, player);
+//        int [] params = getParamsDebug();   // TODO: Zmienić po debugu
         int sum = 0;
         for (int i = 0; i < numberOfParams; i++) {
             sum += params[i] * (int)paramWeights[i];
@@ -94,8 +79,13 @@ public class Heuristic {
     }
 
     // TODO: Funkcja do debugowania, po ukończeniu projektu należy usunąć.
-    public int[] getParamsDebug (State state, int player) {
-        return getParams(state, player);
+    public int[] getParamsDebug () {
+        int[] params = new int[numberOfParams];
+        int half = numberOfParams/2;
+        for (int i = 0; i < numberOfParams; ++i) {
+            params[i] = i - half;
+        }
+        return params;
     }
 
     /**
