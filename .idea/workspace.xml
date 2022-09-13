@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Adjust the new selection method for game playing">
+      <change afterPath="$PROJECT_DIR$/src/Find.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/StopConds.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Play.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +27,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="ga-stagnation" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -51,9 +56,17 @@
       <recent name="$PROJECT_DIR$/heuristics/single" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Test">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
+  <component name="RunManager" selected="Application.Find">
+    <configuration name="Find" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Find" />
+      <module name="Checkers" />
+      <option name="PROGRAM_PARAMETERS" value="1 2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Play" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Play" />
       <module name="Checkers" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -66,10 +79,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Find" />
+      <item itemvalue="Application.Play" />
+      <item itemvalue="Application.Test" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Find" />
         <item itemvalue="Application.Test" />
-        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Play" />
       </list>
     </recent_temporary>
   </component>
@@ -111,6 +130,8 @@
       <workItem from="1662057852691" duration="4076000" />
       <workItem from="1662825666087" duration="3651000" />
       <workItem from="1662883432278" duration="5600000" />
+      <workItem from="1663098993777" duration="137000" />
+      <workItem from="1663092674282" duration="3839000" />
     </task>
     <task id="LOCAL-00008" summary="Adjust Minimax for edge cases">
       <created>1657720924424</created>
@@ -472,7 +493,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/ga-stagnation" />
+                        <option value="master" />
                       </list>
                     </value>
                   </entry>

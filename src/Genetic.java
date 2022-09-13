@@ -306,10 +306,18 @@ public class Genetic {
         return population;
     }
 
-    public short[] GA (short[][] population, long threshold) {
-        StopCondition stop;
-//        stop = new StopConditionTime(threshold);
-        stop = new StopConditionGenerations(threshold);
+    private StopCondition buildStopCondition (StopConds type, long threshold) {
+        StopCondition s;
+        switch (type) {
+            case TIME -> s = new StopConditionTime(threshold);
+            case GENERATIONS -> s = new StopConditionGenerations(threshold);
+            default -> s = new StopConditionTime(threshold);
+        }
+        return s;
+    }
+
+    public short[] GA (short[][] population, StopConds stopType, long threshold) {
+        StopCondition stop = buildStopCondition(stopType, threshold);
         int gen = 0;
         // Dopóki nie osiągniemy kryterium stopu:
         while (stop.conditionNotMet()) {
