@@ -11,10 +11,13 @@ public class Genetic {
             this.threshold = threshold;
         }
         abstract boolean conditionNotMet ();
+        abstract long getStamp ();
+        abstract void setStamp (long stamp);
     }
 
     private static class StopConditionTime extends StopCondition {
-        final Instant start = Instant.now();
+        protected Instant start = Instant.now();
+        protected long offset = 0;
         protected StopConditionTime (long threshold) {
             super(threshold);
         }
@@ -22,7 +25,19 @@ public class Genetic {
         @Override
         boolean conditionNotMet() {
             Instant finish = Instant.now();
-            return Duration.between(start, finish).toSeconds() <= threshold;
+            return Duration.between(start, finish).toSeconds() + offset <= threshold;
+        }
+
+        @Override
+        long getStamp() {
+            Instant finish = Instant.now();
+            return Duration.between(start, finish).toSeconds() + offset;
+        }
+
+        @Override
+        void setStamp(long stamp) {
+            offset = stamp;
+            start = Instant.now();
         }
     }
 
@@ -37,6 +52,16 @@ public class Genetic {
             ++generations;
 //            System.out.println("condition: " + generations + " vs " + threshold);
             return generations < threshold;
+        }
+
+        @Override
+        long getStamp() {
+            return 0;
+        }
+
+        @Override
+        void setStamp(long stamp) {
+            generations = stamp;
         }
     }
 
@@ -318,9 +343,9 @@ public class Genetic {
 
     public short[] GA (short[][] population, StopConds stopType, long threshold) {
         StopCondition stop = buildStopCondition(stopType, threshold);
-        int gen = 0;
-        // Dopóki nie osiągniemy kryterium stopu:
-        while (stop.conditionNotMet()) {
+        int gen = 0;    // Liczba iteracji/generacji.
+
+        while (stop.conditionNotMet()) {    // Dopóki nie osiągniemy kryterium stopu:
             System.out.println("Generation " + ++gen);
             // Selekcja populacji rodziców (każdy gra z każdym, patrzymy kto ile wygrywał jako biały/czarny).
             short[][] parents = selection(population);
@@ -342,14 +367,15 @@ public class Genetic {
                 population[2 * i + 1] = children[i];
             }
             // Zapisz populację i usuń poprzednią.
-            FileHandler.savePopulation(population);
-//            FileHandler.removePopulationsExceptOne();
+            String newestPopulationName = FileHandler.savePopulation(population);
+            FileHandler.removePopulationsExceptOne(newestPopulationName);
         }
         // Przeprowadź ponowną selekcję i wyznacz najlepszego.
         short[] best = selection(population)[0];  // TODO: Zmienić po debugu
 //        short[] best = selectionDebug(population)[0];
         // Zapisz do pliku w heuristics/output/ najlepszego i go zwróć.
-        FileHandler.saveGeneticOutput(bestSoFar);
+        String bestFilename = FileHandler.saveGeneticOutput(bestSoFar);
+        System.out.println("Najlepiej przystosowany osobnik został zapisany jako " + bestFilename);
         return bestSoFar;
     }
 

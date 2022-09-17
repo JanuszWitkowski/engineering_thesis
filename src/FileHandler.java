@@ -14,15 +14,16 @@ public class FileHandler {
 
     //Poniżej znajdują się metody do zapisu i odczytu wag parametrów heurystyki.
 
-    public static void savePopulation (short[][] population, String filename) {
-        int size = population.length;
-        assert size > 0;
-        int length = population[0].length;
-        assert length == Heuristic.numberOfParams;
+    public static void savePopulation (String filename, short[][] population) {
+        int populationLength = population.length;
+        assert populationLength > 0;
+        int heuristicSize = population[0].length;
+        assert heuristicSize == Heuristic.numberOfParams;
         try (FileWriter writer = new FileWriter(filename)) {
-            writer.write(length + " " + size + '\n');
-            for (int i = 0; i < size; ++i) {
-                for (int j = 0; j < length; ++j)
+            String header = heuristicSize + " " + populationLength + '\n';
+            writer.write(header);
+            for (int i = 0; i < populationLength; ++i) {
+                for (int j = 0; j < heuristicSize; ++j)
                     writer.write(population[i][j] + " ");
                 writer.write("\n");
             }
@@ -33,18 +34,19 @@ public class FileHandler {
         }
     }
 
-    public static void savePopulation (short[][] population) {
+    public static String savePopulation (short[][] population) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
         String filename = populationsDirectory + "/" + dtf.format(LocalDateTime.now()) + ".txt";
-        savePopulation(population, filename);
+        savePopulation(filename, population);
+        return filename;
     }
 
     public static void saveWeights(short[] values, String filename) {
-        int length = values.length;
-        assert length == Heuristic.numberOfParams;
+        int heuristicSize = values.length;
+        assert heuristicSize == Heuristic.numberOfParams;
         try (FileWriter writer = new FileWriter(filename)) {
-            writer.write(length + " " + 1 + '\n');
-            for (int i = 0; i < length; ++i)
+            writer.write(heuristicSize + " " + 1 + '\n');
+            for (int i = 0; i < heuristicSize; ++i)
                 writer.write(values[i] + " ");
             writer.write("\n");
         } catch (IOException e) {
@@ -67,23 +69,24 @@ public class FileHandler {
         saveWeights(h.paramWeights);
     }
 
-    public static void saveGeneticOutput (short[] genotype) {
+    public static String saveGeneticOutput (short[] genotype) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
         String filename = gaOutputDirectory + "/" + dtf.format(LocalDateTime.now()) + ".txt";
         saveWeights(genotype, filename);
+        return filename;
     }
 
     public static short[][] loadPopulation (String filename) {
         short[][] population = null;
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String[] numbers = reader.readLine().split(" ");
-            int length = Integer.parseInt(numbers[0]), size = Integer.parseInt(numbers[1]);
-            assert length == Heuristic.numberOfParams;
-            assert size > 0;
-            population = new short[size][length];
-            for (int i = 0; i < size; ++i) {
+            int heuristicSize = Integer.parseInt(numbers[0]), populationLength = Integer.parseInt(numbers[1]);
+            assert heuristicSize == Heuristic.numberOfParams;
+            assert populationLength > 0;
+            population = new short[populationLength][heuristicSize];
+            for (int i = 0; i < populationLength; ++i) {
                 numbers = reader.readLine().split(" ");
-                for (int j = 0; j < length; ++j) {
+                for (int j = 0; j < heuristicSize; ++j) {
                     population[i][j] = Short.parseShort(numbers[j]);
                 }
             }
