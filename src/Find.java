@@ -4,7 +4,7 @@ public class Find {
         {
             System.out.println("> Pierwsze uruchomienie algorytmu genetycznego");
             {
-                System.out.println("\t- Liczebność populacji osobników [liczba naturalna];");
+                System.out.println("\t- Liczebność populacji osobników [liczba naturalna podzielna przez 4];");
                 System.out.println("\t- Współczynnik losowej selekcji osobników [liczba całkowita];");
                 System.out.println("\t- Szansa na mutację [liczba wymierna między 0 a 1];");
                 System.out.println("\t- Rodzaj kryterium stopu [0 - czas (w sekundach), 1 - liczba iteracji];");
@@ -39,7 +39,7 @@ public class Find {
                         stopCondTypeNumber = Integer.parseInt(args[3]);
                 double mutationChance = Double.parseDouble(args[2]);
                 long stopCondThreshold = Long.parseLong(args[4]);
-                if (populationSize < 0)
+                if (populationSize < 0 || populationSize % 4 != 0)
                     throw new NumberFormatException();
                 if (mutationChance > 1.0 || mutationChance < 0.0)
                     throw new NumberFormatException();

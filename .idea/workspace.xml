@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Reimplement methods for saving &amp; loading GA instances&#10;&#10;Now you can reload GA from file">
-      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-09-18_13-53-49.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-09-18_13-55-34.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-09-18_13-55-31.txt" afterDir="false" />
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Adjust &quot;Find&quot; interface for massive testing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Find.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Find.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
@@ -132,14 +129,7 @@
       <workItem from="1663098993777" duration="137000" />
       <workItem from="1663092674282" duration="3839000" />
       <workItem from="1663409080790" duration="4541000" />
-      <workItem from="1663494094847" duration="8316000" />
-    </task>
-    <task id="LOCAL-00009" summary="Start implementing getPossibleMoves">
-      <created>1657726492859</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1657726492859</updated>
+      <workItem from="1663494094847" duration="8655000" />
     </task>
     <task id="LOCAL-00010" summary="Complete implementing getPossibleMoves">
       <created>1657806338793</created>
@@ -477,7 +467,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663500551239</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Adjust &quot;Find&quot; interface for massive testing">
+      <created>1663502751903</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1663502751903</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -528,7 +525,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Add &quot;movable pieces&quot; params" />
     <MESSAGE value="Add &quot;promotion line&quot; params" />
     <MESSAGE value="Add &quot;lowermost/central/uppermost&quot; params" />
     <MESSAGE value="Minor changes" />
@@ -553,6 +549,7 @@
     <MESSAGE value="Delete overly complicated version of selection" />
     <MESSAGE value="Adjust the new selection method for game playing" />
     <MESSAGE value="Reimplement methods for saving &amp; loading GA instances&#10;&#10;Now you can reload GA from file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reimplement methods for saving &amp; loading GA instances&#10;&#10;Now you can reload GA from file" />
+    <MESSAGE value="Adjust &quot;Find&quot; interface for massive testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adjust &quot;Find&quot; interface for massive testing" />
   </component>
 </project>
