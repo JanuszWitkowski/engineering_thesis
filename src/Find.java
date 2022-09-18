@@ -21,6 +21,8 @@ public class Find {
     }
 
     public static void main(String[] args) {
+        System.out.println(Console.RED_BOLD + "#### FIND HEURISTIC USING GA ####" + Console.RESET);
+        System.out.println(Console.RED_BOLD + "# Szukanie najlepszej strategii #" + Console.RESET);
         int argc = args.length;
         if (argc < 5 && argc > 1) {
             System.out.println("BŁĄD: Niewłaściwa liczba argumentów.");
