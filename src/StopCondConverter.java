@@ -19,4 +19,8 @@ public class StopCondConverter {
     public static StopCond intToEnum (int index) {
         return intToEnum[index];
     }
+
+    public static int getNumberOfConds () {
+        return numberOfConds;
+    }
 }

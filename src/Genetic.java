@@ -6,7 +6,7 @@ public class Genetic {
         protected final long threshold;
         protected StopCondition (long threshold, long stamp) {
             this.threshold = threshold;
-            setStamp(stamp);
+//            setStamp(stamp);
         }
         abstract boolean conditionNotMet ();
         abstract long getStamp ();
@@ -18,6 +18,7 @@ public class Genetic {
         protected long offset = 0;
         protected StopConditionTime (long threshold, long stamp) {
             super(threshold, stamp);
+            setStamp(stamp);
         }
 
         @Override
@@ -43,6 +44,7 @@ public class Genetic {
         long generations = 0;
         protected StopConditionGenerations (long threshold, long stamp) {
             super(threshold, stamp);
+            setStamp(stamp);
         }
 
         @Override
@@ -70,22 +72,29 @@ public class Genetic {
 
     private final short[][] population;
     private final int populationSize;
-    private int parentPopulationSize;
+    private final int parentPopulationSize;
     private int generation;
-    private int selectionFactor;
-    private double mutationChance;
-    private StopCond stopCondType;
-    private long stopCondStamp;
-    private long stopCondThreshold;
+    private final int selectionFactor;
+    private final double mutationChance;
+    private final StopCond stopCondType;
+    private final long stopCondStamp;
+    private final long stopCondThreshold;
 
     private short[] bestSoFar;
 
     public Genetic () {
-        this(createStartingPopulation(100), 0, 20, 0.2, StopCond.GENERATIONS, 0, 1000);
+        this(createStartingPopulation(100), 0, 20, 0.2,
+                StopCond.GENERATIONS, 0, 1000);
     }
 
     public Genetic (int populationSize, int selectionFactor, double mutationChance) {
-        this(createStartingPopulation(populationSize), 0, selectionFactor, mutationChance, StopCond.GENERATIONS, 0, 20);
+        this(createStartingPopulation(populationSize), 0, selectionFactor, mutationChance, StopCond.GENERATIONS,
+                0, 20);
+    }
+
+    public Genetic (int populationSize, int selectionFactor, double mutationChance, int stopCondTypeNumber, long stopCondThreshold) {
+        this(createStartingPopulation(populationSize), 0, selectionFactor, mutationChance,
+                StopCondConverter.intToEnum(stopCondTypeNumber), 0, stopCondThreshold);
     }
 
     public Genetic (short[][] population, int generation, int selectionFactor, double mutationChance,
@@ -357,7 +366,7 @@ public class Genetic {
     public short[] GA () {
         StopCondition stop = buildStopCondition(stopCondType, stopCondStamp, stopCondThreshold);
 
-        while (stop.conditionNotMet() && generation % 10 != 9) {    // Dopóki nie osiągniemy kryterium stopu:
+        while (stop.conditionNotMet()) {    // Dopóki nie osiągniemy kryterium stopu:
             System.out.println("Generation " + ++generation);
             // Selekcja populacji rodziców (każdy gra z każdym, patrzymy kto ile wygrywał jako biały/czarny).
             short[][] parents = selection(population);
