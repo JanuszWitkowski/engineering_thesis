@@ -1,14 +1,12 @@
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Genetic {
     private abstract static class StopCondition {
         protected final long threshold;
-        protected StopCondition (long threshold) {
+        protected StopCondition (long threshold, long stamp) {
             this.threshold = threshold;
+            setStamp(stamp);
         }
         abstract boolean conditionNotMet ();
         abstract long getStamp ();
@@ -18,8 +16,8 @@ public class Genetic {
     private static class StopConditionTime extends StopCondition {
         protected Instant start = Instant.now();
         protected long offset = 0;
-        protected StopConditionTime (long threshold) {
-            super(threshold);
+        protected StopConditionTime (long threshold, long stamp) {
+            super(threshold, stamp);
         }
 
         @Override
@@ -43,8 +41,8 @@ public class Genetic {
 
     private static class StopConditionGenerations extends StopCondition {
         long generations = 0;
-        protected StopConditionGenerations (long threshold) {
-            super(threshold);
+        protected StopConditionGenerations (long threshold, long stamp) {
+            super(threshold, stamp);
         }
 
         @Override
@@ -56,7 +54,7 @@ public class Genetic {
 
         @Override
         long getStamp() {
-            return 0;
+            return generations;
         }
 
         @Override
@@ -70,25 +68,40 @@ public class Genetic {
     private final PlayerComputer player1, player2;
     private final GameHandler game1, game2;
 
-    private int populationSize;
+    private final short[][] population;
+    private final int populationSize;
     private int parentPopulationSize;
+    private int generation;
+    private int selectionFactor;
     private double mutationChance;
-    private int selectionFactor = 20;
+    private StopCond stopCondType;
+    private long stopCondStamp;
+    private long stopCondThreshold;
 
     private short[] bestSoFar;
 
     public Genetic () {
-        this(100, 50, 0.1, 1);
+        this(createStartingPopulation(100), 0, 20, 0.2, StopCond.GENERATIONS, 0, 1000);
     }
 
-    public Genetic (int populationSize, int selectionFactor, double mutationChance, int playerDepth) {
-        while (populationSize % 4 != 0) ++populationSize;
-        this.populationSize = populationSize;
+    public Genetic (int populationSize, int selectionFactor, double mutationChance) {
+        this(createStartingPopulation(populationSize), 0, selectionFactor, mutationChance, StopCond.GENERATIONS, 0, 20);
+    }
+
+    public Genetic (short[][] population, int generation, int selectionFactor, double mutationChance,
+                    StopCond stopCondType, long stopCondStamp, long stopCondThreshold) {
+        this.population = population;
+        this.populationSize = population.length;
+        assert this.populationSize % 4 == 0;
         this.parentPopulationSize = populationSize / 2;
+        this.generation = generation;
         this.selectionFactor = selectionFactor;
         this.mutationChance = mutationChance;
-        this.player1 = new PlayerComputer(new Heuristic((short) 0), playerDepth);
-        this.player2 = new PlayerComputer(new Heuristic((short) 0), playerDepth);
+        this.stopCondType = stopCondType;
+        this.stopCondStamp = stopCondStamp;
+        this.stopCondThreshold = stopCondThreshold;
+        this.player1 = new PlayerComputer(new Heuristic((short) 0), 1);
+        this.player2 = new PlayerComputer(new Heuristic((short) 0), 1);
         this.game1 = new GameHandler(player1, player2);
         this.game2 = new GameHandler(player2, player1);
     }
@@ -161,15 +174,15 @@ public class Genetic {
         }
 
         // TODO: Funckja debugująca. Należy jej się pozbyć w finalnym projeckie.
-        System.out.println("----SORTED----");
-        for (int i = 0; i < popSize; ++i) {
-            System.out.print(results[i][0] + " ");
-        }
-        System.out.println();
-        for (int i = 0; i < popSize; ++i) {
-            System.out.print(results[i][3] + " ");
-        }
-        System.out.println("\n--------------");
+//        System.out.println("----SORTED----");
+//        for (int i = 0; i < popSize; ++i) {
+//            System.out.print(results[i][0] + " ");
+//        }
+//        System.out.println();
+//        for (int i = 0; i < popSize; ++i) {
+//            System.out.print(results[i][3] + " ");
+//        }
+//        System.out.println("\n--------------");
 
         // Wybierz najlepszego.
         bestSoFar = population[results[0][0]];
@@ -190,15 +203,15 @@ public class Genetic {
         }
 
         // TODO: Funckja debugująca. Należy jej się pozbyć w finalnym projeckie.
-        System.out.println("----SORTED POST ROULETTE----");
-        for (int i = 0; i < popSize; ++i) {
-            System.out.print(results[i][0] + " ");
-        }
-        System.out.println();
-        for (int i = 0; i < popSize; ++i) {
-            System.out.print(results[i][3] + " ");
-        }
-        System.out.println("\n--------------");
+//        System.out.println("----SORTED POST ROULETTE----");
+//        for (int i = 0; i < popSize; ++i) {
+//            System.out.print(results[i][0] + " ");
+//        }
+//        System.out.println();
+//        for (int i = 0; i < popSize; ++i) {
+//            System.out.print(results[i][3] + " ");
+//        }
+//        System.out.println("\n--------------");
 
         // W miarę możliwości dobieraj osobniki różne.
         boolean[] candidatesFree = new boolean[popSize];
@@ -323,30 +336,29 @@ public class Genetic {
         genotype[index] = RNG.randomShort();
     }
 
-    public short[][] createStartingPopulation () {
-        short[][] population = new short[populationSize][genotypeSize];
-        for (int i = 0; i < populationSize; ++i)
+    public static short[][] createStartingPopulation (int popSize) {
+        short[][] population = new short[popSize][genotypeSize];
+        for (int i = 0; i < popSize; ++i)
             for (int k = 0; k < genotypeSize; ++k)
                 population[i][k] = RNG.randomShort();
         return population;
     }
 
-    private StopCondition buildStopCondition (StopConds type, long threshold) {
+    private StopCondition buildStopCondition (StopCond type, long stopCondStamp, long threshold) {
         StopCondition s;
         switch (type) {
-            case TIME -> s = new StopConditionTime(threshold);
-            case GENERATIONS -> s = new StopConditionGenerations(threshold);
-            default -> s = new StopConditionTime(threshold);
+            case TIME -> s = new StopConditionTime(threshold, stopCondStamp);
+            case GENERATIONS -> s = new StopConditionGenerations(threshold, stopCondStamp);
+            default -> s = new StopConditionTime(threshold, stopCondStamp);
         }
         return s;
     }
 
-    public short[] GA (short[][] population, StopConds stopType, long threshold) {
-        StopCondition stop = buildStopCondition(stopType, threshold);
-        int gen = 0;    // Liczba iteracji/generacji.
+    public short[] GA () {
+        StopCondition stop = buildStopCondition(stopCondType, stopCondStamp, stopCondThreshold);
 
-        while (stop.conditionNotMet()) {    // Dopóki nie osiągniemy kryterium stopu:
-            System.out.println("Generation " + ++gen);
+        while (stop.conditionNotMet() && generation % 10 != 9) {    // Dopóki nie osiągniemy kryterium stopu:
+            System.out.println("Generation " + ++generation);
             // Selekcja populacji rodziców (każdy gra z każdym, patrzymy kto ile wygrywał jako biały/czarny).
             short[][] parents = selection(population);
 //            short[][] parents = selectionDebug(population); // TODO: Zmienić po debugu
@@ -367,11 +379,12 @@ public class Genetic {
                 population[2 * i + 1] = children[i];
             }
             // Zapisz populację i usuń poprzednią.
-            String newestPopulationName = FileHandler.savePopulation(population);
-            FileHandler.removePopulationsExceptOne(newestPopulationName);
+            String currentPopulationFilename = FileHandler.savePopulation(population, generation, selectionFactor,
+                    mutationChance, stopCondType, stop.getStamp(), stopCondThreshold);
+            FileHandler.removePopulationsExceptOne(currentPopulationFilename);
         }
         // Przeprowadź ponowną selekcję i wyznacz najlepszego.
-        short[] best = selection(population)[0];  // TODO: Zmienić po debugu
+        selection(population);
 //        short[] best = selectionDebug(population)[0];
         // Zapisz do pliku w heuristics/output/ najlepszego i go zwróć.
         String bestFilename = FileHandler.saveGeneticOutput(bestSoFar);

@@ -1,4 +1,4 @@
-public enum StopConds {
+public enum StopCond {
     TIME,
     GENERATIONS
 }

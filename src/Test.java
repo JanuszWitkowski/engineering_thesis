@@ -2,7 +2,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 
 /**
  * Klasa testująca program.
@@ -237,28 +236,28 @@ public class Test {
         FileHandler.removeSingleHeuristics();
     }
 
-    private static void testPopulationSaveLoad () {
-        int populationSize = 100;
-        short[][] population1 = new short[populationSize][HParam.values().length];
-        for (short[] genotype : population1) {
-            for (int i = 0; i < HParam.values().length; ++i) {
-                genotype[i] = RNG.randomShort();
-            }
-        }
-//        System.out.println(Arrays.deepToString(population1));
-        FileHandler.savePopulation(population1);
-        short[][] population2 = FileHandler.loadPopulation();
-//        System.out.println(Arrays.deepToString(population2));
-        FileHandler.removePopulationsExceptOne();
-        for (int i = 0; i < populationSize; ++i) {
-            for (int j = 0; j < HParam.values().length; ++j) {
-                if (population1[i][j] != population2[i][j]) {
-                    System.out.println("Brak zgodności!");
-                    return;
-                }
-            }
-        }
-    }
+//    private static void testPopulationSaveLoad () {
+//        int populationSize = 100;
+//        short[][] population1 = new short[populationSize][HParam.values().length];
+//        for (short[] genotype : population1) {
+//            for (int i = 0; i < HParam.values().length; ++i) {
+//                genotype[i] = RNG.randomShort();
+//            }
+//        }
+////        System.out.println(Arrays.deepToString(population1));
+////        FileHandler.savePopulation(population1);
+////        short[][] population2 = FileHandler.loadPopulation();
+////        System.out.println(Arrays.deepToString(population2));
+//        FileHandler.removePopulationsExceptOne();
+//        for (int i = 0; i < populationSize; ++i) {
+//            for (int j = 0; j < HParam.values().length; ++j) {
+//                if (population1[i][j] != population2[i][j]) {
+//                    System.out.println("Brak zgodności!");
+//                    return;
+//                }
+//            }
+//        }
+//    }
 
     private static void testRandom () {
         int min = -3, max = 3;
@@ -286,11 +285,19 @@ public class Test {
     }
 
     private static void testGA () {
-        Genetic ga = new Genetic(20, 20, 0.2, 1);
-        short[][] startingPopulation = ga.createStartingPopulation();
-        short[] bestWeights = ga.GA(startingPopulation, StopConds.GENERATIONS, 10);
+        Genetic ga = new Genetic(20, 20, 0.2);
+        short[] bestWeights = ga.GA();
         System.out.println("BEST: " + Arrays.toString(bestWeights));
         Heuristic h = new Heuristic(bestWeights);
+    }
+
+    private static void testReloadGA () {
+        Genetic ga = new Genetic(20, 20, 0.2);
+        short[] best = ga.GA();
+        System.out.println("!!! KONIEC ALGORYTMU, pora wczytać jego instancję.");
+        ga = FileHandler.reloadGeneticAlgorithm();
+        System.out.println("!!!! Instancja wczytania, kontynuowanie.");
+        best = ga.GA();
     }
 
     public static void main (String[] args) {
@@ -305,7 +312,8 @@ public class Test {
 //        testSaveLoad();
 //        testPopulationSaveLoad();
 //        testRandom();
-        testGA();
+//        testGA();
 //        testDouble();
+        testReloadGA();
     }
 }

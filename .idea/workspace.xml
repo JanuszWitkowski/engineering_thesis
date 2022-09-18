@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Adjust the new selection method for game playing">
-      <change afterPath="$PROJECT_DIR$/src/StopCondsConverter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/StopConds.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/StopCond.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/StopCondsConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/StopCondConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +56,7 @@
       <recent name="$PROJECT_DIR$/heuristics/single" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Find">
+  <component name="RunManager" selected="Application.Test">
     <configuration name="Find" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Find" />
       <module name="Checkers" />
@@ -84,8 +86,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Find" />
         <item itemvalue="Application.Test" />
+        <item itemvalue="Application.Find" />
         <item itemvalue="Application.Play" />
       </list>
     </recent_temporary>
@@ -131,6 +133,7 @@
       <workItem from="1663098993777" duration="137000" />
       <workItem from="1663092674282" duration="3839000" />
       <workItem from="1663409080790" duration="4541000" />
+      <workItem from="1663494094847" duration="6127000" />
     </task>
     <task id="LOCAL-00008" summary="Adjust Minimax for edge cases">
       <created>1657720924424</created>

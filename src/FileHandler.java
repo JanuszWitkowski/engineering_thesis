@@ -14,13 +14,16 @@ public class FileHandler {
 
     //Poniżej znajdują się metody do zapisu i odczytu wag parametrów heurystyki.
 
-    public static void savePopulation (String filename, short[][] population) {
+    public static void savePopulation (String filename, short[][] population, int generations, int selectionFactor,
+                                       double mutationChance, StopCond stopCondType, long stopCondStamp, long threshold) {
         int populationLength = population.length;
         assert populationLength > 0;
         int heuristicSize = population[0].length;
         assert heuristicSize == Heuristic.numberOfParams;
         try (FileWriter writer = new FileWriter(filename)) {
-            String header = heuristicSize + " " + populationLength + '\n';
+            String header = heuristicSize + " " + populationLength + " " + generations + " " + selectionFactor + " " +
+                    mutationChance + " " + StopCondConverter.enumToInt(stopCondType) + " " + stopCondStamp + " " + threshold;
+            header = header + '\n';
             writer.write(header);
             for (int i = 0; i < populationLength; ++i) {
                 for (int j = 0; j < heuristicSize; ++j)
@@ -34,10 +37,11 @@ public class FileHandler {
         }
     }
 
-    public static String savePopulation (short[][] population) {
+    public static String savePopulation (short[][] population, int generations, int selectionFactor,
+                                         double mutationChance, StopCond stopCondType, long stopCondStamp, long threshold) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
         String filename = populationsDirectory + "/" + dtf.format(LocalDateTime.now()) + ".txt";
-        savePopulation(filename, population);
+        savePopulation(filename, population, generations, selectionFactor, mutationChance, stopCondType, stopCondStamp, threshold);
         return filename;
     }
 
@@ -102,6 +106,46 @@ public class FileHandler {
         File[] files = dir.listFiles((dir1, name) -> name.endsWith(".txt"));
         assert files != null;
         return loadPopulation(populationsDirectory + "/" + files[files.length - 1].getName());
+    }
+
+    public static Genetic reloadGeneticAlgorithm (String filename) {
+        short[][] population = null;
+        int heuristicSize, populationLength, generation = 0, selectionFactor = 0;
+        long stopCondStamp = 0, stopCondThreshold = 0;
+        double mutationChance = 0.0;
+        StopCond stopCondType = StopCond.GENERATIONS;
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String[] numbers = reader.readLine().split(" ");
+            heuristicSize = Integer.parseInt(numbers[0]);
+            assert heuristicSize == Heuristic.numberOfParams;
+            populationLength = Integer.parseInt(numbers[1]);
+            assert populationLength > 0;
+            generation = Integer.parseInt(numbers[2]);
+            selectionFactor = Integer.parseInt(numbers[3]);
+            mutationChance = Double.parseDouble(numbers[4]);
+            stopCondType = StopCondConverter.intToEnum(Integer.parseInt(numbers[5]));
+            stopCondStamp = Long.parseLong(numbers[6]);
+            stopCondThreshold = Long.parseLong(numbers[7]);
+            population = new short[populationLength][heuristicSize];
+            for (int i = 0; i < populationLength; ++i) {
+                numbers = reader.readLine().split(" ");
+                for (int j = 0; j < heuristicSize; ++j) {
+                    population[i][j] = Short.parseShort(numbers[j]);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("ERROR: Odczyt algorytmu genetycznego nie powiódł się.");
+            e.printStackTrace();
+        }
+        assert population != null;
+        return new Genetic(population, generation, selectionFactor, mutationChance, stopCondType, stopCondStamp, stopCondThreshold);
+    }
+
+    public static Genetic reloadGeneticAlgorithm () {
+        File dir = new File(populationsDirectory);
+        File[] files = dir.listFiles((dir1, name) -> name.endsWith(".txt"));
+        assert files != null;
+        return reloadGeneticAlgorithm(populationsDirectory + "/" + files[files.length - 1].getName());
     }
 
     public static short[] loadWeights (String filename) {
@@ -171,9 +215,10 @@ public class FileHandler {
     }
 
     public static void removePopulationsExceptOne (String filename) {
+        String name = filename.substring(filename.lastIndexOf("/") + 1);
         File dir = new File(populationsDirectory);
         for (File file: Objects.requireNonNull(dir.listFiles()))
-            if (!file.getName().equals(filename) && !file.isDirectory())
+            if (!file.getName().equals(name) && !file.isDirectory())
                 if (!file.delete())
                     System.err.println("ERROR: Błąd podczas usuwania plików populacji poza jednym wybranym.");
     }
