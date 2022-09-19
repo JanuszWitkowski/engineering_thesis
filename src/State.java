@@ -594,16 +594,23 @@ public class State {
     }
 
     public boolean doesCaptureMoveExist (int player) {
-//        if (player == currentPlayer) return !captureMoveDoesNotExist();
-        return false;
+        ArrayList<ArrayList<Integer>> moves = player == currentPlayer ? currentPlayerMoves : getPossibleMoves(player);
+        if (moves.isEmpty()) return false;
+        return (numberToRow(moves.get(0).get(0)) - numberToRow(moves.get(0).get(1))) % 2 == 0;
     }
 
     public int getNumberOfCaptureMoves (int player) {
-        return 0;
+        ArrayList<ArrayList<Integer>> moves = player == currentPlayer ? currentPlayerMoves : getPossibleMoves(player);
+        if (moves.isEmpty()) return 0;
+        return moves.size();
     }
 
     public int getLengthOfTheLargestCaptureMove(int player) {
-        return 0;
+        ArrayList<ArrayList<Integer>> moves = player == currentPlayer ? currentPlayerMoves : getPossibleMoves(player);
+        int maxLength = 0;
+        for (ArrayList<Integer> m : moves)
+            if (maxLength < m.size()) maxLength = m.size();
+        return maxLength;
     }
 
     public int getAggregatedDistanceToPromotionLine (int player) {

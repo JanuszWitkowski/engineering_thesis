@@ -116,6 +116,9 @@ public class Heuristic {
         params[enumToInt(HParam.CAPTURE_MOVE_EXISTS)] = paramCaptureMoveExists(state, player);
         params[enumToInt(HParam.CAPTURE_MOVES)] = paramCaptureMoves(state, player);
         params[enumToInt(HParam.LONGEST_CAPTURE_MOVE)] = paramLongestCaptureMove(state, player);
+        params[enumToInt(HParam.ENEMY_CAPTURE_MOVE_EXISTS)] = paramEnemyCaptureMoveExists(state, player);
+        params[enumToInt(HParam.ENEMY_CAPTURE_MOVES)] = paramEnemyCaptureMoves(state, player);
+        params[enumToInt(HParam.LONGEST_ENEMY_CAPTURE_MOVE)] = paramLongestEnemyCaptureMove(state, player);
 
         params[enumToInt(HParam.DISTANCE_TO_PROMOTION)] = paramDistanceToPromotion(state, player);
         params[enumToInt(HParam.DISTANCE_TO_ENEMY_PROMOTION)] = paramDistanceToEnemyPromotion(state, player);
@@ -238,6 +241,18 @@ public class Heuristic {
 
     protected int paramLongestCaptureMove (State s, int p) {
         return s.getLengthOfTheLargestCaptureMove(p);
+    }
+
+    protected int paramEnemyCaptureMoveExists (State s, int p) {
+        return s.doesCaptureMoveExist(s.opponent(p)) ? 1 : 0;
+    }
+
+    protected int paramEnemyCaptureMoves (State s, int p) {
+        return s.getNumberOfCaptureMoves(s.opponent(p));
+    }
+
+    protected int paramLongestEnemyCaptureMove (State s, int p) {
+        return s.getLengthOfTheLargestCaptureMove(s.opponent(p));
     }
 
     protected int paramDistanceToPromotion(State s, int p) {

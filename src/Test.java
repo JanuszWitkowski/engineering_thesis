@@ -191,19 +191,29 @@ public class Test {
 //                {0, 1, 0, 1, 0, 1, 0, 1},
 //                {1, 0, 1, 0, 1, 0, 1, 0}
 //        };
+//        int[][] board = new int[][] {
+//                {0, -1, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 0, 0, 0},
+//                {0, 0, 0, 0, 0, 1, 0, 0},
+//                {0, 0, 0, 0, 1, 0, 0, 0},
+//                {0, 0, 0, -1, 0, 1, 0, 0},
+//                {0, 0, 1, 0, 0, 0, 1, 0},
+//                {0, 1, 0, 1, 0, 0, 0, 1},
+//                {1, 0, 0, 0, 1, 0, 0, 0}
+//        };
         int[][] board = new int[][] {
-                {0, -1, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 1, 0, 0},
-                {0, 0, 0, 0, 1, 0, 0, 0},
-                {0, 0, 0, -1, 0, 1, 0, 0},
-                {0, 0, 1, 0, 0, 0, 1, 0},
-                {0, 1, 0, 1, 0, 0, 0, 1},
-                {1, 0, 0, 0, 1, 0, 0, 0}
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 2, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, -1, 0, 0, 0, 2, 0, 0},
+                {0, 0, 0, 0, -1, 0, 0, 0},
+                {0, 0, 0, 1, 0, 1, 0, 0},
+                {0, 0, 0, 0, -2, 0, 0, 0}
         };
         State state = new State(board);
         Heuristic h = new Heuristic((short)0);
-        h.changeParamWeight(Heuristic.enumToInt(HParam.DOUBLE_CORNER), (short)1);
+        h.changeParamWeight(Heuristic.enumToInt(HParam.LONGEST_ENEMY_CAPTURE_MOVE), (short)1);
         int eval = h.evaluate(state, 1);
         state.printBoardWithCoordinates();
         System.out.println("Wartość oceny: " + eval);
@@ -306,7 +316,7 @@ public class Test {
 //        testAIvsAI(5, 5, 10);
 //        testHumanVsAI();
 //        testOneParamInGame();
-//        testOneParamOneState();
+        testOneParamOneState();
 //        testChildHeuristic();
 //        testDateTimeFormatter();
 //        testSave();
@@ -316,6 +326,6 @@ public class Test {
 //        testRandom();
 //        testGA();
 //        testDouble();
-        testReloadGA();
+//        testReloadGA();
     }
 }
