@@ -11,6 +11,21 @@ public class FileHandler {
     private static final String archiveDirectory = globalDirectory + "/archive";
     private static final String gaOutputDirectory = globalDirectory + "/output";
 
+    public static String[] getAllNecessaryDirs () {
+        return new String[]{globalDirectory, singleHeuristicsDirectory,
+        populationsDirectory, archiveDirectory, gaOutputDirectory};
+    }
+
+    public static boolean checkDirectories (String[] dirs) {
+        for (String dirName : dirs) {
+            File directory = new File(dirName);
+            if (!directory.exists()) {
+                if (!directory.mkdirs()) return false;
+            }
+        }
+        return true;
+    }
+
 
     //Poniżej znajdują się metody do zapisu i odczytu wag parametrów heurystyki.
 

@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Find {
     private static void printSignature () {
         System.out.println("Należy podać argumenty w jednej z następujących konfiguracji:");
@@ -23,6 +25,13 @@ public class Find {
     public static void main(String[] args) {
         System.out.println(Console.BLUE_BOLD + "#### FIND HEURISTIC USING GA ####" + Console.RESET);
         System.out.println(Console.BLUE_BOLD + "# Szukanie najlepszej strategii #" + Console.RESET);
+        {
+            String[] dirs = FileHandler.getAllNecessaryDirs();
+            if (!FileHandler.checkDirectories(dirs)) {
+                System.out.println(Console.RED_BOLD + "FATALNY BŁĄD: Nie udało się utworzyć potrzebnych katalogów." + Console.RESET);
+                System.out.println("Utwórz ręcznie katalogi: " + Arrays.toString(dirs));
+            }
+        }
         int argc = args.length;
         if (argc < 5 && argc > 1) {
             System.out.println(Console.RED_BOLD + "BŁĄD: Niewłaściwa liczba argumentów." + Console.RESET);

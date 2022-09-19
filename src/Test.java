@@ -313,6 +313,13 @@ public class Test {
     public static void main (String[] args) {
         System.out.println(Console.YELLOW_BOLD + "#### TESTING ####" + Console.RESET);
         System.out.println(Console.YELLOW_BOLD + "# Zbiór testowy #" + Console.RESET);
+        {
+            String[] dirs = FileHandler.getAllNecessaryDirs();
+            if (!FileHandler.checkDirectories(dirs)) {
+                System.out.println(Console.RED_BOLD + "FATALNY BŁĄD: Nie udało się utworzyć potrzebnych katalogów." + Console.RESET);
+                System.out.println("Utwórz ręcznie katalogi: " + Arrays.toString(dirs));
+            }
+        }
 //        testAIvsAI(5, 5, 10);
 //        testHumanVsAI();
 //        testOneParamInGame();
