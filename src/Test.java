@@ -311,8 +311,8 @@ public class Test {
     }
 
     public static void main (String[] args) {
-        System.out.println(Console.BLUE_BOLD + "#### TESTING ####" + Console.RESET);
-        System.out.println(Console.BLUE_BOLD + "# Zbiór testowy #" + Console.RESET);
+        System.out.println(Console.YELLOW_BOLD + "#### TESTING ####" + Console.RESET);
+        System.out.println(Console.YELLOW_BOLD + "# Zbiór testowy #" + Console.RESET);
 //        testAIvsAI(5, 5, 10);
 //        testHumanVsAI();
 //        testOneParamInGame();

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Minor change in interface information">
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Implement the last params for heuristic">
+      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-09-19_19-10-42.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-09-19_19-11-44.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HParam.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Heuristic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Find.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Find.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Play.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Play.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -55,7 +57,7 @@
       <recent name="$PROJECT_DIR$/heuristics/single" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Test">
+  <component name="RunManager" selected="Application.Play">
     <configuration name="Find" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Find" />
       <module name="Checkers" />
@@ -66,6 +68,7 @@
     <configuration name="Play" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Play" />
       <module name="Checkers" />
+      <option name="PROGRAM_PARAMETERS" value="5 heuristics/output/2022-09-19_19-13-56.txt 0 ?" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -84,8 +87,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Test" />
         <item itemvalue="Application.Play" />
+        <item itemvalue="Application.Test" />
       </list>
     </recent_temporary>
   </component>
@@ -131,14 +134,7 @@
       <workItem from="1663092674282" duration="3839000" />
       <workItem from="1663409080790" duration="4541000" />
       <workItem from="1663494094847" duration="8846000" />
-      <workItem from="1663602614829" duration="2599000" />
-    </task>
-    <task id="LOCAL-00011" summary="Tune GameHandler and Player classes">
-      <created>1657810383550</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1657810383550</updated>
+      <workItem from="1663602614829" duration="4987000" />
     </task>
     <task id="LOCAL-00012" summary="Fix move generation&#10;&#10;The game works on minimax level.&#10;Need to implement better player handling for non-Computer players, parameter-data counter &amp; better heuristic.">
       <created>1657815096021</created>
@@ -476,7 +472,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663502846958</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="Implement the last params for heuristic">
+      <created>1663605469104</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1663605469104</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -493,7 +496,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/master" />
+                        <option value="master" />
                       </list>
                     </value>
                   </entry>
@@ -527,7 +530,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Add &quot;lowermost/central/uppermost&quot; params" />
     <MESSAGE value="Minor changes" />
     <MESSAGE value="Add &quot;loner pieces&quot; params" />
     <MESSAGE value="Add &quot;corner&quot; and patterns params" />
@@ -552,6 +554,7 @@
     <MESSAGE value="Reimplement methods for saving &amp; loading GA instances&#10;&#10;Now you can reload GA from file" />
     <MESSAGE value="Adjust &quot;Find&quot; interface for massive testing" />
     <MESSAGE value="Minor change in interface information" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor change in interface information" />
+    <MESSAGE value="Implement the last params for heuristic" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement the last params for heuristic" />
   </component>
 </project>

@@ -8,6 +8,9 @@ public class Genetic {
             this.threshold = threshold;
 //            setStamp(stamp);
         }
+        protected long getThreshold () {
+            return this.threshold;
+        }
         abstract boolean conditionNotMet ();
         abstract long getStamp ();
         abstract void setStamp (long stamp);
@@ -367,7 +370,7 @@ public class Genetic {
         StopCondition stop = buildStopCondition(stopCondType, stopCondStamp, stopCondThreshold);
 
         while (stop.conditionNotMet()) {    // Dopóki nie osiągniemy kryterium stopu:
-            System.out.println("Generation " + ++generation);
+            System.out.println("Generation " + ++generation + "; Progress: " + stop.getStamp() + "/" + stop.getThreshold());
             // Selekcja populacji rodziców (każdy gra z każdym, patrzymy kto ile wygrywał jako biały/czarny).
             short[][] parents = selection(population);
 //            short[][] parents = selectionDebug(population); // TODO: Zmienić po debugu

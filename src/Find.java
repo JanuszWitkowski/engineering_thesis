@@ -21,20 +21,23 @@ public class Find {
     }
 
     public static void main(String[] args) {
-        System.out.println(Console.RED_BOLD + "#### FIND HEURISTIC USING GA ####" + Console.RESET);
-        System.out.println(Console.RED_BOLD + "# Szukanie najlepszej strategii #" + Console.RESET);
+        System.out.println(Console.BLUE_BOLD + "#### FIND HEURISTIC USING GA ####" + Console.RESET);
+        System.out.println(Console.BLUE_BOLD + "# Szukanie najlepszej strategii #" + Console.RESET);
         int argc = args.length;
         if (argc < 5 && argc > 1) {
-            System.out.println("BŁĄD: Niewłaściwa liczba argumentów.");
+            System.out.println(Console.RED_BOLD + "BŁĄD: Niewłaściwa liczba argumentów." + Console.RESET);
             printSignature();
             return;
         }
         Genetic ga;
         if (argc == 1) {
+            System.out.println("## Reaktywacja algorytmu genetycznego z pliku " + args[0]);
             ga = FileHandler.reloadGeneticAlgorithm(args[0]);
         } else if (argc == 0) {
+            System.out.println("## Reaktywacja algorytmu genetycznego z ostatniego pliku w folderze populations/");
             ga = FileHandler.reloadGeneticAlgorithm();
         } else {
+            System.out.println("## Pierwsze uruchomienie algorytmu genetycznego.");
             try {
                 int populationSize = Integer.parseInt(args[0]),
                         selectionFactor = Integer.parseInt(args[1]),
@@ -49,9 +52,16 @@ public class Find {
                     throw new NumberFormatException();
                 if (stopCondThreshold < 0)
                     throw new NumberFormatException();
+                System.out.println("Uruchamiam algorytm genetyczny o następujących parametrach");
+                System.out.println("> Liczebność populacji: " + populationSize);
+                System.out.println("> Współczynnik selekcji: " + selectionFactor);
+                System.out.println("> Szansa na mutację: " + mutationChance);
+                System.out.println("> Kryterium stopu: " + stopCondTypeNumber);
+                System.out.println("> Limit dla kryterium stopu: " + stopCondThreshold);
+                System.out.println();
                 ga = new Genetic(populationSize, selectionFactor, mutationChance, stopCondTypeNumber, stopCondThreshold);
             } catch (NumberFormatException e) {
-                System.out.println("BŁĄD: Niewłaściwy format danych.");
+                System.out.println(Console.RED_BOLD + "BŁĄD: Niewłaściwy format danych." + Console.RESET);
                 printSignature();
                 throw new RuntimeException(e);
             }
