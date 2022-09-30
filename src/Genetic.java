@@ -366,7 +366,7 @@ public class Genetic {
         return s;
     }
 
-    public short[] GA () {
+    public short[] run() {
         StopCondition stop = buildStopCondition(stopCondType, stopCondStamp, stopCondThreshold);
 
         while (stop.conditionNotMet()) {    // Dopóki nie osiągniemy kryterium stopu:

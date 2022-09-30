@@ -97,6 +97,6 @@ public class Find {
                 throw new RuntimeException(e);
             }
         }
-        ga.GA();
+        ga.run();
     }
 }

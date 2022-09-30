@@ -296,18 +296,18 @@ public class Test {
 
     private static void testGA () {
         Genetic ga = new Genetic(20, 20, 0.2);
-        short[] bestWeights = ga.GA();
+        short[] bestWeights = ga.run();
         System.out.println("BEST: " + Arrays.toString(bestWeights));
         Heuristic h = new Heuristic(bestWeights);
     }
 
     private static void testReloadGA () {
         Genetic ga = new Genetic(20, 20, 0.2);
-        short[] best = ga.GA();
+        short[] best = ga.run();
         System.out.println("!!! KONIEC ALGORYTMU, pora wczytać jego instancję.");
         ga = FileHandler.reloadGeneticAlgorithm();
         System.out.println("!!!! Instancja wczytania, kontynuowanie.");
-        best = ga.GA();
+        best = ga.run();
     }
 
     public static void main (String[] args) {
