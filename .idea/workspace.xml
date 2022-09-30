@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Finish (?) interface for Playing and Finding">
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Add handling for non-existent directories">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Find.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Find.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,7 +56,7 @@
     <configuration name="Find" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Find" />
       <module name="Checkers" />
-      <option name="PROGRAM_PARAMETERS" value="20 5 0.2 1 10" />
+      <option name="PROGRAM_PARAMETERS" value="heuristics/populations/2022-09-30_19-54-58.txt 2 0.3 1 14" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -131,14 +130,9 @@
       <workItem from="1663092674282" duration="3839000" />
       <workItem from="1663409080790" duration="4541000" />
       <workItem from="1663494094847" duration="8846000" />
-      <workItem from="1663602614829" duration="6209000" />
-    </task>
-    <task id="LOCAL-00013" summary="Fix move generation&#10;&#10;The game works on minimax level.&#10;Need to implement better player handling for non-Computer players, parameter-data counter &amp; better heuristic.">
-      <created>1657815217872</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1657815217872</updated>
+      <workItem from="1663602614829" duration="7250000" />
+      <workItem from="1663681865986" duration="1834000" />
+      <workItem from="1664558934323" duration="1473000" />
     </task>
     <task id="LOCAL-00014" summary="Fix the computer always making moves from the same row">
       <created>1657822459410</created>
@@ -476,7 +470,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663607850098</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="Add handling for non-existent directories">
+      <created>1663609069673</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1663609069673</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -527,7 +528,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Add &quot;loner pieces&quot; params" />
     <MESSAGE value="Add &quot;corner&quot; and patterns params" />
     <MESSAGE value="Add BLOCKING_PIECES and BLOCKING_LINES params" />
     <MESSAGE value="Make interface for testing specific params" />
@@ -552,6 +552,7 @@
     <MESSAGE value="Minor change in interface information" />
     <MESSAGE value="Implement the last params for heuristic" />
     <MESSAGE value="Finish (?) interface for Playing and Finding" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finish (?) interface for Playing and Finding" />
+    <MESSAGE value="Add handling for non-existent directories" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add handling for non-existent directories" />
   </component>
 </project>

@@ -18,7 +18,17 @@ public class Find {
                 System.out.println("\t- Nazwa pliku.");
             }
             System.out.println();
-            System.out.println("> Reaktywacja algorytmu genetycznego z ostatniego pliku (o ile istnieje)");
+            System.out.println("> Reaktywacja algorytmu genetycznego z ostatniego pliku (o ile istnieje) [BRAK ARGUMENTÓW]");
+            System.out.println();
+            System.out.println("> Kontynuacja algorytmu genetycznego z nowymi parametrami");
+            {
+                System.out.println("\t- Nazwa pliku;");
+                System.out.println("\t- Współczynnik losowej selekcji osobników [liczba całkowita];");
+                System.out.println("\t- Szansa na mutację [liczba wymierna między 0 a 1];");
+                System.out.println("\t- Rodzaj kryterium stopu [0 - czas (w sekundach), 1 - liczba iteracji];");
+                System.out.println("\t- Limit dla kryterium stopu [liczba naturalna].");
+            }
+            System.out.println();
         }
     }
 
@@ -46,15 +56,26 @@ public class Find {
             System.out.println("## Reaktywacja algorytmu genetycznego z ostatniego pliku w folderze populations/");
             ga = FileHandler.reloadGeneticAlgorithm();
         } else {
-            System.out.println("## Pierwsze uruchomienie algorytmu genetycznego.");
+            int populationSize, selectionFactor, stopCondTypeNumber;
+            double mutationChance;
+            long stopCondThreshold;
+            short[][] startingPopulation;
             try {
-                int populationSize = Integer.parseInt(args[0]),
-                        selectionFactor = Integer.parseInt(args[1]),
-                        stopCondTypeNumber = Integer.parseInt(args[3]);
-                double mutationChance = Double.parseDouble(args[2]);
-                long stopCondThreshold = Long.parseLong(args[4]);
+                populationSize = Integer.parseInt(args[0]);
                 if (populationSize < 0 || populationSize % 4 != 0)
                     throw new NumberFormatException();
+                startingPopulation = Genetic.createStartingPopulation(populationSize);
+                System.out.println("## Pierwsze uruchomienie algorytmu genetycznego.");
+            } catch (NumberFormatException e) {
+                System.out.println("## Kontyuacja algorytmu genetycznego z nowymi parametrami.");
+                 startingPopulation = FileHandler.loadPopulation(args[0]);
+                 populationSize = startingPopulation.length;
+            }
+            try {
+                selectionFactor = Integer.parseInt(args[1]);
+                stopCondTypeNumber = Integer.parseInt(args[3]);
+                mutationChance = Double.parseDouble(args[2]);
+                stopCondThreshold = Long.parseLong(args[4]);
                 if (mutationChance > 1.0 || mutationChance < 0.0)
                     throw new NumberFormatException();
                 if (stopCondTypeNumber >= StopCondConverter.getNumberOfConds())
@@ -68,7 +89,8 @@ public class Find {
                 System.out.println("> Kryterium stopu: " + stopCondTypeNumber);
                 System.out.println("> Limit dla kryterium stopu: " + stopCondThreshold);
                 System.out.println();
-                ga = new Genetic(populationSize, selectionFactor, mutationChance, stopCondTypeNumber, stopCondThreshold);
+                ga = new Genetic(startingPopulation, 0, selectionFactor, mutationChance,
+                        StopCondConverter.intToEnum(stopCondTypeNumber), 0, stopCondThreshold);
             } catch (NumberFormatException e) {
                 System.out.println(Console.RED_BOLD + "BŁĄD: Niewłaściwy format danych." + Console.RESET);
                 printSignature();
