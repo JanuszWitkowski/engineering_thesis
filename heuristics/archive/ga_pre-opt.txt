@@ -1,0 +1,18 @@
+#### FIND HEURISTIC USING GA ####
+# Szukanie najlepszej strategii #
+## Pierwsze uruchomienie algorytmu genetycznego.
+Uruchamiam algorytm genetyczny o następujących parametrach
+> Liczebność populacji: 100
+> Liczba pojedynków dla jednego osobnika: 0
+> Współczynnik selekcji: 5
+> Szansa na mutację: 0.2
+> Kryterium stopu: 0
+> Limit dla kryterium stopu: 300
+
+Generation 1; Progress: 0/300
+Generation 2; Progress: 51/300
+Generation 3; Progress: 143/300
+Generation 4; Progress: 238/300
+Najlepiej przystosowany osobnik został zapisany jako heuristics/output/2022-10-01_21-04-39.txt
+
+Process finished with exit code 0

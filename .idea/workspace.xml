@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Rename the main method of Genetic to run()">
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Implement handling for different numbers of duels">
+      <change afterPath="$PROJECT_DIR$/heuristics/archive/ga_pre-opt.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-10-01_21-04-39.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-10-01_21-02-55.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Find.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Find.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +58,7 @@
     <configuration name="Find" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Find" />
       <module name="Checkers" />
-      <option name="PROGRAM_PARAMETERS" value="20 0 2 0.3 1 14" />
+      <option name="PROGRAM_PARAMETERS" value="100 0 5 0.2 0 300" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -136,14 +135,8 @@
       <workItem from="1663602614829" duration="7250000" />
       <workItem from="1663681865986" duration="1834000" />
       <workItem from="1664558934323" duration="3713000" />
-      <workItem from="1664617682811" duration="4307000" />
-    </task>
-    <task id="LOCAL-00016" summary="Merge commit">
-      <created>1657900989905</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1657900989905</updated>
+      <workItem from="1664617682811" duration="4491000" />
+      <workItem from="1664650539139" duration="1018000" />
     </task>
     <task id="LOCAL-00017" summary="Make HParam enum to integer conversion for indexing in Heuristic">
       <created>1657903720023</created>
@@ -481,7 +474,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664561341864</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Implement handling for different numbers of duels">
+      <created>1664622177216</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1664622177217</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -532,7 +532,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Make interface for testing specific params" />
     <MESSAGE value="Minor fix" />
     <MESSAGE value="Add DOUBLE_CORNER param" />
     <MESSAGE value="Add &quot;capture moves&quot; params WITH NO FUNCTIONALITY" />
@@ -557,6 +556,7 @@
     <MESSAGE value="Add handling for non-existent directories" />
     <MESSAGE value="Implement reactivation of GA with different parameters" />
     <MESSAGE value="Rename the main method of Genetic to run()" />
-    <option name="LAST_COMMIT_MESSAGE" value="Rename the main method of Genetic to run()" />
+    <MESSAGE value="Implement handling for different numbers of duels" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement handling for different numbers of duels" />
   </component>
 </project>
