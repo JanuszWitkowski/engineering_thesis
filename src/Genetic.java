@@ -77,6 +77,7 @@ public class Genetic {
     private final int populationSize;
     private final int parentPopulationSize;
     private int generation;
+    private final int duelsNumber;
     private final int selectionFactor;
     private final double mutationChance;
     private final StopCond stopCondType;
@@ -86,27 +87,28 @@ public class Genetic {
     private short[] bestSoFar;
 
     public Genetic () {
-        this(createStartingPopulation(100), 0, 20, 0.2,
+        this(createStartingPopulation(100), 0, 0, 20, 0.2,
                 StopCond.GENERATIONS, 0, 1000);
     }
 
     public Genetic (int populationSize, int selectionFactor, double mutationChance) {
-        this(createStartingPopulation(populationSize), 0, selectionFactor, mutationChance, StopCond.GENERATIONS,
+        this(createStartingPopulation(populationSize), 0, 0, selectionFactor, mutationChance, StopCond.GENERATIONS,
                 0, 20);
     }
 
-    public Genetic (int populationSize, int selectionFactor, double mutationChance, int stopCondTypeNumber, long stopCondThreshold) {
-        this(createStartingPopulation(populationSize), 0, selectionFactor, mutationChance,
+    public Genetic (int populationSize, int duelsNumber, int selectionFactor, double mutationChance, int stopCondTypeNumber, long stopCondThreshold) {
+        this(createStartingPopulation(populationSize), 0, duelsNumber, selectionFactor, mutationChance,
                 StopCondConverter.intToEnum(stopCondTypeNumber), 0, stopCondThreshold);
     }
 
-    public Genetic (short[][] population, int generation, int selectionFactor, double mutationChance,
+    public Genetic (short[][] population, int generation, int duelsNumber, int selectionFactor, double mutationChance,
                     StopCond stopCondType, long stopCondStamp, long stopCondThreshold) {
         this.population = population;
         this.populationSize = population.length;
         assert this.populationSize % 4 == 0;
         this.parentPopulationSize = populationSize / 2;
         this.generation = generation;
+        this.duelsNumber = duelsNumber;
         this.selectionFactor = selectionFactor;
         this.mutationChance = mutationChance;
         this.stopCondType = stopCondType;
@@ -145,32 +147,8 @@ public class Genetic {
 
     private short[][] selection (short[][] population) {
         int popSize = population.length;
-        int[][] results = new int[popSize][4];
         // 0 - index; 1 - wygrane w ataku; 2 - wygrane w obronie; 3 - ogólny wynik.
-        for (int p = 0; p < popSize; ++p) {
-            results[p][0] = p;
-            results[p][1] = 0;
-            results[p][2] = 0;
-            results[p][3] = 0;
-        }
-        // Ewaluacja osobników poprzez przeprowadzenie pojedynków każdy z każdym po 2 gry.
-        for (int p1 = 0; p1 < popSize; ++p1) {
-            for (int p2 = p1 + 1; p2 < popSize; ++p2) {
-                player1.changeHeuristicWeights(population[p1]);
-                player2.changeHeuristicWeights(population[p2]);
-                game1.resetBoard();
-                game2.resetBoard();
-                int result1 = game1.quickGame();
-                int result2 = game2.quickGame();
-                results[p1][1] += result1;
-                results[p2][2] -= result1;
-                results[p1][2] -= result2;
-                results[p2][1] += result2;
-            }
-        }
-        for (int p = 0; p < popSize; ++p) {
-            results[p][3] = results[p][1] + results[p][2];
-        }
+        int[][] results = playDuels(population, popSize);
 
         /* REGUŁY SELEKCJI
         Można zmienić w każdej chwili. */
@@ -251,6 +229,78 @@ public class Genetic {
         }
 
         return parents;
+    }
+
+    private int[][] playDuels (short[][] population, int popSize) {
+        int[][] results = new int[popSize][4];
+        for (int p = 0; p < popSize; ++p) {
+            results[p][0] = p;
+            results[p][1] = 0;
+            results[p][2] = 0;
+            results[p][3] = 0;
+        }
+        if (duelsNumber == 0) return getDuelsResults(results, population, popSize);
+        return getDuelsResults(results, population, popSize, duelsNumber);
+    }
+
+    private void playDuelAndWriteResults(short[][] population, int p1, int p2, int[][] results) {
+        player1.changeHeuristicWeights(population[p1]);
+        player2.changeHeuristicWeights(population[p2]);
+        game1.resetBoard();
+        game2.resetBoard();
+        int result1 = game1.quickGame();
+        int result2 = game2.quickGame();
+        results[p1][1] += result1;
+        results[p2][2] -= result1;
+        results[p1][2] -= result2;
+        results[p2][1] += result2;
+    }
+
+    private int[][] getDuelsResults (int[][] results, short[][] population, int popSize) {
+        for (int p = 0; p < popSize; ++p) {
+            results[p][0] = p;
+            results[p][1] = 0;
+            results[p][2] = 0;
+            results[p][3] = 0;
+        }
+        // Ewaluacja osobników poprzez przeprowadzenie pojedynków każdy z każdym po 2 gry.
+        for (int p1 = 0; p1 < popSize; ++p1) {
+            for (int p2 = p1 + 1; p2 < popSize; ++p2) {
+                playDuelAndWriteResults(population, p1, p2, results);
+            }
+        }
+        for (int p = 0; p < popSize; ++p) {
+            results[p][3] = results[p][1] + results[p][2];
+        }
+        return results;
+    }
+
+    private int[][] getDuelsResults (int[][] results, short[][] population, int popSize, int duelsNumber) {
+        shuffleArray(population);
+        for (int p = 0; p < popSize; ++p) {
+            results[p][0] = p;
+        }
+        if (duelsNumber == 1) return getDuelsResultsWithSingleDuels(results, population, popSize);
+        int numberOfDuelsForOne = duelsNumber / 2;
+        for (int p = 0; p < popSize; ++p) {
+            for (int d = 1; d <= numberOfDuelsForOne; ++d) {
+                playDuelAndWriteResults(population, p, (p + d) % popSize, results);
+            }
+        }
+        for (int p = 0; p < popSize; ++p) {
+            results[p][3] = results[p][1] + results[p][2];
+        }
+        return results;
+    }
+
+    private int[][] getDuelsResultsWithSingleDuels (int[][] results, short[][] population, int popSize) {
+        for (int p = 0; p < popSize; p += 2) {
+            playDuelAndWriteResults(population, p, p + 1, results);
+        }
+        for (int p = 0; p < popSize; ++p) {
+            results[p][3] = results[p][1] + results[p][2];
+        }
+        return results;
     }
 
     private short[][] selectionDebug (short[][] population) {
@@ -391,7 +441,7 @@ public class Genetic {
                 population[2 * i + 1] = children[i];
             }
             // Zapisz populację i usuń poprzednią.
-            String currentPopulationFilename = FileHandler.savePopulation(population, generation, selectionFactor,
+            String currentPopulationFilename = FileHandler.savePopulation(population, generation, duelsNumber, selectionFactor,
                     mutationChance, stopCondType, stop.getStamp(), stopCondThreshold);
             FileHandler.removePopulationsExceptOne(currentPopulationFilename);
         }

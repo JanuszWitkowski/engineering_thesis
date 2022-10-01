@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Implement reactivation of GA with different parameters" />
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Rename the main method of Genetic to run()">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Find.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Find.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,7 +59,7 @@
     <configuration name="Find" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Find" />
       <module name="Checkers" />
-      <option name="PROGRAM_PARAMETERS" value="heuristics/populations/2022-09-30_19-54-58.txt 2 0.3 1 14" />
+      <option name="PROGRAM_PARAMETERS" value="20 0 2 0.3 1 14" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -129,14 +135,8 @@
       <workItem from="1663494094847" duration="8846000" />
       <workItem from="1663602614829" duration="7250000" />
       <workItem from="1663681865986" duration="1834000" />
-      <workItem from="1664558934323" duration="2063000" />
-    </task>
-    <task id="LOCAL-00015" summary="Fix misc computer moves">
-      <created>1657900873634</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1657900873634</updated>
+      <workItem from="1664558934323" duration="3713000" />
+      <workItem from="1664617682811" duration="4307000" />
     </task>
     <task id="LOCAL-00016" summary="Merge commit">
       <created>1657900989905</created>
@@ -474,7 +474,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664560747239</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="Rename the main method of Genetic to run()">
+      <created>1664561341863</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1664561341864</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -525,7 +532,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Add BLOCKING_PIECES and BLOCKING_LINES params" />
     <MESSAGE value="Make interface for testing specific params" />
     <MESSAGE value="Minor fix" />
     <MESSAGE value="Add DOUBLE_CORNER param" />
@@ -550,6 +556,7 @@
     <MESSAGE value="Finish (?) interface for Playing and Finding" />
     <MESSAGE value="Add handling for non-existent directories" />
     <MESSAGE value="Implement reactivation of GA with different parameters" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement reactivation of GA with different parameters" />
+    <MESSAGE value="Rename the main method of Genetic to run()" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rename the main method of Genetic to run()" />
   </component>
 </project>

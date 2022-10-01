@@ -315,7 +315,7 @@ public class Test {
         System.out.println(Console.YELLOW_BOLD + "# Zbiór testowy #" + Console.RESET);
         {
             String[] dirs = FileHandler.getAllNecessaryDirs();
-            if (!FileHandler.checkDirectories(dirs)) {
+            if (FileHandler.checkIfDirectoriesExist(dirs)) {
                 System.out.println(Console.RED_BOLD + "FATALNY BŁĄD: Nie udało się utworzyć potrzebnych katalogów." + Console.RESET);
                 System.out.println("Utwórz ręcznie katalogi: " + Arrays.toString(dirs));
             }
