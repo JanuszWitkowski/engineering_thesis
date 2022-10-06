@@ -29,14 +29,14 @@ public class FileHandler {
 
     //Poniżej znajdują się metody do zapisu i odczytu wag parametrów heurystyki.
 
-    public static void savePopulation (String filename, short[][] population, int generations, int duelsNumber, int selectionFactor,
+    public static void savePopulation (String filename, short[][] population, int generations, int duelsNumber, int minmaxDepth, int selectionFactor,
                                        double mutationChance, StopCond stopCondType, long stopCondStamp, long threshold) {
         int populationLength = population.length;
         assert populationLength > 0;
         int heuristicSize = population[0].length;
         assert heuristicSize == Heuristic.numberOfParams;
         try (FileWriter writer = new FileWriter(filename)) {
-            String header = heuristicSize + " " + populationLength + " " + generations + " " + duelsNumber + " " + selectionFactor +
+            String header = heuristicSize + " " + populationLength + " " + generations + " " + duelsNumber + " " + minmaxDepth + " " + selectionFactor +
                     " " + mutationChance + " " + StopCondConverter.enumToInt(stopCondType) + " " + stopCondStamp + " " + threshold;
             header = header + '\n';
             writer.write(header);
@@ -52,11 +52,11 @@ public class FileHandler {
         }
     }
 
-    public static String savePopulation (short[][] population, int generations, int duelsNumber, int selectionFactor,
+    public static String savePopulation (short[][] population, int generations, int duelsNumber, int minmaxDepth, int selectionFactor,
                                          double mutationChance, StopCond stopCondType, long stopCondStamp, long threshold) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
         String filename = populationsDirectory + "/" + dtf.format(LocalDateTime.now()) + ".txt";
-        savePopulation(filename, population, generations, duelsNumber, selectionFactor, mutationChance, stopCondType, stopCondStamp, threshold);
+        savePopulation(filename, population, generations, duelsNumber, minmaxDepth, selectionFactor, mutationChance, stopCondType, stopCondStamp, threshold);
         return filename;
     }
 
@@ -88,7 +88,7 @@ public class FileHandler {
         saveWeights(h.paramWeights);
     }
 
-    public static String saveGeneticOutput (short[] genotype) {
+    public static String saveGeneticOutputHeuristic(short[] genotype) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
         String filename = gaOutputDirectory + "/" + dtf.format(LocalDateTime.now()) + ".txt";
         saveWeights(genotype, filename);
@@ -125,7 +125,7 @@ public class FileHandler {
 
     public static Genetic reloadGeneticAlgorithm (String filename) {
         short[][] population = null;
-        int heuristicSize, populationLength, generation = 0, selectionFactor = 0, duelsNumber = 0;
+        int heuristicSize, populationLength, generation = 0, selectionFactor = 0, duelsNumber = 0, minmaxDepth = 1;
         long stopCondStamp = 0, stopCondThreshold = 0;
         double mutationChance = 0.0;
         StopCond stopCondType = StopCond.GENERATIONS;
@@ -137,11 +137,12 @@ public class FileHandler {
             assert populationLength > 0;
             generation = Integer.parseInt(numbers[2]);
             duelsNumber = Integer.parseInt(numbers[3]);
-            selectionFactor = Integer.parseInt(numbers[4]);
-            mutationChance = Double.parseDouble(numbers[5]);
-            stopCondType = StopCondConverter.intToEnum(Integer.parseInt(numbers[6]));
-            stopCondStamp = Long.parseLong(numbers[7]);
-            stopCondThreshold = Long.parseLong(numbers[8]);
+            minmaxDepth = Integer.parseInt(numbers[4]);
+            selectionFactor = Integer.parseInt(numbers[5]);
+            mutationChance = Double.parseDouble(numbers[6]);
+            stopCondType = StopCondConverter.intToEnum(Integer.parseInt(numbers[7]));
+            stopCondStamp = Long.parseLong(numbers[8]);
+            stopCondThreshold = Long.parseLong(numbers[9]);
             population = new short[populationLength][heuristicSize];
             for (int i = 0; i < populationLength; ++i) {
                 numbers = reader.readLine().split(" ");
@@ -154,7 +155,7 @@ public class FileHandler {
             e.printStackTrace();
         }
         assert population != null;
-        return new Genetic(population, generation, duelsNumber, selectionFactor, mutationChance, stopCondType, stopCondStamp, stopCondThreshold);
+        return new Genetic(population, generation, duelsNumber, minmaxDepth, selectionFactor, mutationChance, stopCondType, stopCondStamp, stopCondThreshold);
     }
 
     public static Genetic reloadGeneticAlgorithm () {

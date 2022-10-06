@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Implement handling for different numbers of duels">
-      <change afterPath="$PROJECT_DIR$/heuristics/archive/ga_pre-opt.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/output/2022-10-01_21-04-39.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heuristics/populations/2022-10-01_21-02-55.txt" afterDir="false" />
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Build blueprint for optimizing StateAnalysis class">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Find.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Find.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +51,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/heuristics/archive" />
       <recent name="$PROJECT_DIR$/heuristics/single" />
     </key>
   </component>
@@ -58,7 +59,7 @@
     <configuration name="Find" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Find" />
       <module name="Checkers" />
-      <option name="PROGRAM_PARAMETERS" value="100 0 5 0.2 0 300" />
+      <option name="PROGRAM_PARAMETERS" value="heuristics/populations/2022-10-07_00-14-09.txt" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -136,14 +137,8 @@
       <workItem from="1663681865986" duration="1834000" />
       <workItem from="1664558934323" duration="3713000" />
       <workItem from="1664617682811" duration="4491000" />
-      <workItem from="1664650539139" duration="1018000" />
-    </task>
-    <task id="LOCAL-00017" summary="Make HParam enum to integer conversion for indexing in Heuristic">
-      <created>1657903720023</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1657903720023</updated>
+      <workItem from="1664650539139" duration="2250000" />
+      <workItem from="1665093385362" duration="803000" />
     </task>
     <task id="LOCAL-00018" summary="Start configuring UI">
       <created>1657969057985</created>
@@ -481,7 +476,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664622177217</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="Build blueprint for optimizing StateAnalysis class">
+      <created>1664653199007</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1664653199007</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -532,7 +534,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Minor fix" />
     <MESSAGE value="Add DOUBLE_CORNER param" />
     <MESSAGE value="Add &quot;capture moves&quot; params WITH NO FUNCTIONALITY" />
     <MESSAGE value="Start implementing save\load methods for heuristics" />
@@ -557,6 +558,7 @@
     <MESSAGE value="Implement reactivation of GA with different parameters" />
     <MESSAGE value="Rename the main method of Genetic to run()" />
     <MESSAGE value="Implement handling for different numbers of duels" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement handling for different numbers of duels" />
+    <MESSAGE value="Build blueprint for optimizing StateAnalysis class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Build blueprint for optimizing StateAnalysis class" />
   </component>
 </project>

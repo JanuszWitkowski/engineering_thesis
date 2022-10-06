@@ -78,6 +78,7 @@ public class Genetic {
     private final int parentPopulationSize;
     private int generation;
     private final int duelsNumber;
+    private final int minmaxDepth;
     private final int selectionFactor;
     private final double mutationChance;
     private final StopCond stopCondType;
@@ -87,21 +88,21 @@ public class Genetic {
     private short[] bestSoFar;
 
     public Genetic () {
-        this(createStartingPopulation(100), 0, 0, 20, 0.2,
+        this(createStartingPopulation(100), 0, 0, 1, 20, 0.2,
                 StopCond.GENERATIONS, 0, 1000);
     }
 
     public Genetic (int populationSize, int selectionFactor, double mutationChance) {
-        this(createStartingPopulation(populationSize), 0, 0, selectionFactor, mutationChance, StopCond.GENERATIONS,
+        this(createStartingPopulation(populationSize), 0, 0, 1, selectionFactor, mutationChance, StopCond.GENERATIONS,
                 0, 20);
     }
 
-    public Genetic (int populationSize, int duelsNumber, int selectionFactor, double mutationChance, int stopCondTypeNumber, long stopCondThreshold) {
-        this(createStartingPopulation(populationSize), 0, duelsNumber, selectionFactor, mutationChance,
+    public Genetic (int populationSize, int duelsNumber, int minmaxDepth, int selectionFactor, double mutationChance, int stopCondTypeNumber, long stopCondThreshold) {
+        this(createStartingPopulation(populationSize), 0, duelsNumber, minmaxDepth, selectionFactor, mutationChance,
                 StopCondConverter.intToEnum(stopCondTypeNumber), 0, stopCondThreshold);
     }
 
-    public Genetic (short[][] population, int generation, int duelsNumber, int selectionFactor, double mutationChance,
+    public Genetic (short[][] population, int generation, int duelsNumber, int minmaxDepth, int selectionFactor, double mutationChance,
                     StopCond stopCondType, long stopCondStamp, long stopCondThreshold) {
         this.population = population;
         this.populationSize = population.length;
@@ -109,13 +110,14 @@ public class Genetic {
         this.parentPopulationSize = populationSize / 2;
         this.generation = generation;
         this.duelsNumber = duelsNumber;
+        this.minmaxDepth = minmaxDepth;
         this.selectionFactor = selectionFactor;
         this.mutationChance = mutationChance;
         this.stopCondType = stopCondType;
         this.stopCondStamp = stopCondStamp;
         this.stopCondThreshold = stopCondThreshold;
-        this.player1 = new PlayerComputer(new Heuristic((short) 0), 1);
-        this.player2 = new PlayerComputer(new Heuristic((short) 0), 1);
+        this.player1 = new PlayerComputer(new Heuristic((short) 0), minmaxDepth);
+        this.player2 = new PlayerComputer(new Heuristic((short) 0), minmaxDepth);
         this.game1 = new GameHandler(player1, player2);
         this.game2 = new GameHandler(player2, player1);
     }
@@ -441,15 +443,15 @@ public class Genetic {
                 population[2 * i + 1] = children[i];
             }
             // Zapisz populację i usuń poprzednią.
-            String currentPopulationFilename = FileHandler.savePopulation(population, generation, duelsNumber, selectionFactor,
-                    mutationChance, stopCondType, stop.getStamp(), stopCondThreshold);
+            String currentPopulationFilename = FileHandler.savePopulation(population, generation, duelsNumber, minmaxDepth,
+                    selectionFactor, mutationChance, stopCondType, stop.getStamp(), stopCondThreshold);
             FileHandler.removePopulationsExceptOne(currentPopulationFilename);
         }
         // Przeprowadź ponowną selekcję i wyznacz najlepszego.
         selection(population);
 //        short[] best = selectionDebug(population)[0];
         // Zapisz do pliku w heuristics/output/ najlepszego i go zwróć.
-        String bestFilename = FileHandler.saveGeneticOutput(bestSoFar);
+        String bestFilename = FileHandler.saveGeneticOutputHeuristic(bestSoFar);
         System.out.println("Najlepiej przystosowany osobnik został zapisany jako " + bestFilename);
         return bestSoFar;
     }

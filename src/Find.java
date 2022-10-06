@@ -7,7 +7,8 @@ public class Find {
             System.out.println("> Pierwsze uruchomienie algorytmu genetycznego");
             {
                 System.out.println("\t- Liczebność populacji osobników [liczba naturalna podzielna przez 4];");
-                System.out.println("\t- Liczba pojedynków osobnika w procesie selekcji [liczba naturalna, przy czym 0 oznacza pojedynek z każdym innym osobnikiem].");
+                System.out.println("\t- Liczba pojedynków osobnika w procesie selekcji [liczba naturalna, przy czym 0 oznacza pojedynek z każdym innym osobnikiem];");
+                System.out.println("\t- Głębokość przeszukiwania w minimaxie [liczba naturalna większa od zera];");
                 System.out.println("\t- Współczynnik losowej selekcji osobników [liczba całkowita];");
                 System.out.println("\t- Szansa na mutację [liczba wymierna między 0 a 1];");
                 System.out.println("\t- Rodzaj kryterium stopu [0 - czas (w sekundach), 1 - liczba iteracji];");
@@ -24,7 +25,8 @@ public class Find {
             System.out.println("> Kontynuacja algorytmu genetycznego z nowymi parametrami");
             {
                 System.out.println("\t- Nazwa pliku;");
-                System.out.println("\t- Liczba pojedynków osobnika w procesie selekcji [liczba naturalna, przy czym 0 oznacza pojedynek z każdym innym osobnikiem].");
+                System.out.println("\t- Liczba pojedynków osobnika w procesie selekcji [liczba naturalna, przy czym 0 oznacza pojedynek z każdym innym osobnikiem];");
+                System.out.println("\t- Głębokość przeszukiwania w minimaxie [liczba naturalna większa od zera];");
                 System.out.println("\t- Współczynnik losowej selekcji osobników [liczba całkowita];");
                 System.out.println("\t- Szansa na mutację [liczba wymierna między 0 a 1];");
                 System.out.println("\t- Rodzaj kryterium stopu [0 - czas (w sekundach), 1 - liczba iteracji];");
@@ -45,7 +47,7 @@ public class Find {
             }
         }
         int argc = args.length;
-        if (argc < 6 && argc > 1) {
+        if (argc < 7 && argc > 1) {
             System.out.println(Console.RED_BOLD + "BŁĄD: Niewłaściwa liczba argumentów." + Console.RESET);
             printSignature();
             System.out.println(Console.RED_BOLD + "ABORTING" + Console.RESET);
@@ -59,7 +61,7 @@ public class Find {
             System.out.println("## Reaktywacja algorytmu genetycznego z ostatniego pliku w folderze populations/");
             ga = FileHandler.reloadGeneticAlgorithm();
         } else {
-            int populationSize, duelsNumber, selectionFactor, stopCondTypeNumber;
+            int populationSize, duelsNumber, minmaxDepth, selectionFactor, stopCondTypeNumber;
             double mutationChance;
             long stopCondThreshold;
             short[][] startingPopulation;
@@ -76,11 +78,14 @@ public class Find {
             }
             try {
                 duelsNumber = Integer.parseInt(args[1]);
-                selectionFactor = Integer.parseInt(args[2]);
-                mutationChance = Double.parseDouble(args[3]);
-                stopCondTypeNumber = Integer.parseInt(args[4]);
-                stopCondThreshold = Long.parseLong(args[5]);
+                minmaxDepth = Integer.parseInt(args[2]);
+                selectionFactor = Integer.parseInt(args[3]);
+                mutationChance = Double.parseDouble(args[4]);
+                stopCondTypeNumber = Integer.parseInt(args[5]);
+                stopCondThreshold = Long.parseLong(args[6]);
                 if (duelsNumber < 0 || duelsNumber >= populationSize)
+                    throw new NumberFormatException();
+                if (minmaxDepth <= 0)
                     throw new NumberFormatException();
                 if (mutationChance > 1.0 || mutationChance < 0.0)
                     throw new NumberFormatException();
@@ -91,12 +96,13 @@ public class Find {
                 System.out.println("Uruchamiam algorytm genetyczny o następujących parametrach");
                 System.out.println("> Liczebność populacji: " + populationSize);
                 System.out.println("> Liczba pojedynków dla jednego osobnika: " + duelsNumber);
+                System.out.println("> Głębokość przeszukiwań: " + minmaxDepth);
                 System.out.println("> Współczynnik selekcji: " + selectionFactor);
                 System.out.println("> Szansa na mutację: " + mutationChance);
                 System.out.println("> Kryterium stopu: " + stopCondTypeNumber);
                 System.out.println("> Limit dla kryterium stopu: " + stopCondThreshold);
                 System.out.println();
-                ga = new Genetic(startingPopulation, 0, duelsNumber, selectionFactor, mutationChance,
+                ga = new Genetic(startingPopulation, 0, duelsNumber, minmaxDepth, selectionFactor, mutationChance,
                         StopCondConverter.intToEnum(stopCondTypeNumber), 0, stopCondThreshold);
             } catch (NumberFormatException e) {
                 System.out.println(Console.RED_BOLD + "BŁĄD: Niewłaściwy format danych." + Console.RESET);
