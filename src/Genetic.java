@@ -400,11 +400,17 @@ public class Genetic {
         genotype[index] = RNG.randomShort();
     }
 
+    private static short[] createRandomGenotype () {
+        short[] h = new short[genotypeSize];
+        for (int i = 0; i < genotypeSize; ++i)
+            h[i] = RNG.randomShort();
+        return h;
+    }
+
     public static short[][] createStartingPopulation (int popSize) {
         short[][] population = new short[popSize][genotypeSize];
         for (int i = 0; i < popSize; ++i)
-            for (int k = 0; k < genotypeSize; ++k)
-                population[i][k] = RNG.randomShort();
+            population[i] = createRandomGenotype();
         return population;
     }
 
@@ -439,8 +445,10 @@ public class Genetic {
                     mutation(child);
             // Połącz dzieci i rodziców w następną populację.
             for (int i = 0; i < parentPopulationSize; ++i) {
-                population[2 * i] = parents[i];
-                population[2 * i + 1] = children[i];
+//                population[2 * i] = parents[i];
+//                population[2 * i + 1] = children[i];
+                population[2 * i] = children[i];
+                population[2 * i + 1] = createRandomGenotype();
             }
             // Zapisz populację i usuń poprzednią.
             String currentPopulationFilename = FileHandler.savePopulation(population, generation, duelsNumber, minmaxDepth,

@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Build blueprint for optimizing StateAnalysis class">
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Add a minimax depth argument to GA">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Find.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Find.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,14 +135,8 @@
       <workItem from="1664558934323" duration="3713000" />
       <workItem from="1664617682811" duration="4491000" />
       <workItem from="1664650539139" duration="2250000" />
-      <workItem from="1665093385362" duration="803000" />
-    </task>
-    <task id="LOCAL-00018" summary="Start configuring UI">
-      <created>1657969057985</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1657969057985</updated>
+      <workItem from="1665093385362" duration="1824000" />
+      <workItem from="1666085723049" duration="972000" />
     </task>
     <task id="LOCAL-00019" summary="Complete UI">
       <created>1657997161253</created>
@@ -483,7 +474,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664653199007</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="Add a minimax depth argument to GA">
+      <created>1665094546912</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1665094546913</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -534,7 +532,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Add DOUBLE_CORNER param" />
     <MESSAGE value="Add &quot;capture moves&quot; params WITH NO FUNCTIONALITY" />
     <MESSAGE value="Start implementing save\load methods for heuristics" />
     <MESSAGE value="Implement save\load methods for heuristics" />
@@ -559,6 +556,7 @@
     <MESSAGE value="Rename the main method of Genetic to run()" />
     <MESSAGE value="Implement handling for different numbers of duels" />
     <MESSAGE value="Build blueprint for optimizing StateAnalysis class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Build blueprint for optimizing StateAnalysis class" />
+    <MESSAGE value="Add a minimax depth argument to GA" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add a minimax depth argument to GA" />
   </component>
 </project>
