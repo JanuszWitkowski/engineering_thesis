@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Add a minimax depth argument to GA">
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="GA now deletes parents and replaces them with randomized genotypes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -137,13 +137,7 @@
       <workItem from="1664650539139" duration="2250000" />
       <workItem from="1665093385362" duration="1824000" />
       <workItem from="1666085723049" duration="972000" />
-    </task>
-    <task id="LOCAL-00019" summary="Complete UI">
-      <created>1657997161253</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1657997161253</updated>
+      <workItem from="1666177786299" duration="2827000" />
     </task>
     <task id="LOCAL-00020" summary="Add draws support&#10;&#10;AI now relies on its heuristic only (no win detection)">
       <created>1658406894677</created>
@@ -481,7 +475,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665094546913</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="GA now deletes parents and replaces them with randomized genotypes">
+      <created>1666180256407</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1666180256407</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -532,7 +533,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Add &quot;capture moves&quot; params WITH NO FUNCTIONALITY" />
     <MESSAGE value="Start implementing save\load methods for heuristics" />
     <MESSAGE value="Implement save\load methods for heuristics" />
     <MESSAGE value="Start implementing GA (Genetic Algorithm)" />
@@ -557,6 +557,7 @@
     <MESSAGE value="Implement handling for different numbers of duels" />
     <MESSAGE value="Build blueprint for optimizing StateAnalysis class" />
     <MESSAGE value="Add a minimax depth argument to GA" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add a minimax depth argument to GA" />
+    <MESSAGE value="GA now deletes parents and replaces them with randomized genotypes" />
+    <option name="LAST_COMMIT_MESSAGE" value="GA now deletes parents and replaces them with randomized genotypes" />
   </component>
 </project>

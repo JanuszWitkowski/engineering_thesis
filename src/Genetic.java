@@ -85,7 +85,7 @@ public class Genetic {
     private final long stopCondStamp;
     private final long stopCondThreshold;
 
-    private short[] bestSoFar;
+    private short[] bestSoFar = null;
 
     public Genetic () {
         this(createStartingPopulation(100), 0, 0, 1, 20, 0.2,
@@ -177,7 +177,17 @@ public class Genetic {
 //        System.out.println("\n--------------");
 
         // Wybierz najlepszego.
-        bestSoFar = population[results[0][0]];
+        if (bestSoFar == null) bestSoFar = population[results[0][0]];
+        else {
+            short[] bestThisTime = population[results[0][0]];
+            player1.changeHeuristicWeights(bestThisTime);
+            player2.changeHeuristicWeights(bestSoFar);
+            game1.resetBoard();
+            game2.resetBoard();
+            int result1 = game1.quickGame();
+            int result2 = (-1) * game2.quickGame();
+            if (result1 + result2 >= 0) bestSoFar = bestThisTime;
+        }
 
         // Ruletka, czyli loteria osobników które przechodzą dalej.
         for (int i = 0; i < popSize; ++i) {
