@@ -1,0 +1,45 @@
+\chapter{Idea rozwiązania i algorytmy}
+\thispagestyle{chapterBeginStyle}
+\label{rozdzial2}
+
+{\color{dgray}
+W tym rozdziale przedstawione zostanie podejście autora do problemu opisanego w rozdziale~\ref{rozdzial1}. Każdy omawiany aspekt podejścia i każda idea wykorzystywanych algorytmów podparta zostanie pseudokodem bądź ilustracją, jeżeli zajdzie taka potrzeba.
+}
+
+\section{Minimax}
+
+Minimax jest szczególną wersją algorytmu przeszukującego w grafie. Jego idea jest bardzo prosta i podobna do ludzkiego rozumowania. Mając dany stan planszy oraz głębokość przeszukiwania, algorytm rekurencyjnie rozpatruje kolejne stany planszy symulując wykonanie jednego możliwego ruchu. Kiedy już osiągnie maksymalną głębokość przeszukiwań, funkcją oceny heurystycznej przypisuje wartości stanom.
+
+\section{Funkcja oceny heurystycznej}
+
+Podejście w pracy do funkcji oceny heurystycznej polega na rozpatrzeniu wielu parametrów na planszy (np. liczba pionów, liczba damek przeciwnika, liczba ruchów), przemnożenia wartości tych parametrów przez ustalone z góry wagi, a na koniec zsumowaniem iloczynów.
+
+\section{Algorytm genetyczny}
+
+{\color{dgray}
+Wybrany algorytm ewolucyjny. Poniżej znajdą się opisy ważniejszych decyzji projektowych.
+}
+
+\subsection{Populacja i osobniki}
+
+Osobnikiem populacji będzie ciąg wag funkcji oceny heurystycznej, reprezentowany jako tablica 2-Bajtowych liczb całkowitych.
+
+\subsection{Selekcja i ewaluacja}
+
+W procesie selekcji każdy ciąg wag gra z każdym innym ciągiem wag w podwójnym pojedynku (białe/czarne i czarne/białe). Im więcej gier wygra ciąg wag tym wyższe prawdopodobieństwo że zostanie on wylosowany do populacji rodziców.
+
+\subsection{Krzyżowanie i mutacja}
+
+Losujemy miejsce XOveru i dzielimy rodziców na te części. Mutacja jest wylosowaniem jednej z wartości ciągu wag.
+
+\section{Optymalizacje}
+
+{\color{dgray}
+Wybrane metody optymalizacyjne.
+}
+
+\subsection{Alpha-Beta-prunning}
+
+Cięcia alfa beta to rezygnacja z rozpatrywania innych podgałęzi ze względu na brak takiej konieczności.
+
+

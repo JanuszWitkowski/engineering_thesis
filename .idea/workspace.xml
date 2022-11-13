@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="GA now deletes parents and replaces them with randomized genotypes">
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Write dynamic selection of bestSoFar">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -137,14 +137,8 @@
       <workItem from="1664650539139" duration="2250000" />
       <workItem from="1665093385362" duration="1824000" />
       <workItem from="1666085723049" duration="972000" />
-      <workItem from="1666177786299" duration="2827000" />
-    </task>
-    <task id="LOCAL-00020" summary="Add draws support&#10;&#10;AI now relies on its heuristic only (no win detection)">
-      <created>1658406894677</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1658406894677</updated>
+      <workItem from="1666177786299" duration="5610000" />
+      <workItem from="1666951680679" duration="586000" />
     </task>
     <task id="LOCAL-00021" summary="Fix draw counter reset">
       <created>1658407511446</created>
@@ -482,7 +476,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666180256407</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="Write dynamic selection of bestSoFar">
+      <created>1666192825002</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1666192825002</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -533,7 +534,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Start implementing save\load methods for heuristics" />
     <MESSAGE value="Implement save\load methods for heuristics" />
     <MESSAGE value="Start implementing GA (Genetic Algorithm)" />
     <MESSAGE value="Create outline for GA" />
@@ -558,6 +558,7 @@
     <MESSAGE value="Build blueprint for optimizing StateAnalysis class" />
     <MESSAGE value="Add a minimax depth argument to GA" />
     <MESSAGE value="GA now deletes parents and replaces them with randomized genotypes" />
-    <option name="LAST_COMMIT_MESSAGE" value="GA now deletes parents and replaces them with randomized genotypes" />
+    <MESSAGE value="Write dynamic selection of bestSoFar" />
+    <option name="LAST_COMMIT_MESSAGE" value="Write dynamic selection of bestSoFar" />
   </component>
 </project>
