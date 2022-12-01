@@ -1,4 +1,4 @@
-\chapter{Warcaby (wariant angielski)}
+\chapter{Warcaby}
 \thispagestyle{chapterBeginStyle}
 \label{rozdzial1}
 
@@ -6,9 +6,56 @@
 Niniejszy rozdział poświęcony będzie zaznajomieniu Czytelnika z grą w Warcaby oraz szczególną wersją tej gry. Omówione również zostaną powody skupienia się nad tym wariantem, jak i inne badania przeprowadzone w przeszłości przez naukowców.
 }
 
-Wariant angielski Warcabów wprowadza tylko dwie zmiany do zasad gry. Po pierwsze, zwykłe piony nie mogą bić do tyłu. Po drugie, damkom ogranicza się możliwość poruszania się o dowolną liczbę pól do jednego sąsiedniego pola bądź jednego bijącego skoku na pole sąsiadujące ze zbijanym pionkiem, lecz wciąż mogą poruszać się we wszystkich kierunkach na ukos. Damki w tym wariancie można określić jako pionki które mogą poruszać się do tyłu.
+Warcaby są jedną z najpopularniejszych klasycznych gier planszowych. \ldots
 
-Praca ta skoncentrowana jest na wariancie angielskim głównie z powodu ograniczenia na wielkość przestrzeni możliwych ruchów. Dzięki temu algorytm grający ma mniej przypadków do rozpatrzenia, co ułatwia wykonywanie badań i eksperymentów. Zastosowanie tego modelu gry stanowi również pewien punkt odniesienia - według artykułu kanadyjskiego zespołu Jonathan'a Schaeffer'a opublikowanego w 2007 roku, wariant angielski Warcabów został rozwiązany. \ldots
+\section{Reguły warcabów standardowych}
+
+Pojedynczą partię Warcabów rozgrywa się na szachownicy 8x8 o polach na zmianę pomalowanych na jasno lub ciemno. Obydwaj gracze rozstawiają po 12 pionów na ciemnych polach w swoich pierwszych trzech rzędach. Dla rozróżnienia, piony pierwszego gracza są koloru białego, natomiast piony drugiego gracza - czarnego. Celem gry jest wyeliminowanie wszystkich figur przeciwnika lub zablokowanie go, poprzez serię naprzemiennych ruchów swoimi figurami. (Zablokowanie gracza oznacza doprowadzenie do takiej sytuacji, w której gracz ten nie jest w stanie wykonać żadnego legalnego ruchu w momencie gdy następuje jego kolej.)
+
+% \begin{figure}
+\includegraphics[scale=.6]{graphics/warcaby_planszaStartowa.png}
+% \caption{Początkowe rozstawienie figur na planszy.}
+% \end{figure}
+
+Wszystkie figury w grze mogą poruszać się tylko i wyłącznie na ukos (przez co żadne jasne pole na planszy nie zostanie zajęte przez żadną figurę w trakcie rozgrywki). Piony z którymi zaczynają gracze poruszają się tylko o jedno pole w przód względem ich właściciela. Tzn. pion może skoczyć na pole ukośnie sąsiadujące w kierunku oponenta, o ile pole to nie jest zajęte przez inną figurę. W grze istnieje również druga figura - jeżeli pion gracza dojdzie do końca planszy znajdującego się po stronie jego oponenta (do tzw. rzędu awansu), pion zamieniany jest na damkę. Damka jest najpotężniejszą figurą w grze, jako że potrafi poruszyć się we wszystkich czterech kierunkach na ukos, a na dodatek przebyć dowolną liczbę pól w linii w jednym ruchu. Pod tym względem damkę najłatwiej porównać z figurą gońca w szachach.
+
+Wszystkie figury w Warcabach można zbijać, tj. usuwać z obecnej rozgrywki. Piony mogą zbijać sąsiednie figury przeciwnika, wykonując skok nad tą figurą na następne pole w linii prostej, o ile takie pole jest wolne. Piony mogą bić zarówno do przodu, jak i do tyłu. Damki w standardowych Warcabach zbijają ze znacznie większego dystansu (można powiedzieć, że w momencie zbijania ich "sąsiadowanie" z przeciwnymi figurami nie jest ograniczone do jednego pola różnicy). Zbita figura zostaje zdjęta z planszy i nie bierze udziału w rozgrywce do momentu jej zakończenia. Nie można bić swoich figur.
+
+Bicia w Warcabach mają specjalne reguły wyróżniające je spośród innych gier planszowych. Po pierwsze, w jednym ruchu jedna figura może wykonać wiele bić. Jeśli po jednym biciu figura wskoczyła w miejsce z którego jest w stanie przeprowadzić kolejne bicie, można takie bicie wykonać w tej samej turze. W jednym ruchu nie można dwa razy zbić tej samej figury. Po drugie, bicia są obowiązkowe. Jeżeli gracz w swojej turze jest postawiony w sytuacji w której co najmniej jedna z jego figur ma możliwość bicia, gracz ten musi wykonać taki ruch. Dodatkowo, o ile ruch bicia pionem można wybrać w przypadku większej liczby możliwych bić, damki mają obowiązek maksymalnego bicia, tj. należy przeprowadzić bicie o największej możliwej liczbie zbijanych figur w jednym ruchu.
+
+\section{Wariant angielski}
+
+Praca skupiona jest na szczególnej wersji gry w Warcaby, nazywanej na ogół wariantem angielskim, lub w niektórych kręgach wariantem amerykańskim. Został on wybrany głównie ze względu na ograniczenie przestrzeni stanów w jakich może znaleźć się rozgrywka - reguły gry dostosowane do tego wariantu znacznie zmniejszają liczbę możliwości które rozgrywający algorytm musi rozpatrzeć.
+
+\subsection{Zmiany w zasadach}
+
+Wariant ten wprowadza dwie zmiany do zasad gry względem wariantu standardowego. Po pierwsze, zwykłe piony nie mogą bić do tyłu. Po drugie, damkom ogranicza się możliwość ruchu o dowolną liczbę pól do jednego sąsiedniego pola oraz do bicia wyłącznie sąsiadujących przeciwnych figur, lecz wciąż mogą poruszać się we wszystkich kierunkach na ukos. Jedyną przewagą damek nad pionkami w tym wariancie jest możliwość ruchu i bicia do tyłu.
+
+% \includegraphics[scale=.6]{graphics/warcaby_ruchyPionZwykle.png}
+% \begin{figure}
+\includegraphics[scale=.6]{graphics/warcaby_ruchyPionZwykle.png}
+% \caption{Możliwe ruchy piona.}
+% \end{figure}
+
+\includegraphics[scale=.6]{graphics/warcaby_ruchyPionBicia.png}
+
+% \begin{columns}
+%     \begin{column}{.5\hsize}
+        \includegraphics[scale=.6]{graphics/warcaby_ruchyDamkaZwykle.png}
+    % \end{column}
+
+    % \begin{column}{.5\hsize}
+        \includegraphics[scale=.6]{graphics/warcaby_ruchyDamkaBicia.png}
+%     \end{column}
+% \end{columns}
+
+Przydatna w implementacji rzecz o której warto wspomnieć jest rozpatrywanie remisów. W grach casualowych remis zazwyczaj następuje za obopólną zgodą graczy. Na arenie turniejowej istnieje parę kryteriów determinujących remis. W rozpatrywanej wersji wariantu angielskiego wykorzystywana będzie zasada 40 ruchów, która mówi że rozgrywka kończy się remisem w momencie gdy po 40 naprzemiennych ruchach obu graczy nie została zbita ani jedna figura.
+
+\subsection{Badania wariantu}
+
+{\color{dgray}
+\ldots . Zastosowanie tego modelu gry stanowi również pewien punkt odniesienia - według artykułu kanadyjskiego zespołu Jonathan'a Schaeffer'a opublikowanego w 2007 roku, wariant angielski Warcabów został rozwiązany. \ldots
+}
 
 
 

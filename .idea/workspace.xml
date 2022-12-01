@@ -38,21 +38,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;protected&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "protected",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/heuristics/archive" />
       <recent name="$PROJECT_DIR$/heuristics/single" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Find">
+  <component name="RunManager" selected="Application.Play">
     <configuration name="Find" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Find" />
       <module name="Checkers" />
@@ -64,7 +65,7 @@
     <configuration name="Play" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Play" />
       <module name="Checkers" />
-      <option name="PROGRAM_PARAMETERS" value="5 heuristics/output/2022-09-19_19-13-56.txt 0 ?" />
+      <option name="PROGRAM_PARAMETERS" value="0 ? 0 ?" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -139,6 +140,8 @@
       <workItem from="1666085723049" duration="972000" />
       <workItem from="1666177786299" duration="5610000" />
       <workItem from="1666951680679" duration="586000" />
+      <workItem from="1669032001701" duration="781000" />
+      <workItem from="1669916101752" duration="6000" />
     </task>
     <task id="LOCAL-00021" summary="Fix draw counter reset">
       <created>1658407511446</created>
