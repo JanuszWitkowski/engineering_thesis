@@ -1,9 +1,58 @@
-\chapter{Testy}
+\chapter{Wyniki i dalsze pomysły}
 \thispagestyle{chapterBeginStyle}
 
-{\color{dgray}
-W tym rozdziale omówione zostaną wyniki różnych sesji algorytmu genetycznego, badań, testów i porównań. Zostaną wyciągnięte wnioski na temat parametrów oceny heurystycznej które okażą się niepotrzebne lub zaniedbywalne. W miarę możliwości określona zostanie również siła algorytmu Minimax z wyznaczoną funkcją oceny. Porównane też zostaną wyniki algorytmu genetycznego z różnymi głębokościami przeszukiwań.
-}
+% {\color{dgray}
+% W tym rozdziale omówione zostaną wyniki różnych sesji algorytmu genetycznego, badań, testów i porównań. Zostaną wyciągnięte wnioski na temat parametrów oceny heurystycznej które okażą się niepotrzebne lub zaniedbywalne. W miarę możliwości określona zostanie również siła algorytmu Minimax z wyznaczoną funkcją oceny. Porównane też zostaną wyniki algorytmu genetycznego z różnymi głębokościami przeszukiwań.
+% }
+
+Można wyróżnić 2 główne cele eksperymentów w pracy: 
+\begin{itemize}
+\item \textbf{Sprawdzenie parametrów} - uruchomienie sesji algorytmu genetycznego w celu przypisania względnych wartości pod parametry w funkcji oceny heurystycznej;
+\item \textbf{Porównanie głębokości Minimaxa} - przeprowadzenie dwóch sesji algorytmu genetycznego z głębokościami różniącymi się od siebie o 1, a następnie porównanie wynikowych ciągów wag.
+\end{itemize}
+
+Do przeprowadzenia eksperymentów uruchomiono kilka sesji algorytmu genetycznego z różnymi argumentami. Poniżej znajdują się ich omówione wyniki.
+
+\section{Sprawdzenie parametrów}
+
+\ldots TBA \ldots
+
+\section{Porównanie głębokości Minimaxa}
+
+\ldots TBA \ldots
+
+\section{Możliwości rozwoju projektu}
+
+Mimo osiągnięcia zamierzonych celów, wciąż pozostaje kilka aspektów pracy które da się rozwinąć lub ulepszyć. Otwarcie kodów źródłowych na rozszerzenia może ułatwić dodanie nowych funkcjonalności, bądź modyfikację kopii niektórych klas. Poniżej znajduje się kilka propozycji pociągnięcia projektu dalej.
+
+\subsection{Optymalizacje}
+
+Przeszukiwanie przestrzeni stanów w Minimaxie można usprawnić o bazę rozpoczęć i zakończeń - algorytm mógłby zaczynać gry lub odpowiadać jednym ze standardowych rozpoczęć turniejowych i, gdy nadarzy się sposobność, dążyć do jednego z zakończeń. Na podobnej zasadzie działał np. Deep Blue, komputer firmy IBM który jako pierwsza maszyna na świecie zwyciężyła w partii szachów z ówczesnym mistrzem świata Garri Kasparowem w 1996 roku \cite{RBA-SI}.
+
+Innym pomysłem na potencjalne skrócenie obliczeń jest zastosowanie Hashmapy przeszukanych stanów z przypisanymi im ocenami. Pomysł ten bazuje na obserwacji, że do niektórych stanów na planszy można dojść z kilku innych stanów. Rozpatrując stan, algorytm sięgałby do takiej Hashmapy i jeżeli znalazłby hash tego stanu, automatycznie przyznawałby ocenę bez konieczności schodzenia głębiej w drzewie. Warto jednak zaznaczyć, że operacje dodania i przeszukania w Hashmapie nie są stałe (zajmują czas logarytmiczny zależny od liczby stanów) i wykonywane są dla każdego stanu, a samych stanów może być w pewnym momencie bardzo dużo.
+
+Jeszcze innym miejscem w którym optymalizacja mogłaby znacznie poprawić wydajność, szczególnie dla sesji algorytmu genetycznego, są funkcje analizujące planszę i wyliczające parametry do oceny heurystycznej. W momencie pisania pracy istnieje wiele funkcji wyliczających wartość jednego parametru w czterech wariantach (sojusznicze piony, sojusznicze damki, przeciwne piony, przeciwne damki). Warto jednak zwrócić uwagę na fakt, że prawie każda z tych funkcji musi przeanalizować całą planszę po każdym polu. Stąd pomysł na optymalizację: utworzyć specjalną klasę \textit{StateAnalyzer} przechowującą informacje o wszystkich parametrach oraz booleanową flagę mówiącą czy informacje te są aktualne. Przy każdym ruchu flagę ustawiałoby się na \textit{false}, a w koniecznej chwili (gdy zewnętrzny obiekt prosi o wartość parametru) ustawia flagę na \textit{true} i oblicza wartości każdego parametru od razu. Innym sposobem na optymalizację w tym zakresie jest obliczanie na nowo wartości tylko tych parametrów, które rzeczywiście zmieniają się w danym ruchu.
+
+Na samym końcu można by było spróbować polepszyć wydajność samego algorytmu genetycznego. Łatwo zauważyć, że do wybrania lepiej przystosowanej połowy populacji osobników (z czynnikiem losowym) nie potrzeba sortowania gorzej przystosowanej połowy populacji, ponieważ ta zostaje odrzucona. Sortowanie tylko części populacji miałoby szansę wywrzeć zauważalny wpływ na czas wykonania obliczeń. Można też eksperymentować z wprowadzaniem innych algorytmów sortujących, chociażby QuickSort.
+
+\subsection{Walka z efektem horyzontu}
+
+Efektem horyzontu nazywamy problem w którym ograniczenie na wielkość przeszukiwanego kawałka przestrzeni stanów uniemożliwia dojście do potencjalnie lepszego rozwiązania znajdującego się krok dalej. Obecna implementacja Minimaxa w pracy jest podatna na problem horyzontu. Można częściowo temu zapobiec, zmuszając algorytm do rozpatrzenia dzieci stanu na maksymalnej głębokości, jeżeli jest on jedynym stanem pochodnym swojego rodzica (możliwość wykonania tylko jednego ruchu najczęściej oznacza wymuszone bicie, które jest poza kontrolą gracza). Można oszacować koszt takiego sprawdzenia jako większy zaledwie o jeden od średniego kosztu przejścia drzewa przeszukiwań - to tak jakby przenieść jedno poddrzewo o rząd niżej i umieścić w jego miejsce jeden stan. Ideę tę rozwija ,,przeszukiwanie uspokajające'' (\textit{Quiescence Search} \cite{QSearch}), które zatrzymuje przeszukiwanie poddrzew tylko na stanach spokojnych, czyli na takich które w najbliższych paru krokach nie zmienią się drastycznie (np. w Warcabach stany tuż przed biciem lub awansem piona do damki nie są spokojne).
+
+\subsection{Interfejs}
+
+W obecnej chwili program prowadzący rozgrywki w Warcaby uruchamiany jest z poziomu konsoli. Miłym rozszerzeniem byłoby stworzenie przyjaznego ludzkiemu użytkownikowi interfejsu do uruchamiania rozgrywek oraz intuicyjnego wprowadzania ruchów, chociażby poprzez kliknięcia. Nie zaszkodzą również dodatkowe opcje, np. możliwość cofnięcia ruchu, zapis i odczyt rozgrywki, przechowywanie interaktywnej historii rozgrywek. To wszystko można by było opakować w stronę webową i ją udostępnić.
+
+Ciekawym pomysłem jest również napisanie adaptera który pozwalałby sztucznej inteligencji stworzonej w pracy prowadzić rozgrywki z innymi dostępnymi graczami komputerowymi w internecie. Pozwoliłoby to na poznanie siły wyznaczonej sztucznej inteligencji.
+
+% baza rozpocęć i zakończeń     v
+% zwalczanie efektu horyzontu   v
+% schodzenie niżej jeżeli istnieje bicie (jeden ruch)   v
+% hashmapa stanów i ich ocen    v
+% interfejs do grania           v
 
 % \textit{Na pewno prowadzący się ucieszy}
+
+% TODO: Wspomnieć trochę o tym co można dodać jeszcze do pracy (pod recenzenta).
+% Lubi jak w pracy jest coś o tym jakie jeszcze rzeczy można do niej dodać
 

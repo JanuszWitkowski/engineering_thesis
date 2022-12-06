@@ -1,26 +1,108 @@
 \chapter{Implementacja}
 \thispagestyle{chapterBeginStyle}
+\label{rozdzial3}
 
-{\color{dgray}
-Rozdział ten poświęcony będzie szczegółom implementacyjnym założeń zdefiniowanych w rozdziale~\ref{rozdzial2}. \ldots
-}
+% TODO: Wrzucić w tym rozdziale mini-instrukcję obsługi mojego programu.
 
-\section{Język i reprezentacja}
+Kody źródłowe dołączone do niniejszej pracy (patrz Dodatek~\ref{plytaCD}) są wynikiem implementacji algorytmów opisanych w rozdziale~\ref{rozdzial2}. Przed ich omówieniem warto wspomnieć o dwóch niuansach które miał wpływ na pisanie tej części pracy.
 
-{\color{dgray}
-Podane tutaj zostaną powody dla których praca została napisana w języku JAVA, oraz w jakich strukturach danych zrealizowana została reprezentacja elementów problemu.
-}
+Po pierwsze, priorytetem w implementacji nie była szczegółowa optymalizacja. W założeniu czas przydzielony na przeprowadzenie sesji algorytmu genetycznego wynosił kilka miesięcy, natomiast ograniczenia maszynowe były zaniedbywane. Z tego powodu praca nie skupia się na wielu optymalizacjach, a projekt nie został napisany w języku bardzo wysokiej wydajności (jak C/C++, Rust). 
 
-{\color{dgray}
-Do implementacji systemu użyto języka JAVA w wersji \ldots, szczegółowy opis można znaleźć w \cite{Java}.
-}
+Po drugie, interfejs użytkownika ograniczony jest do niezbędnego minimum. Interakcja z programami odbywa się z poziomu konsoli, nie ma też wielu elementów graficznych w projekcie. Mimo to, system posiada wszystkie funkcjonalności potrzebne do przeprowadzania gier i eksperymentów.
 
-\section{Omówienie kodów źródłowych}
+\section{Język i środowisko}
 
-{\color{dgray}
-% Kod źródłowy~\ref{ws} przedstawia opisy poszczególnych metod interfejsu: \texttt{WSPodmiotRejestracjaIF}. Kompletne
-kody źródłowe znajdują się na płycie CD dołączonej do niniejszej pracy w katalogu \texttt{Kody} (patrz Dodatek~\ref{plytaCD}).
-}
+Projekt został napisany w języku Java. Jest to wygodne narzędzie pozwalające na naturalną strukturyzację projektu. Dzięki wirtualnej maszynie Javy (JVM) powstałe programy można uruchamiać na wszystkich wspieranych systemach operacyjnych, co ułatwia przeprowadzanie testów na większą skalę. Jest to też język dobrze zoptymalizowany - nie jest koniecznym przejmowanie się wydajnością ,,rozsądnie'' napisanego kodu.
+
+Struktura projektu tworzona była w duchu programowania obiektowego. Posiada ona klasy z podzielonymi funkcjonalnościami i odpowiedzialnościami. Zadbano również o przechwytywanie podstawowych wyjątków i błędów.
+
+Projekt pisany był w środowisku Javy \textit{OpenJDK 17.0.4 2022-07-19}, aczkolwiek wszystkie wykorzystywane funkcjonalności zawarte są w \textit{OpenJDK 14}.
+
+\section{Struktura projektu}
+\label{porozdzial3-2}
+
+\ldots TBA \ldots
+
+\section{Instrukcja obsługi programów}
+
+Jak już wspominano we wcześniejszym podrozdziale~\ref{porozdzial3-2}, projekt obejmuje dwa dostępne dla użytkownika programy:
+\begin{itemize}
+    \item \textbf{Play} - kierownik rozgrywek, prowadzi gry dla graczy zarówno ludzkich jak i komputerowych;
+    \item \textbf{Find} - interfejs do uruchamiania sesji algorytmu genetycznego.
+\end{itemize}
+Oba programy uruchamia się przekazując argumenty z poziomu konsoli. Sygnatury wywołań każdego z programów można wydrukować na standardowe wyjście, podając \textit{,,--help''} jako pierwszy argument.
+
+\subsection{Play}
+
+Dostępne sygnatury wywołania programu:
+\begin{itemize}
+    \item Rozgrywka (standardowy model gry w Warcaby, dostępny dla graczy ludzkich i/lub komputerowych; gracz komputerowy musi otrzymać ścieżkę do pliku z którego wczyta ciąg wag do swojej funkcji oceny heurystycznej)
+    \begin{enumerate}
+        \item Typ pierwszego gracza [0 $\rightarrow$ gracz ludzki; liczba naturalna większa od zera $\rightarrow$ gracz komputerowy z głębokością przeszukiwań równą podanej liczbie]
+        \item Ścieżka do pliku z ciągiem wag dla gracza pierwszego [ciąg znaków; argument omijany jeśli pierwszym graczem jest człowiek]
+        \item Typ drugiego gracza [0 $\rightarrow$ gracz ludzki; liczba naturalna większa od zera $\rightarrow$ gracz komputerowy z głębokością przeszukiwań równą podanej liczbie]
+        \item Ścieżka do pliku z ciągiem wag dla gracza drugiego [ciąg znaków; argument omijany jeśli drugim graczem jest człowiek]
+    \end{enumerate}
+    \item Szybka gra z ,,głupim'' komputerem (gra między graczem ludzkim a komputerowym; ciąg wag dla gracza komputerowego zostanie wylosowany)
+    \begin{enumerate}
+        \item Gracz zaczynający [1 $\rightarrow$ zaczyna człowiek; -1 $\rightarrow$ zaczyna komputer]
+        \item Głębokość przeszukiwań gracza komputerowego [liczba naturalna większa od zera]
+    \end{enumerate}
+\end{itemize}
+
+Poprawnie wywołany program rozpocznie rozgrywkę w Warcaby angielskie. Będzie na zmianę prosił graczy o wykonanie ruchu, lub, jeśli gracz jest komputerowy, obsłuży jego ruch. Po każdym ruchu drukowany będzie obecny stan planszy. Pokazywane są tez oistatnio wykonane ruchy.
+
+W trakcie wykonywania ruchu gracz ludzki musi podać pole z którego chce wykonać ruch, a następnie pole (pola) na które chce przeskoczyć wybraną figurą. Można się odnosić do pól na planszy na dwa sposoby: albo poprzez współrzędne (kolumna i wiersz), albo poprzez numerację pól.
+
+\ldots OBRAZEK Z NUMERACJĄ PÓL NA PLANSZY \ldots
+
+W przypadku podania błędnego wejścia, program poprosi gracza o ponowne wprowadzenie ruchu od zera. W momencie gdy rozgrywka miałaby się skończyć, program informuje o zwycięzcy i kończy działanie.
+
+\subsection{Find}
+
+Dostępne sygnatury wywołania programu:
+\begin{itemize}
+    \item Pierwsze uruchomienie algorytmu genetycznego (zalecane jeśli użytkownik chce utworzyć nową sesję algorytmu genetycznego od zera)
+    \begin{enumerate}
+        \item Liczebność populacji osobników [liczba naturalna podzielna przez 4]
+        \item Liczba pojedynków osobnika w procesie selekcji [liczba naturalna, przy czym 0 oznacza pojedynek z każdym innym osobnikiem]
+        \item Głębokość przeszukiwania w Minimaxie [liczba naturalna większa od zera]
+        \item Współczynnik losowej selekcji osobników [liczba całkowita]
+        \item Szansa na mutację [liczba wymierna między 0 a 1]
+        \item Rodzaj kryterium stopu [0 $\rightarrow$ czas (w sekundach); 1 $\rightarrow$ liczba iteracji]
+        \item Limit dla kryterium stopu [liczba naturalna]
+    \end{enumerate}
+    \item Reaktywacja algorytmu genetycznego z wybranego pliku populacji
+    \begin{enumerate}
+        \item Nazwa pliku [ciąg znaków]
+    \end{enumerate}
+    \item Reaktywacja algorytmu genetycznego z ostatniego pliku populacji [BRAK ARGUMENTÓW]
+    \item Kontynuacja algorytmu genetycznego z nowymi parametrami
+    \begin{enumerate}
+        \item Nazwa pliku z którego należy wczytać populację [ciąg znaków]
+        \item Liczba pojedynków osobnika w procesie selekcji [liczba naturalna, przy czym 0 oznacza pojedynek z każdym innym osobnikiem]
+        \item Głębokość przeszukiwania w Minimaxie [liczba naturalna większa od zera]
+        \item Współczynnik losowej selekcji osobników [liczba całkowita]
+        \item Szansa na mutację [liczba wymierna między 0 a 1]
+        \item Rodzaj kryterium stopu [0 $\rightarrow$ czas (w sekundach); 1 $\rightarrow$ liczba iteracji]
+        \item Limit dla kryterium stopu [liczba naturalna]
+    \end{enumerate}
+\end{itemize}
+
+Bezbłędne uruchomienie rozpocznie sesję algorytmu genetycznego z podanymi argumentami. W trakcie działania program operuje na plikach w katalogu \textit{heuristics} i jego podkatalogach: \textit{population} (pliki zapisanych populacji, z których można reaktywować sesje; program na bieżąco aktualizuje plik populacji) oraz \textit{output} (najlepiej przystosowany osobnik, tworzony w katalogu po osiągnięciu kryterium stopu). Oprócz tych podkatalogów istnieją również \textit{single} (katalog na samodzielne tworzenie plików ciągów wag) i \textit{archive} (archiwum w którym można bezpiecznie zapisywać pliki ciągów wag), lecz program na tych dwóch podkatalogach nie wykonuje żadnych operacji oprócz ich stworzenia.
+
+Sesja algorytmu genetycznego na bieżąco informuje o postępie - w każdej iteracji drukuje numer porządkowy obecnie ewaluowanej generacji oraz stosunek postępu do limitu we wcześniej podanym kryterium stopu (np. 5/100 generacji lub 100/2000 sekund). W razie niespodziewanego wcześniejszego zakończenia programu, możliwym jest odczyt argumentów sesji i postępu z pliku ostatniej populacji.
+
+% {\color{dgray}
+% Do implementacji systemu użyto języka JAVA w wersji \ldots, szczegółowy opis można znaleźć w \cite{Java}.
+% }
+
+% \section{Omówienie kodów źródłowych}
+
+% {\color{dgray}
+% % Kod źródłowy~\ref{ws} przedstawia opisy poszczególnych metod interfejsu: \texttt{WSPodmiotRejestracjaIF}. Kompletne
+% kody źródłowe znajdują się na płycie CD dołączonej do niniejszej pracy w katalogu \texttt{Kody} (patrz Dodatek~\ref{plytaCD}).
+% }
 
 % \begin{small}
 % \begin{lstlisting}[language=Java, frame=lines, numberstyle=\tiny, stepnumber=5, caption=Interfejs usługi Web Service: \texttt{WSPodmiotRejestracjaIF}\label{ws}., firstnumber=1]
