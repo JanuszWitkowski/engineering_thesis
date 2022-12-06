@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /**
  * Klasa wykonawcza programu do obsługi rozgrywki.
  */
@@ -28,6 +30,10 @@ public class Play {
         System.out.println(Console.GREEN_BOLD + "#### PLAY CHECKERS ####" + Console.RESET);
         System.out.println(Console.GREEN_BOLD + "# Rozgrywki w warcaby #" + Console.RESET);
         int argc = args.length;
+        if (argc > 0 && Objects.equals(args[0], "--help")) {
+            printSignature();
+            return;
+        }
         if (argc != 4 && argc != 2) {
             System.out.println(Console.RED_BOLD + "BŁĄD: Niewłaściwa liczba argumentów." + Console.RESET);
             printSignature();

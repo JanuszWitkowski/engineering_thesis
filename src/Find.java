@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Find {
     private static void printSignature () {
@@ -47,6 +48,10 @@ public class Find {
             }
         }
         int argc = args.length;
+        if (argc > 0 && Objects.equals(args[0], "--help")) {
+            printSignature();
+            return;
+        }
         if (argc < 7 && argc > 1) {
             System.out.println(Console.RED_BOLD + "BŁĄD: Niewłaściwa liczba argumentów." + Console.RESET);
             printSignature();
