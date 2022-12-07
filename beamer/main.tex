@@ -1,0 +1,119 @@
+\documentclass{beamer}
+\mode<presentation>
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{theorems}[numbered]
+\setbeamertemplate{items}[default]
+\setbeamercovered{dynamic}
+\setlength{\unitlength}{1cm}
+\setbeamertemplate{footline}[frame number]
+% \setbeamercolor{background canvas}{bg=gray}
+
+\usepackage{setspace}
+\usepackage{amsmath,amssymb}
+\usepackage{amsthm}
+\usepackage{pgf,pgfarrows}
+% \usepackage[cp1250]{inputenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[polish]{babel}
+% \usepackage{polski}
+% \let\lll\undefined
+% \selectlanguage{polish}
+\usepackage[T1]{fontenc}
+\usepackage{graphics}
+\usepackage{tikz,lipsum,lmodern}
+% \usepackage{algorithm}
+\usepackage[ruled]{algorithm}
+% \usepackage[ruled,vlined,linesnumbered,longend,algochapter]{algorithm2e}
+\usepackage{algpseudocode}
+\usepackage{scalefnt}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{tabularx}
+\usepackage[most]{tcolorbox}
+\usepackage[font=scriptsize,labelfont=bf]{caption}
+% \usepackage[demo]{graphicx}
+% \usepackage{caption}
+% \usepackage{subcaption}
+
+\usetikzlibrary{arrows,automata,snakes}
+\usetheme{Frankfurt}
+\usecolortheme{seahorse} %crane
+\useinnertheme{circles}
+
+
+\newtheorem*{lemat}{Lemat}
+\newtheorem{twierdzenie}{Twierdzenie}
+\newtheorem{definicja}{Definicja}
+\newcommand{\myitem}{\item[$\vartriangleright$]}
+\newcommand{\nota}[1]{{\color{gray} \emph{#1}}}
+\newcommand{\HarmonicN}[1]{H_{#1}}
+\newcommand{\BALL}[2]{\mathbf{B}(#1,#2)}
+\newcommand{\DISC}[2]{\mathbf{D}(#1,#2)}
+\newcommand{\SPHERE}[2]{\mathbf{S}(#1,#2)}
+\newcommand{\BigO}[1]{\mathcal{O}\left(#1\right)}
+\newcommand{\BigTh}[1]{\Theta\left(#1\right)}
+\newcommand{\slfrac}[2]{\left.#1\middle/#2\right.}
+\newcommand{\PR}[1]{\mathrm{Pr}\left[#1\right]}
+\newcommand{\E}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\var}[1]{\mathbb{V}\mathrm{ar}\left[#1\right]}
+\newcolumntype{C}{>{\centering\arraybackslash}p{0.5cm}}
+\newcolumntype{Y}{>{\columncolor{blue!5}}C}
+
+%\pgfpagesuselayout{4 on 1 with notes}[a4paper,border shrink=3mm]
+
+
+\title{Algorytm Minimax do gry w Warcaby}
+
+\author{
+	\textbf{Janusz Witkowski}
+	\newline \newline
+	Praca napisana pod kierunkiem \textbf{dra Macieja Gębali}
+}
+
+\date{Grudzień 2022, Wrocław}
+
+
+\begin{document}
+
+\begin{frame}[plain]{}
+	\titlepage
+\end{frame}
+
+
+\section{Warcaby}
+\input{slajdy/1-1_warcaby.tex}	% warcaby
+\input{slajdy/1-2_angielskie.tex}	% warcaby
+
+\section{Algorytmy}
+\input{slajdy/2-1_minimax1.tex}	% minimax
+\input{slajdy/2-2_minimax2.tex}	% minimax przyklad
+\input{slajdy/2-3_ocena.tex}	% ocena
+\input{slajdy/2-4_genetyk1.tex}	% algorytm genetyczny
+\input{slajdy/2-5_genetyk2.tex}	% szczegóły geentyka
+
+\section{Implementacja}
+\input{slajdy/3-1.tex}
+\input{slajdy/3-2.tex}
+\input{slajdy/3-3.tex}
+\input{slajdy/3-4.tex}
+\input{slajdy/3-5.tex}
+
+\section{Wyniki}
+\input{slajdy/4-1.tex}
+\input{slajdy/4-2.tex}
+\input{slajdy/4-3.tex}
+\input{slajdy/4-4.tex}
+
+\section{Zakończenie}
+\input{slajdy/5-1.tex}
+\input{slajdy/5-2.tex}
+\input{slajdy/5-3.tex}
+
+\begin{frame}{}
+	\begin{center}
+		\large{Dziękuję za uwagę.}
+	\end{center}
+\end{frame}
+
+\end{document} 
