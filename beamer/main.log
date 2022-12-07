@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.10.29)  7 DEC 2022 18:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.10.29)  7 DEC 2022 22:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1324,7 +1324,7 @@ Package caption Info: End \AtBeginDocument code.
 (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-0.def
 File: uni-0.def 2013/05/13 UCS: Unicode data U+0000..U+00FF
 )
-<figures/warcaby_planszaStartowa.png, id=115, 343.2825pt x 343.2825pt>
+<figures/warcaby_planszaStartowa.png, id=116, 343.2825pt x 343.2825pt>
 File: figures/warcaby_planszaStartowa.png Graphic file (type png)
 <use figures/warcaby_planszaStartowa.png>
 Package pdftex.def Info: figures/warcaby_planszaStartowa.png  used on input lin
@@ -1385,25 +1385,25 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8> not available
 (Font)              Font shape `T1/lmss/m/sl' tried instead on input line 88.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
 (Font)              Font shape `T1/lmss/m/sl' tried instead on input line 88.
-<figures/warcaby_ruchyPionZwykle3.png, id=168, 214.55156pt x 214.55156pt>
+<figures/warcaby_ruchyPionZwykle3.png, id=171, 214.55156pt x 214.55156pt>
 File: figures/warcaby_ruchyPionZwykle3.png Graphic file (type png)
 <use figures/warcaby_ruchyPionZwykle3.png>
 Package pdftex.def Info: figures/warcaby_ruchyPionZwykle3.png  used on input li
 ne 88.
 (pdftex.def)             Requested size: 53.63776pt x 53.63776pt.
-<figures/warcaby_ruchyPionBicia.png, id=169, 214.55156pt x 214.55156pt>
+<figures/warcaby_ruchyPionBicia.png, id=172, 214.55156pt x 214.55156pt>
 File: figures/warcaby_ruchyPionBicia.png Graphic file (type png)
 <use figures/warcaby_ruchyPionBicia.png>
 Package pdftex.def Info: figures/warcaby_ruchyPionBicia.png  used on input line
  88.
 (pdftex.def)             Requested size: 53.63776pt x 53.63776pt.
-<figures/warcaby_ruchyDamkaZwykle.png, id=170, 214.55156pt x 214.55156pt>
+<figures/warcaby_ruchyDamkaZwykle.png, id=173, 214.55156pt x 214.55156pt>
 File: figures/warcaby_ruchyDamkaZwykle.png Graphic file (type png)
 <use figures/warcaby_ruchyDamkaZwykle.png>
 Package pdftex.def Info: figures/warcaby_ruchyDamkaZwykle.png  used on input li
 ne 88.
 (pdftex.def)             Requested size: 53.63776pt x 53.63776pt.
-<figures/warcaby_ruchyDamkaBicia.png, id=171, 214.55156pt x 214.55156pt>
+<figures/warcaby_ruchyDamkaBicia.png, id=174, 214.55156pt x 214.55156pt>
 File: figures/warcaby_ruchyDamkaBicia.png Graphic file (type png)
 <use figures/warcaby_ruchyDamkaBicia.png>
 Package pdftex.def Info: figures/warcaby_ruchyDamkaBicia.png  used on input lin
@@ -1420,7 +1420,7 @@ Overfull \vbox (14.72836pt too high) detected at line 88
 ng>]) (./slajdy/2-1_minimax1.tex [4
 
 ]) (./slajdy/2-2_minimax2.tex
-<figures/minimax3.png, id=236, 703.62875pt x 403.5075pt>
+<figures/minimax3.png, id=241, 703.62875pt x 403.5075pt>
 File: figures/minimax3.png Graphic file (type png)
 <use figures/minimax3.png>
 Package pdftex.def Info: figures/minimax3.png  used on input line 8.
@@ -1441,7 +1441,7 @@ Overfull \hbox (5.69043pt too wide) in paragraph at lines 8--8
 
 ])
 (./slajdy/3-1.tex
-<figures/spl.png, id=362, 617.30624pt x 764.8575pt>
+<figures/spl.png, id=371, 617.30624pt x 764.8575pt>
 File: figures/spl.png Graphic file (type png)
 <use figures/spl.png>
 Package pdftex.def Info: figures/spl.png  used on input line 23.
@@ -1449,7 +1449,7 @@ Package pdftex.def Info: figures/spl.png  used on input line 23.
  [9
 
  <./figures/spl.png>]) (./slajdy/3-2.tex
-<figures/chef1.png, id=397, 555.07375pt x 665.48625pt>
+<figures/chef1.png, id=407, 555.07375pt x 665.48625pt>
 File: figures/chef1.png Graphic file (type png)
 <use figures/chef1.png>
 Package pdftex.def Info: figures/chef1.png  used on input line 27.
@@ -1466,7 +1466,7 @@ Overfull \vbox (11.19025pt too high) detected at line 27
 [10
 
  <./figures/chef1.png>]) (./slajdy/3-3.tex
-<figures/rockstar.png, id=431, 428.60126pt x 603.25375pt>
+<figures/rockstar.png, id=442, 428.60126pt x 603.25375pt>
 File: figures/rockstar.png Graphic file (type png)
 <use figures/rockstar.png>
 Package pdftex.def Info: figures/rockstar.png  used on input line 18.
@@ -1475,12 +1475,12 @@ Package pdftex.def Info: figures/rockstar.png  used on input line 18.
 
  <./figures/rockstar.png>])
 (./slajdy/3-4.tex
-<figures/piet_piet.png, id=462, 674.52pt x 674.52pt>
+<figures/piet_piet.png, id=474, 674.52pt x 674.52pt>
 File: figures/piet_piet.png Graphic file (type png)
 <use figures/piet_piet.png>
 Package pdftex.def Info: figures/piet_piet.png  used on input line 34.
 (pdftex.def)             Requested size: 56.89601pt x 56.9055pt.
-<figures/piet_helloworld.png, id=465, 245.11575pt x 239.09325pt>
+<figures/piet_helloworld.png, id=477, 245.11575pt x 239.09325pt>
 File: figures/piet_helloworld.png Graphic file (type png)
 <use figures/piet_helloworld.png>
 Package pdftex.def Info: figures/piet_helloworld.png  used on input line 34.
@@ -1488,12 +1488,12 @@ Package pdftex.def Info: figures/piet_helloworld.png  used on input line 34.
  [12
 
  <./figures/piet_piet.png> <./figures/piet_helloworld.png>]) (./slajdy/3-5.tex
-<figures/folders.jpg, id=497, 1559.8275pt x 1169.36874pt>
+<figures/folders.jpg, id=510, 1559.8275pt x 1169.36874pt>
 File: figures/folders.jpg Graphic file (type jpg)
 <use figures/folders.jpg>
 Package pdftex.def Info: figures/folders.jpg  used on input line 38.
 (pdftex.def)             Requested size: 94.87086pt x 71.13188pt.
-<figures/whitespace.png, id=500, 551.05875pt x 413.545pt>
+<figures/whitespace.png, id=513, 551.05875pt x 413.545pt>
 File: figures/whitespace.png Graphic file (type png)
 <use figures/whitespace.png>
 Package pdftex.def Info: figures/whitespace.png  used on input line 38.
@@ -1502,17 +1502,17 @@ Package pdftex.def Info: figures/whitespace.png  used on input line 38.
 
  <./figures/folders.jpg> <./figures/whitespace.png>])
 (./slajdy/4-1.tex
-<figures/codegolf_logo.png, id=534, 317.185pt x 317.185pt>
+<figures/codegolf_logo.png, id=549, 317.185pt x 317.185pt>
 File: figures/codegolf_logo.png Graphic file (type png)
 <use figures/codegolf_logo.png>
 Package pdftex.def Info: figures/codegolf_logo.png  used on input line 42.
 (pdftex.def)             Requested size: 39.83192pt x 39.83368pt.
-<figures/perl_logo.png, id=535, 1204.5pt x 1204.5pt>
+<figures/perl_logo.png, id=550, 1204.5pt x 1204.5pt>
 File: figures/perl_logo.png Graphic file (type png)
 <use figures/perl_logo.png>
 Package pdftex.def Info: figures/perl_logo.png  used on input line 42.
 (pdftex.def)             Requested size: 39.82765pt x 39.83368pt.
-<figures/ioccc_logo.jpeg, id=536, 133.24782pt x 127.97812pt>
+<figures/ioccc_logo.jpeg, id=551, 133.24782pt x 127.97812pt>
 File: figures/ioccc_logo.jpeg Graphic file (type jpg)
 <use figures/ioccc_logo.jpeg>
 Package pdftex.def Info: figures/ioccc_logo.jpeg  used on input line 42.
@@ -1521,7 +1521,7 @@ Package pdftex.def Info: figures/ioccc_logo.jpeg  used on input line 42.
 
  <./figures/codegolf_logo.png> <./figures/perl_logo.png> <./figures/ioccc_logo.
 jpeg>]) (./slajdy/4-2.tex
-<figures/primes_c.png, id=570, 921.4425pt x 25.09375pt>
+<figures/primes_c.png, id=585, 921.4425pt x 25.09375pt>
 File: figures/primes_c.png Graphic file (type png)
 <use figures/primes_c.png>
 Package pdftex.def Info: figures/primes_c.png  used on input line 21.
@@ -1531,7 +1531,7 @@ Overfull \hbox (36.98837pt too wide) in paragraph at lines 21--21
 [][] 
  []
 
-<figures/primes_perl.png, id=572, 914.41624pt x 26.0975pt>
+<figures/primes_perl.png, id=587, 914.41624pt x 26.0975pt>
 File: figures/primes_perl.png Graphic file (type png)
 <use figures/primes_perl.png>
 Package pdftex.def Info: figures/primes_perl.png  used on input line 21.
@@ -1541,7 +1541,7 @@ Overfull \hbox (36.98837pt too wide) in paragraph at lines 21--21
 [][] 
  []
 
-<figures/primes_apl.png, id=574, 915.42pt x 26.0975pt>
+<figures/primes_apl.png, id=589, 915.42pt x 26.0975pt>
 File: figures/primes_apl.png Graphic file (type png)
 <use figures/primes_apl.png>
 Package pdftex.def Info: figures/primes_apl.png  used on input line 21.
@@ -1555,7 +1555,7 @@ Overfull \hbox (36.98837pt too wide) in paragraph at lines 21--21
 
  <./figures/primes_c.png> <./figures/primes_perl.png> <./figures/primes_apl.png
 >]) (./slajdy/4-3.tex
-<figures/primes_golfscript.png, id=608, 932.48375pt x 70.2625pt>
+<figures/primes_golfscript.png, id=624, 932.48375pt x 70.2625pt>
 File: figures/primes_golfscript.png Graphic file (type png)
 <use figures/primes_golfscript.png>
 Package pdftex.def Info: figures/primes_golfscript.png  used on input line 23.
@@ -1579,17 +1579,17 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <9> not available
 (Font)              Font shape `T1/lmss/m/sl' tried instead on input line 48.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
 (Font)              Font shape `T1/lmss/m/sl' tried instead on input line 48.
-<figures/turing_minecraft2.png, id=670, 1927.2pt x 1084.05pt>
+<figures/turing_minecraft2.png, id=688, 1927.2pt x 1084.05pt>
 File: figures/turing_minecraft2.png Graphic file (type png)
 <use figures/turing_minecraft2.png>
 Package pdftex.def Info: figures/turing_minecraft2.png  used on input line 48.
 (pdftex.def)             Requested size: 111.27483pt x 62.59596pt.
-<figures/turing_powerpoint.png, id=672, 1927.2pt x 1084.05pt>
+<figures/turing_powerpoint.png, id=690, 1927.2pt x 1084.05pt>
 File: figures/turing_powerpoint.png Graphic file (type png)
 <use figures/turing_powerpoint.png>
 Package pdftex.def Info: figures/turing_powerpoint.png  used on input line 48.
 (pdftex.def)             Requested size: 111.27483pt x 62.59596pt.
-<figures/turing_mtg.png, id=675, 1927.2pt x 1084.05pt>
+<figures/turing_mtg.png, id=693, 1927.2pt x 1084.05pt>
 File: figures/turing_mtg.png Graphic file (type png)
 <use figures/turing_mtg.png>
 Package pdftex.def Info: figures/turing_mtg.png  used on input line 48.
@@ -1613,6 +1613,8 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7> not available
 
 ]) [21
 
+] [22
+
 ]
 \tf@nav=\write8
 \openout8 = `main.nav'.
@@ -1623,19 +1625,19 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7> not available
 \tf@snm=\write10
 \openout10 = `main.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 119.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 119.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 125.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 125.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 119.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 119.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 125.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 125.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: DF5EEC9A0123E82B5E0ECEEC3F3AB1D1;221.
  ) 
 Here is how much of TeX's memory you used:
- 33917 strings out of 482497
- 707408 string characters out of 5947710
- 1088240 words of memory out of 5000000
- 48074 multiletter control sequences out of 15000+600000
+ 33921 strings out of 482497
+ 707443 string characters out of 5947710
+ 1089240 words of memory out of 5000000
+ 48076 multiletter control sequences out of 15000+600000
  614176 words of font info for 83 fonts, out of 8000000 for 9000
  415 hyphenation exceptions out of 8191
  65i,20n,108p,786b,798s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1649,10 +1651,10 @@ f/fonts/type1/public/lm/lmss12.pfb></usr/share/texmf/fonts/type1/public/lm/lmss
 fb></usr/share/texmf/fonts/type1/public/lm/lmsso8.pfb></usr/share/texmf/fonts/t
 ype1/public/lm/lmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
 fonts/symbols/msam10.pfb>
-Output written on main.pdf (21 pages, 7770574 bytes).
+Output written on main.pdf (22 pages, 7771675 bytes).
 PDF statistics:
- 851 PDF objects out of 1000 (max. 8388607)
- 701 compressed objects within 8 object streams
- 49 named destinations out of 1000 (max. 500000)
+ 850 PDF objects out of 1000 (max. 8388607)
+ 699 compressed objects within 7 object streams
+ 51 named destinations out of 1000 (max. 500000)
  378 words of extra memory for PDF output out of 10000 (max. 10000000)
 
