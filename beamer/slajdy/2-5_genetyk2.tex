@@ -1,14 +1,35 @@
 \begin{frame}{Implementacja algorytmu genetycznego}
     \begin{enumerate}
         \item \textbf{Osobniki} \\
-        Ciągi wag w postaci tablic liczb całkowitych.
+        {\small Ciągi wag w postaci tablic liczb całkowitych.}
+        % {\centering \includegraphics[width=6cm]{figures/genetyk_osobnik.png}}
         \item \textbf{Ewaluacja} \\
-        Pojedynek każdy-z-każdym (białe/czarne i na odwrót)
+        {\small Pojedynek każdy-z-każdym (białe/czarne i na odwrót)}
         \item \textbf{Selekcja} \\
-        Ruletka (lepiej grające osobniki mają większą szansę na przejście)
+        {\small Ruletka (lepiej grające osobniki mają większą szansę na przejście).}
         \item \textbf{Krzyżowanie} \\
-        Pary rodziców mają po dwójce dzieci 
+        {\small Dzieci powstają poprzez wymieszanie cech rodziców.}
+        % {\centering \includegraphics[width=6cm]{figures/genetyk_krzyzowanie.png}}
         \item \textbf{Mutacje} \\
-        Szansa na wylosowanie nowej wartości losowej wag w ciągu.
+        {\small Szansa na wylosowanie nowej wartości losowej wagi w ciągu.}
     \end{enumerate}
+
+    \begin{columns}
+		\begin{column}{.5\hsize}
+			{\centering
+			\begin{figure}
+				\includegraphics[width=5cm]{figures/genetyk_osobnik.png}
+				\caption{Model poglądowy osobnika}
+			\end{figure}
+			}
+		\end{column}
+		\begin{column}{.5\hsize}
+			{\centering
+			\begin{figure}
+				\includegraphics[width=5cm]{figures/genetyk_krzyzowanie.png}
+				\caption{Model krzyżowania}
+			\end{figure}
+			}
+		\end{column}
+	\end{columns}
 \end{frame}
