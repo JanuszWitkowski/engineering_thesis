@@ -1,6 +1,9 @@
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * Klasa wykonawcza programu do wywoływania sesji algorytmu genetycznego.
+ */
 public class Find {
     private static void printSignature () {
         System.out.println("Należy podać argumenty w jednej z następujących konfiguracji:");
@@ -37,6 +40,10 @@ public class Find {
         }
     }
 
+    /**
+     * Główna metoda obsługująca sesję algorytmu genetycznego na podstawie argumentów z wiersza komend.
+     * @param args Argumenty z wiersza komend
+     */
     public static void main(String[] args) {
         System.out.println(Console.BLUE_BOLD + "#### FIND HEURISTIC USING GA ####" + Console.RESET);
         System.out.println(Console.BLUE_BOLD + "# Szukanie najlepszej strategii #" + Console.RESET);

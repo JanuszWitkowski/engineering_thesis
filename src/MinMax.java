@@ -5,9 +5,6 @@ import java.util.concurrent.ThreadLocalRandom;
  * Główną odpowiedzialnością tej klasy jest poprawne przeprowadzanie rozumowania minimax.
  */
 public class MinMax {
-    /**
-     * Służy do podejmowania losowych decyzji w przyjmowaniu potencjalnych ruchów o tej samej wartości oceny.
-     */
 
     /**
      * Rekurencyjny algorytm minimax z alfa-beta-cięciami. Wykonuje ruch na planszy w trakcie działania.

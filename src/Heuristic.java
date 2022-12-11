@@ -47,6 +47,14 @@ public class Heuristic {
         this.paramWeights = values;
     }
 
+    public Heuristic () {
+        short[] values = new short[numberOfParams];
+        for (int i = 0; i < numberOfParams; i++) {
+            values[i] = RNG.randomShort();
+        }
+        this.paramWeights = values;
+    }
+
     /**
      * Narzędzie służące mutacji w algorytmie genetycznym. Może się okazać nieprzydatne
      * jeśli wyjmiemy z tej klasy logikę tworzenia tablicy wag.
@@ -76,16 +84,6 @@ public class Heuristic {
             sum += params[i] * (int)paramWeights[i];
         }
         return sum;
-    }
-
-    // TODO: Funkcja do debugowania, po ukończeniu projektu należy usunąć.
-    public int[] getParamsDebug () {
-        int[] params = new int[numberOfParams];
-        int half = numberOfParams/2;
-        for (int i = 0; i < numberOfParams; ++i) {
-            params[i] = i - half;
-        }
-        return params;
     }
 
     /**

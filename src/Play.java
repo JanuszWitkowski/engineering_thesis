@@ -17,7 +17,7 @@ public class Play {
                         "w przypadku niemożności odczytu pliku pojawi się opcja podania heurystyki z wiersza komend lub wygenerowania jej losowo).");
             }
             System.out.println();
-            System.out.println("> Szybka gra z głupim komputerem");
+            System.out.println("> Szybka gra z losowym komputerem");
             {
                 System.out.println("\t- Gracz zaczynający [1: zaczyna człowiek; -1: zaczyna komputer];");
                 System.out.println("\t- Głębokość przeszukiwań komputera [liczba naturalna większa od 0].");
@@ -67,13 +67,13 @@ public class Play {
             }
         }
         else {
-            System.out.println("## Szybka gra z głupim komputerem");
+            System.out.println("## Szybka gra z losowym komputerem");
             try {
                 info1 = Integer.parseInt(args[0]);
                 info2 = Integer.parseInt(args[1]);
                 if (info1 != 1 && info1 != -1) throw new NumberFormatException();
                 if (info2 <= 0) throw new NumberFormatException();
-                Player human = new PlayerHuman(), computer = new PlayerComputer(new Heuristic((short)0), info2);
+                Player human = new PlayerHuman(), computer = new PlayerComputer(new Heuristic(), info2);
                 p1 = info1 == 1 ? human : computer;
                 p2 = info1 == -1 ? computer : human;
             } catch (NumberFormatException e) {

@@ -1,6 +1,11 @@
 import java.time.Duration;
 import java.time.Instant;
 
+/**
+ * Klasa odpowiedzialna za reprezentację sesji algorytmu genetycznego.
+ * Przechowuje wszystkie informacje na temat sesji, manipuluje plikami z pomocą FileHandler'a,
+ * oraz przeprowadza turnieje z pomocą GameHandler'a.
+ */
 public class Genetic {
     private abstract static class StopCondition {
         protected final long threshold;
@@ -87,21 +92,53 @@ public class Genetic {
 
     private short[] bestSoFar = null;
 
+    /**
+     * Tworzy sesję o standardowych argumentach.
+     */
     public Genetic () {
         this(createStartingPopulation(100), 0, 0, 1, 20, 0.2,
                 StopCond.GENERATIONS, 0, 1000);
     }
 
+    /**
+     * Wygodny i ogólny konstruktor w którym wystarczy sprecyzować 3 argumenty.
+     * @param populationSize Rozmiar populacji
+     * @param selectionFactor Parametr ruletki w selekcji
+     * @param mutationChance Szansa na mutację
+     */
     public Genetic (int populationSize, int selectionFactor, double mutationChance) {
         this(createStartingPopulation(populationSize), 0, 0, 1, selectionFactor, mutationChance, StopCond.GENERATIONS,
                 0, 20);
     }
 
+    /**
+     * Konstruktor tworzący świeżą sesję.
+     * @param populationSize Rozmiar populacji
+     * @param duelsNumber Liczba pojedynków dla wszystkich osobników; 0 oznacza FFA
+     * @param minmaxDepth Głębokość przeszukiwania przestrzeni stanów
+     * @param selectionFactor Parametr ruletki w selekcji
+     * @param mutationChance Szansa na mutację
+     * @param stopCondTypeNumber Typ kryterium stopu
+     * @param stopCondThreshold Limit kryterium stopu
+     */
     public Genetic (int populationSize, int duelsNumber, int minmaxDepth, int selectionFactor, double mutationChance, int stopCondTypeNumber, long stopCondThreshold) {
         this(createStartingPopulation(populationSize), 0, duelsNumber, minmaxDepth, selectionFactor, mutationChance,
                 StopCondConverter.intToEnum(stopCondTypeNumber), 0, stopCondThreshold);
     }
 
+    /**
+     * Konstruktor służący do reaktywacji sesji.
+     * Służy
+     * @param population Odzyskana populacja w postaci tablicy ciągów wag
+     * @param generation Numer iteracji sesji
+     * @param duelsNumber Liczba pojedynków dla wszystkich osobników; 0 oznacza FFA
+     * @param minmaxDepth Głębokość przeszukiwania przestrzeni stanów
+     * @param selectionFactor Parametr ruletki w selekcji
+     * @param mutationChance Szansa na mutację
+     * @param stopCondType Typ kryterium stopu
+     * @param stopCondStamp Postęp kryterium stopu
+     * @param stopCondThreshold Limit kryterium stopu
+     */
     public Genetic (short[][] population, int generation, int duelsNumber, int minmaxDepth, int selectionFactor, double mutationChance,
                     StopCond stopCondType, long stopCondStamp, long stopCondThreshold) {
         this.population = population;
@@ -122,7 +159,11 @@ public class Genetic {
         this.game2 = new GameHandler(player2, player1);
     }
 
-    // Implementing Fisher–Yates shuffle
+    /**
+     * Fisher–Yates shuffle.
+     * Wykorzystany do losowego wymieszania tablicy osobników.
+     * @param ar Tablica ciągów wag
+     */
     private void shuffleArray(short[][] ar) {
         for (int i = ar.length - 1; i > 0; i--) {
             int index = RNG.randomInt(i + 1);
@@ -133,11 +174,20 @@ public class Genetic {
         }
     }
 
+    // TODO: WTF IS GOING ON HERE?!
+    /**
+     * Porównuje ze sobą dwa ciągi wag.
+     * @param g1
+     * @param g2
+     * @return True jeśli
+     */
     private boolean areTwoGenotypesTheSame (short[] g1, short[] g2) {
         for (int i = 0; i < genotypeSize; ++i) {
-            if (g1[i] == g2[i]) return true;
+//            if (g1[i] == g2[i]) return true;
+            if (g1[i] != g2[i]) return false;
         }
-        return false;
+//        return false;
+        return true;
     }
 
     private boolean isGenotypeNotInPopulation (short[] genotype, short[][] population, int startIndex, int finishIndex) {
@@ -313,85 +363,6 @@ public class Genetic {
             results[p][3] = results[p][1] + results[p][2];
         }
         return results;
-    }
-
-    private short[][] selectionDebug (short[][] population) {
-        int popSize = population.length;
-        int[][] results = new int[popSize][2];
-        for (int i = 0; i < popSize; ++i) {
-            results[i][0] = i;
-            player1.changeHeuristicWeights(population[i]);
-            results[i][1] = player1.getEval();
-        }
-        for (int i = 1; i < popSize; ++i) {
-            for (int j = i; j > 0; --j) {
-                if (results[j-1][1] < results[j][1]) {
-                    int[] tmp = results[j];
-                    results[j] = results[j-1];
-                    results[j-1] = tmp;
-                } else break;
-            }
-        }
-        bestSoFar = population[results[0][0]];
-
-        System.out.println("----SORTED----");
-        for (int i = 0; i < popSize; ++i) {
-            System.out.print(results[i][0] + " ");
-        }
-        System.out.println();
-        for (int i = 0; i < popSize; ++i) {
-            System.out.print(results[i][1] + " ");
-        }
-        System.out.println("\n--------------");
-
-        for (int i = 0; i < popSize; ++i) {
-            results[i][1] += RNG.randomInt(selectionFactor);
-        }
-
-        for (int i = 1; i < popSize; ++i) {
-            for (int j = i; j > 0; --j) {
-                if (results[j-1][1] < results[j][1]) {
-                    int[] tmp = results[j];
-                    results[j] = results[j-1];
-                    results[j-1] = tmp;
-                } else break;
-            }
-        }
-
-        System.out.println("----SORTED POST ROULETTE----");
-        for (int i = 0; i < popSize; ++i) {
-            System.out.print(results[i][0] + " ");
-        }
-        System.out.println();
-        for (int i = 0; i < popSize; ++i) {
-            System.out.print(results[i][1] + " ");
-        }
-        System.out.println("\n--------------");
-
-        boolean[] candidatesFree = new boolean[popSize];
-        for (int i = 0; i < popSize; ++i) candidatesFree[i] = true;
-        short[][] parents = new short[parentPopulationSize][genotypeSize];
-        int numberOfParents = 0;
-        for (int i = 0; i < popSize && numberOfParents < parentPopulationSize; ++i) {
-            short[] candidate = population[results[i][0]];
-            if (isGenotypeNotInPopulation(candidate, parents, 0, numberOfParents)) {
-                parents[numberOfParents] = candidate;
-                ++numberOfParents;
-                candidatesFree[i] = false;
-            }
-        }
-        int index = 0;
-        while (numberOfParents < parentPopulationSize) {
-            short[] candidate = population[results[index][0]];
-            if (candidatesFree[index]) {
-                parents[numberOfParents] = candidate;
-                ++numberOfParents;
-                candidatesFree[index] = false;
-            }
-            ++index;
-        }
-
-        return parents;
     }
 
     private short[] crossover (short[] parentA, short[] parentB) {  // TODO: Może losować punkt Xoveru?

@@ -40,9 +40,4 @@ public class PlayerComputer extends Player {
         m.minimax(board, depth, heuristic, alpha, beta, playerNumber, true);
     }
 
-    // TODO: Funkcja do debugowania i sprawdzania poprawności obliczeń parametrów. W finalnym zarysie projektu można usunąć.
-    public int getEval () {
-        return heuristic.evaluate(null, 0);
-    }
-
 }

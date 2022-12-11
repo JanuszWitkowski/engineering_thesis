@@ -5,9 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Write dynamic selection of bestSoFar">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/beamer/main.log" beforeDir="false" afterPath="$PROJECT_DIR$/beamer/main.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/beamer/main.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/beamer/main.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/beamer/slajdy/3-1_jezyk.tex" beforeDir="false" afterPath="$PROJECT_DIR$/beamer/slajdy/3-1_jezyk.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/beamer/slajdy/3-2_programy.tex" beforeDir="false" afterPath="$PROJECT_DIR$/beamer/slajdy/3-2_programy.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/beamer/slajdy/4-1_param.tex" beforeDir="false" afterPath="$PROJECT_DIR$/beamer/slajdy/4-1_param.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/beamer/slajdy/4-2_glebokosci.tex" beforeDir="false" afterPath="$PROJECT_DIR$/beamer/slajdy/4-2_glebokosci.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/beamer/slajdy/4-3_rozwoj.tex" beforeDir="false" afterPath="$PROJECT_DIR$/beamer/slajdy/4-3_rozwoj.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Find.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Find.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Heuristic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MinMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinMax.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Play.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Play.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PlayerComputer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlayerComputer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/StateAnalysis.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,19 +58,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;protected&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "protected",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.uml",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/heuristics/archive" />
@@ -153,6 +169,9 @@
       <workItem from="1669916101752" duration="6000" />
       <workItem from="1670256909443" duration="1012000" />
       <workItem from="1670341354542" duration="1919000" />
+      <workItem from="1670781215035" duration="1199000" />
+      <workItem from="1670785211665" duration="184000" />
+      <workItem from="1670785405767" duration="9323000" />
     </task>
     <task id="LOCAL-00021" summary="Fix draw counter reset">
       <created>1658407511446</created>
@@ -574,5 +593,9 @@
     <MESSAGE value="GA now deletes parents and replaces them with randomized genotypes" />
     <MESSAGE value="Write dynamic selection of bestSoFar" />
     <option name="LAST_COMMIT_MESSAGE" value="Write dynamic selection of bestSoFar" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
