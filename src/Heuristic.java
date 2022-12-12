@@ -70,6 +70,10 @@ public class Heuristic {
         this.paramWeights = values;
     }
 
+    public short[] getParamWeights () {
+        return this.paramWeights;
+    }
+
     /**
      * Funkcja oceny heurystycznej.
      * @param state Obecny stan gry

@@ -4,25 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Write dynamic selection of bestSoFar">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Start writing JavaDoc">
+      <change afterPath="$PROJECT_DIR$/src/Show.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/beamer/main.log" beforeDir="false" afterPath="$PROJECT_DIR$/beamer/main.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/beamer/main.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/beamer/main.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/beamer/slajdy/3-1_jezyk.tex" beforeDir="false" afterPath="$PROJECT_DIR$/beamer/slajdy/3-1_jezyk.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/beamer/slajdy/3-2_programy.tex" beforeDir="false" afterPath="$PROJECT_DIR$/beamer/slajdy/3-2_programy.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/beamer/slajdy/4-1_param.tex" beforeDir="false" afterPath="$PROJECT_DIR$/beamer/slajdy/4-1_param.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/beamer/slajdy/4-2_glebokosci.tex" beforeDir="false" afterPath="$PROJECT_DIR$/beamer/slajdy/4-2_glebokosci.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/beamer/slajdy/4-3_rozwoj.tex" beforeDir="false" afterPath="$PROJECT_DIR$/beamer/slajdy/4-3_rozwoj.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Find.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Find.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Heuristic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MinMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MinMax.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Play.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Play.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PlayerComputer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlayerComputer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StateAnalysis.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,27 +44,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "extract.method.default.visibility": "protected",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.uml",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;protected&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/heuristics/archive" />
       <recent name="$PROJECT_DIR$/heuristics/single" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Play">
+  <component name="RunManager" selected="Application.Show">
     <configuration name="Find" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Find" />
       <module name="Checkers" />
@@ -95,6 +81,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Show" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Show" />
+      <module name="Checkers" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Test" />
       <module name="Checkers" />
@@ -104,11 +97,13 @@
     </configuration>
     <list>
       <item itemvalue="Application.Find" />
+      <item itemvalue="Application.Show" />
       <item itemvalue="Application.Play" />
       <item itemvalue="Application.Test" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Show" />
         <item itemvalue="Application.Play" />
         <item itemvalue="Application.Test" />
       </list>
@@ -171,14 +166,8 @@
       <workItem from="1670341354542" duration="1919000" />
       <workItem from="1670781215035" duration="1199000" />
       <workItem from="1670785211665" duration="184000" />
-      <workItem from="1670785405767" duration="9323000" />
-    </task>
-    <task id="LOCAL-00021" summary="Fix draw counter reset">
-      <created>1658407511446</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1658407511446</updated>
+      <workItem from="1670785405767" duration="9651000" />
+      <workItem from="1670833685700" duration="9401000" />
     </task>
     <task id="LOCAL-00022" summary="Need to fix something in minimax or evaluation">
       <created>1658412209865</created>
@@ -516,7 +505,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666192825002</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="Start writing JavaDoc">
+      <created>1670798639073</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1670798639074</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -567,7 +563,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Implement save\load methods for heuristics" />
     <MESSAGE value="Start implementing GA (Genetic Algorithm)" />
     <MESSAGE value="Create outline for GA" />
     <MESSAGE value="Minor change" />
@@ -592,7 +587,8 @@
     <MESSAGE value="Add a minimax depth argument to GA" />
     <MESSAGE value="GA now deletes parents and replaces them with randomized genotypes" />
     <MESSAGE value="Write dynamic selection of bestSoFar" />
-    <option name="LAST_COMMIT_MESSAGE" value="Write dynamic selection of bestSoFar" />
+    <MESSAGE value="Start writing JavaDoc" />
+    <option name="LAST_COMMIT_MESSAGE" value="Start writing JavaDoc" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

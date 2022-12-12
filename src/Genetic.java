@@ -215,17 +215,6 @@ public class Genetic {
             }
         }
 
-        // TODO: Funckja debugująca. Należy jej się pozbyć w finalnym projeckie.
-//        System.out.println("----SORTED----");
-//        for (int i = 0; i < popSize; ++i) {
-//            System.out.print(results[i][0] + " ");
-//        }
-//        System.out.println();
-//        for (int i = 0; i < popSize; ++i) {
-//            System.out.print(results[i][3] + " ");
-//        }
-//        System.out.println("\n--------------");
-
         // Wybierz najlepszego.
         if (bestSoFar == null) bestSoFar = population[results[0][0]];
         else {
@@ -253,17 +242,6 @@ public class Genetic {
                 } else break;
             }
         }
-
-        // TODO: Funckja debugująca. Należy jej się pozbyć w finalnym projeckie.
-//        System.out.println("----SORTED POST ROULETTE----");
-//        for (int i = 0; i < popSize; ++i) {
-//            System.out.print(results[i][0] + " ");
-//        }
-//        System.out.println();
-//        for (int i = 0; i < popSize; ++i) {
-//            System.out.print(results[i][3] + " ");
-//        }
-//        System.out.println("\n--------------");
 
         // W miarę możliwości dobieraj osobniki różne.
         boolean[] candidatesFree = new boolean[popSize];
@@ -438,7 +416,6 @@ public class Genetic {
         }
         // Przeprowadź ponowną selekcję i wyznacz najlepszego.
         selection(population);
-//        short[] best = selectionDebug(population)[0];
         // Zapisz do pliku w heuristics/output/ najlepszego i go zwróć.
         String bestFilename = FileHandler.saveGeneticOutputHeuristic(bestSoFar);
         System.out.println("Najlepiej przystosowany osobnik został zapisany jako " + bestFilename);
