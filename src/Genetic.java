@@ -174,22 +174,27 @@ public class Genetic {
         }
     }
 
-    // TODO: WTF IS GOING ON HERE?!
     /**
      * Porównuje ze sobą dwa ciągi wag.
-     * @param g1
-     * @param g2
-     * @return True jeśli
+     * @param g1 Pierwszy ciąg wag
+     * @param g2 Drugi ciąg wag
+     * @return True jeśli podane ciągi wag mają te same wartości dla tych samych parametrów; False wp.p.
      */
     private boolean areTwoGenotypesTheSame (short[] g1, short[] g2) {
         for (int i = 0; i < genotypeSize; ++i) {
-//            if (g1[i] == g2[i]) return true;
             if (g1[i] != g2[i]) return false;
         }
-//        return false;
         return true;
     }
 
+    /**
+     * Sprawdza, czy podany ciąg wag znajduje się już w populacji.
+     * @param genotype Ciąg wag
+     * @param population Tablica ciągów wag
+     * @param startIndex Miejsce w populacji, od którego rozpoczyna się przeszukiwanie
+     * @param finishIndex Miejsce w populacji, na którym kończy się przeszukiwanie
+     * @return True jeśli dany ciąg nie znajduje się w populacji; False w przeciwnym razie.
+     */
     private boolean isGenotypeNotInPopulation (short[] genotype, short[][] population, int startIndex, int finishIndex) {
         for (int i = startIndex; i < finishIndex; ++i) {
             if (areTwoGenotypesTheSame(genotype, population[i])) return false;
@@ -197,6 +202,12 @@ public class Genetic {
         return true;
     }
 
+    /**
+     * Metoda selekcji. Najważniejsza funkcja determinująca zachowanie algorytmu.
+     * Można to zachowanie zmienić, zmieniając metodę selekcji.
+     * @param population Tablica osobników, z której należy wyłonić populację rodziców
+     * @return Populacja rodziców
+     */
     private short[][] selection (short[][] population) {
         int popSize = population.length;
         // 0 - index; 1 - wygrane w ataku; 2 - wygrane w obronie; 3 - ogólny wynik.
@@ -204,7 +215,7 @@ public class Genetic {
 
         /* REGUŁY SELEKCJI
         Można zmienić w każdej chwili. */
-        // Sortowanie insertion-sort; TODO: Zmienić może na quick-sort?
+        // Sortowanie insertion-sort
         for (int i = 1; i < popSize; ++i) {
             for (int j = i; j > 0; --j) {
                 if (results[j-1][3] < results[j][3]) {
@@ -214,6 +225,15 @@ public class Genetic {
                 } else break;
             }
         }
+
+//        // Znajdź najlepszy wynik
+//        for (int j = popSize - 1; j > 0; --j) {
+//            if (results[j-1][3] < results[j][3]) {
+//                int[] tmp = results[j];
+//                results[j] = results[j-1];
+//                results[j-1] = tmp;
+//            }
+//        }
 
         // Wybierz najlepszego.
         if (bestSoFar == null) bestSoFar = population[results[0][0]];
@@ -228,7 +248,7 @@ public class Genetic {
             if (result1 + result2 >= 0) bestSoFar = bestThisTime;
         }
 
-        // Ruletka, czyli loteria osobników które przechodzą dalej.
+        // Ruletka, czyli loteria osobników, które przechodzą dalej.
         for (int i = 0; i < popSize; ++i) {
             results[i][3] += RNG.randomInt(selectionFactor);
         }
@@ -271,6 +291,12 @@ public class Genetic {
         return parents;
     }
 
+    /**
+     * Metoda handlująca pojedynki w procesie selekcji.
+     * @param population Tablica osobników
+     * @param popSize Wielkość populacji
+     * @return Dwuwymiarowa tablica zapisanych wyników pojedynków dla każdego osobnika w populacji
+     */
     private int[][] playDuels (short[][] population, int popSize) {
         int[][] results = new int[popSize][4];
         for (int p = 0; p < popSize; ++p) {
@@ -283,6 +309,13 @@ public class Genetic {
         return getDuelsResults(results, population, popSize, duelsNumber);
     }
 
+    /**
+     * Metoda przeprowadzająca pojedynki i edytująca tablicę wyników.
+     * @param population Tablica osobników
+     * @param p1 Gracz numer 1
+     * @param p2 Gracz numer 2
+     * @param results Tablica wyników, na którą nachodzone będą zmiany
+     */
     private void playDuelAndWriteResults(short[][] population, int p1, int p2, int[][] results) {
         player1.changeHeuristicWeights(population[p1]);
         player2.changeHeuristicWeights(population[p2]);
@@ -343,7 +376,13 @@ public class Genetic {
         return results;
     }
 
-    private short[] crossover (short[] parentA, short[] parentB) {  // TODO: Może losować punkt Xoveru?
+    /**
+     * Metoda krzyżowania dwóch osobników. Działa na zasadzie XOveru z losowo wybieranym punktem.
+     * @param parentA Krzyżujący się osobnik A
+     * @param parentB Krzyżujący się osobnik B
+     * @return Nowy osobnik, powstały w wyniku krzyżowania
+     */
+    private short[] crossover (short[] parentA, short[] parentB) {
         short[] child = new short[genotypeSize];
         int crossoverPoint = RNG.randomInt(genotypeSize - 2) + 1;
         if (crossoverPoint >= 0)
@@ -353,12 +392,19 @@ public class Genetic {
         return child;
     }
 
+    /**
+     * Metoda mutacji. Wprowadza losową zmianę na losowej wartości w ciągu.
+     * @param genotype Ciąg wag podlegający mutacji
+     */
     private void mutation (short[] genotype) {
         int index = RNG.randomInt(genotypeSize);
-        double modifier = RNG.randomBool() ? 1.0 : -1.0;
         genotype[index] = RNG.randomShort();
     }
 
+    /**
+     * Funkcja generująca losowy ciąg wag.
+     * @return Losowy ciąg wag
+     */
     private static short[] createRandomGenotype () {
         short[] h = new short[genotypeSize];
         for (int i = 0; i < genotypeSize; ++i)
@@ -366,6 +412,11 @@ public class Genetic {
         return h;
     }
 
+    /**
+     * Tworzenie początkowej populacji z losowych osobników.
+     * @param popSize Docelowa wielkość populacji
+     * @return Tablica ciągów wag, będąca nową populacją
+     */
     public static short[][] createStartingPopulation (int popSize) {
         short[][] population = new short[popSize][genotypeSize];
         for (int i = 0; i < popSize; ++i)
@@ -373,6 +424,13 @@ public class Genetic {
         return population;
     }
 
+    /**
+     * Służy do wygenerowania kryterium stopu na podstawie podanej wartości numerycznej.
+     * @param type Wartość numeryczna kryterium stopu
+     * @param stopCondStamp Postęp kryterium stopu
+     * @param threshold Limit kryterium stopu
+     * @return Obiekt prywatnej klasy, stanowiący kryterium stopu dla algorytmu
+     */
     private StopCondition buildStopCondition (StopCond type, long stopCondStamp, long threshold) {
         StopCondition s;
         switch (type) {
@@ -383,6 +441,11 @@ public class Genetic {
         return s;
     }
 
+    /**
+     * Uruchomienie sesji algorytmu genetycznego. Argumentami tej funkcji są pola w obiekcie.
+     * Każda instancja klasy Genetic może wykonać sesję algorytmu genetycznego tylko raz.
+     * @return Najlepiej przystosowany osobnik (ciąg wag)
+     */
     public short[] run() {
         StopCondition stop = buildStopCondition(stopCondType, stopCondStamp, stopCondThreshold);
 
@@ -390,7 +453,6 @@ public class Genetic {
             System.out.println("Generation " + ++generation + "; Progress: " + stop.getStamp() + "/" + stop.getThreshold());
             // Selekcja populacji rodziców (każdy gra z każdym, patrzymy kto ile wygrywał jako biały/czarny).
             short[][] parents = selection(population);
-//            short[][] parents = selectionDebug(population); // TODO: Zmienić po debugu
             // Krzyżowanie (wyznaczamy pary rodziców, każda para rodziców ma dwoje dzieci).
             shuffleArray(parents);
             short[][] children = new short[parentPopulationSize][genotypeSize];

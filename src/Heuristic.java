@@ -7,7 +7,13 @@ import java.util.EnumMap;
  * Klasa obsługuje również zapis/odczyt wag parametrów z pliku.
  */
 public class Heuristic {
-    protected short[] paramWeights;   // TODO: Może zrobić final?
+    /**
+     * Ciąg wag parametrów.
+     */
+    protected short[] paramWeights;
+    /**
+     * Liczba parametrów.
+     */
     protected static final int numberOfParams = HParam.values().length;
 
     /**
@@ -15,6 +21,10 @@ public class Heuristic {
      */
     protected static final EnumMap<HParam, Integer> enumToInt = generateEnumToInt();
 
+    /**
+     * Statyczna funkcja uruchamiana przy inicjalizacji.
+     * @return Mapa między typem wyliczeniowym parametrów a indeksami.
+     */
     protected static EnumMap<HParam, Integer> generateEnumToInt () {
         EnumMap<HParam, Integer> map = new EnumMap<>(HParam.class);
         int i = 0;
@@ -25,6 +35,11 @@ public class Heuristic {
         return map;
     }
 
+    /**
+     * Publiczny odnośnik do mapy enumToInt.
+     * @param p Parametr z typu wyliczeniowego HParam
+     * @return Indeks parametru
+     */
     public static int enumToInt (HParam p) {
         return enumToInt.get(p);
     }
@@ -42,11 +57,18 @@ public class Heuristic {
         this.paramWeights = values;
     }
 
+    /**
+     * Konstruktor ustawiający tablicę jako swój ciąg wag.
+     * @param values Ciąg wag
+     */
     public Heuristic (short[] values) {
         assert values.length == numberOfParams;
         this.paramWeights = values;
     }
 
+    /**
+     * Konstruktor generujący heurystykę z losowym ciągiem wag.
+     */
     public Heuristic () {
         short[] values = new short[numberOfParams];
         for (int i = 0; i < numberOfParams; i++) {
@@ -65,11 +87,19 @@ public class Heuristic {
         this.paramWeights[index] = value;
     }
 
+    /**
+     * Narzędzie służące do całkowitej wymiany ciągu wag w heurystyce.
+     * @param values Nowy ciąg wag
+     */
     public void changeWeights (short[] values) {
         assert values.length == this.paramWeights.length;
         this.paramWeights = values;
     }
 
+    /**
+     * Publiczny getter do ciągu wag.
+     * @return Ciąg wag heurystyki
+     */
     public short[] getParamWeights () {
         return this.paramWeights;
     }
@@ -82,7 +112,6 @@ public class Heuristic {
      */
     public int evaluate (State state, int player) {
         int[] params = getParams(state, player);
-//        int [] params = getParamsDebug();   // TODO: Zmienić po debugu
         int sum = 0;
         for (int i = 0; i < numberOfParams; i++) {
             sum += params[i] * (int)paramWeights[i];
@@ -92,13 +121,14 @@ public class Heuristic {
 
     /**
      * Funkcja pomocnicza, wykorzystywana w funkcji oceny heurystycznej.
+     * Oblicza wartości każdego parametru, patrząc na podany stan gry z perspektywy podanego gracza.
      * @param state Obecny stan gry
-     * @param player Numer gracza z którego perspektywy należy wyliczyć wartość oceny
+     * @param player Numer gracza, z którego perspektywy należy wyliczyć wartość oceny
      * @return Tablica wartości parametrów danego stanu gry (np. liczba pionków)
      */
     protected int[] getParams (State state, int player) {
         int[] params = new int[numberOfParams];
-        for (int i = 0; i < numberOfParams; i++) params[i] = 0; // TODO: Tymczasowe rozwiązanie, w pełnej implementacji należy usunąć.
+        for (int i = 0; i < numberOfParams; i++) params[i] = 0;
 
         params[enumToInt(HParam.PAWNS)] = paramPawns(state, player);
         params[enumToInt(HParam.KINGS)] = paramKings(state, player);

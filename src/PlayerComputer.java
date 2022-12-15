@@ -5,7 +5,7 @@
 public class PlayerComputer extends Player {
     private final int depth;
     private final Heuristic heuristic;
-    private final MinMax m = new MinMax();  // TODO: Może przenieść MinMaxa poza graczy, żeby był tylko jeden?
+    private final MinMax m = new MinMax();
     private static final int alpha = Integer.MIN_VALUE;
     private static final int beta = Integer.MAX_VALUE;
 

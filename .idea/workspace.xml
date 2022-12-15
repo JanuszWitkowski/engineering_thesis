@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Start writing JavaDoc">
-      <change afterPath="$PROJECT_DIR$/src/Show.java" afterDir="false" />
+    <list default="true" id="805936e8-692e-431a-a281-fa5487c3cf2b" name="Changes" comment="Add runnable program that print heuristics">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Genetic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Genetic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Heuristic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Heuristic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PlayerComputer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlayerComputer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,14 +167,11 @@
       <workItem from="1670781215035" duration="1199000" />
       <workItem from="1670785211665" duration="184000" />
       <workItem from="1670785405767" duration="9651000" />
-      <workItem from="1670833685700" duration="9401000" />
-    </task>
-    <task id="LOCAL-00022" summary="Need to fix something in minimax or evaluation">
-      <created>1658412209865</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1658412209865</updated>
+      <workItem from="1670833685700" duration="9716000" />
+      <workItem from="1670941461848" duration="1296000" />
+      <workItem from="1671011441890" duration="808000" />
+      <workItem from="1671053649695" duration="599000" />
+      <workItem from="1671088317852" duration="3035000" />
     </task>
     <task id="LOCAL-00023" summary="Something is still wrong (?) with evaluating">
       <created>1659615348308</created>
@@ -512,7 +509,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670798639074</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="Add runnable program that print heuristics">
+      <created>1670853627203</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1670853627204</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -563,7 +567,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Start implementing GA (Genetic Algorithm)" />
     <MESSAGE value="Create outline for GA" />
     <MESSAGE value="Minor change" />
     <MESSAGE value="Start implementation of selection method in GA" />
@@ -588,7 +591,8 @@
     <MESSAGE value="GA now deletes parents and replaces them with randomized genotypes" />
     <MESSAGE value="Write dynamic selection of bestSoFar" />
     <MESSAGE value="Start writing JavaDoc" />
-    <option name="LAST_COMMIT_MESSAGE" value="Start writing JavaDoc" />
+    <MESSAGE value="Add runnable program that print heuristics" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add runnable program that print heuristics" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
