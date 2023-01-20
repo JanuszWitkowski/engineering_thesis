@@ -1,8 +1,28 @@
 \begin{frame}{Funkcja oceny heurystycznej}
 
-	Ewaluacja stanu planszy jest kluczowym elementem algorytmu grającego. Podejście w pracy zakłada wyliczenie wartości odgórnie ustalonych parametrów (np. liczba pionów, liczba wrogich damek przy ścianach, liczba możliwych ruchów) i przemnożenia ich przez przypisane im wagi. Suma tych iloczynów stanowi wartość funkcji oceny heurystycznej.
-
 	\[ F(S) = \sum_{i=1}^{n} param_i(S) * weight_i \]
+
+	\begin{table}[h]
+		\centering
+		{\small
+		\begin{tabular}{|c|c|c|}
+		\hline
+			\textit{i} & \textit{param} & \textit{weight} \\ 
+		\hline
+			1 & Liczba sojuszniczych pionów & 15\\ 
+		\hline
+			2 & Liczba przeciwnych damek przy ścianie & -123\\ 
+		\hline
+			3 & Liczba możliwych ruchów gracza & 0 \\
+		\hline
+			4 & Czy pion przeciwnika znajduje się w kącie & 47 \\
+		\hline
+			\ldots & \ldots & \ldots \\
+		\hline
+		\end{tabular}
+		}
+		\caption{Przykładowe parametry z przykładowymi wagami.}
+	\end{table}
 
 \end{frame}
 
