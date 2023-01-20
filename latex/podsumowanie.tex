@@ -2,9 +2,13 @@
 \addcontentsline{toc}{chapter}{Podsumowanie}
 \thispagestyle{chapterBeginStyle}
 
-{\color{dgray}
-W podsumowaniu należy określić stan zakończonych prac projektowych i implementacyjnych. Zaznaczyć, które z zakładanych funkcjonalności systemu udało się zrealizować. Omówić aspekty pielęgnacji systemu w środowisku wdrożeniowym. Wskazać dalsze możliwe kierunki rozwoju systemu, np.\ dodawanie nowych komponentów realizujących nowe funkcje.
+W pracy przeprowadzono kilka sesji algorytmu genetycznego w~ramach eksperymentów na algorytmie Minimax z funkcją oceny heurystycznej. Udało się poznać częściowe odpowiedzi na zadane pytania i~sformułować z nich hipotezy.
 
-W podsumowaniu należy podkreślić nowatorskie rozwiązania zastosowane w projekcie i implementacji (niebanalne algorytmy, nowe technologie, itp.).
-}
+Najważniejszym rezultatem testów jest uśredniony ciąg wag dla parametrów funkcji oceny. Dzięki niemu udało się określić parametry o~większym wpływie na rozgrywkę w warcabach i~odrzucić parametry niższego priorytetu. Podsumowano powstałą strategię jako agresywną taktykę dążącą do jak najszybszego awansu piona do damki. W~przyszłości można zapuścić sesję algorytmu genetycznego ze skróconą listą parametrów, aby uzyskać jeszcze dokładniejsze wagi.
+
+Kolejnym ważnym wnioskiem jest różnica w perspektywach graczy MIN i~MAX. Okazuje się, że dobra strategia w warcabach (i~prawdopodobnie innych grach dwuosobowych o~sumie zerowej), opierająca się o~Minimaxa, powinna zwracać uwagę na to który gracz dokonuje wyboru spośród liści drzewa przeszukiwań. Wstępne eksperymenty pokazały, że taktyka pod MAXa jest na ogół bardziej ofensywna, natomiast taktyka pod MINa - bardziej defensywna.
+
+Jednak mimo osiągnięcia zamierzonych celów, praca ta jest zaledwie początkiem bardziej rozbudowanych badań i projektów. Z racji iż kody źródłowe otwarte są na rozszerzenia oraz umieszczone są w repozytorium \textbf{GitHub}, dalsze wsparcie projektu jest jak najbardziej możliwe.
+
+Przyjrzenie się bliżej perspektywom MINa i MAXa to naturalne rozszerzenie pracy. Może ono stanowić ciekawy wgląd w algorytmy decyzyjne, a nawet w teorię gier. Innym pomysłem na rozwój projektu jest zastosowanie przeróżnych optymalizacji bądź mechanizmów poprawiających decyzyjność Minimaxa, takich jak \textit{Quiescence Search}. Ponadto, można pomyśleć nad zintegrowaniem powstałego modelu sztucznej inteligencji z siecią internetową.
 

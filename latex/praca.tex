@@ -449,12 +449,25 @@
 \sectionfont{\fontsize{13}{16.8}\selectfont}
 \subsectionfont{\fontsize{12}{15.6}\selectfont}
 
+
+% ZMIENNE TEKSTOWE (jw)
+\newcommand{\priohp}{\textcolor{blue}{\textbf{Wysoki dodatni}}}
+\newcommand{\priomp}{\textcolor{cyan}{\textbf{Średni dodatni}}}
+\newcommand{\priol}{\textcolor{gray}{\textbf{Niski}}}
+\newcommand{\priomn}{\textcolor{orange}{\textbf{Średni ujemny}}}
+\newcommand{\priohn}{\textcolor{red}{\textbf{Wysoki ujemny}}}
+
+
+
 % ***************************************************************************************************
 % Linki
 % ***************************************************************************************************
 
 % Umożliwia wstawianie hiperłączy do dokumentu
 \usepackage{hyperref}							% Aktywuje linki
+
+% Pozwala nazywać linki do rozdziałów ich pełnymi nazwami
+\usepackage{nameref}
 
 \hypersetup{
 	colorlinks	=	true,					% Koloruje tekst zamiast tworzyć ramki.
@@ -594,7 +607,9 @@
 % ***************************************************************************************************
 
 % Prawidłowe dzielenie wyrazów
-\hyphenation{wszy-stkich ko-lu-mnę każ-da od-leg-łość
+\hyphenation{HParam StopCond Console
+        Schaeffer in-tui-cja GENERATIONS 
+        wszy-stkich ko-lu-mnę każ-da od-leg-łość
 	dzie-dzi-ny dzie-dzi-na rów-nych rów-ny
 	pole-ga zmie-nna pa-ra-met-rów wzo-rem po-cho-dzi
 	o-trzy-ma wte-dy wa-run-ko-wych lo-gicz-nie
@@ -632,7 +647,7 @@
 % Tytuł pracy
 				\put(0,230){\begin{minipage}{0.9\textwidth}
 				\centering
-				\LARGE \textbf{Algorytm Minimax do gry w Warcaby}
+				\LARGE \textbf{Algorytm Minimax dla gry w Warcaby}
                 \end{minipage}
 				}
 % Autor pracy
@@ -655,7 +670,7 @@
 				\put(0,-30){
 				\begin{minipage}{0.9\textwidth}
 				\normalsize{
-				Sztuczna inteligencja, Algorytmika, Algorytmy metaheurystyczne, Teoria gier 
+				Sztuczna inteligencja, Algorytmika, Algorytm genetyczny, Teoria gier 
 				}
 				\end{minipage}
 				}

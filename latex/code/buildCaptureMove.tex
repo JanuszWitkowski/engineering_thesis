@@ -1,0 +1,43 @@
+\begin{footnotesize}
+\begin{lstlisting}[language=Java, frame=lines, numberstyle=\tiny, stepnumber=5, caption=Metoda w klasie State budująca drzewo możliwych bić, firstnumber=1]
+private void buildCaptureMove (Node parent, int height, ArrayList<ArrayList<Integer>> moves,
+        int row, int col, int dr, boolean isKing) {
+    Node next = new Node(coordinatesToNumber(row, col), height + 1, parent);
+    int adjRow, adjCol, newRow, newCol;
+    boolean nodeIsLeaf = true, checkOtherRow = !isKing;
+    do {
+        checkOtherRow = !checkOtherRow;
+        for (int dc = -1; dc <= 1; dc += 2) {
+            adjRow = row + dr;
+            adjCol = col + dc;
+            if (isInsideTheBoard(adjRow, adjCol)) {
+                int owner = ownerOfField(adjRow, adjCol);
+                if (owner != 0 && owner != ownerOfField(row, col)) {
+                    newRow = adjRow + dr;
+                    newCol = adjCol + dc;
+                    if (isInsideTheBoard(newRow, newCol) && board[newRow][newCol] == 0) {
+                        nodeIsLeaf = false;
+                        board[newRow][newCol] = board[row][col];
+                        board[row][col] = 0;
+                        int capturedPiece = board[adjRow][adjCol];
+                        board[adjRow][adjCol] = 0;
+                        buildCaptureMove(next, next.height(), moves,
+                            newRow, newCol, dr, isKing);
+                        board[adjRow][adjCol] = capturedPiece;
+                        board[row][col] = board[newRow][newCol];
+                        board[newRow][newCol] = 0;
+                    }
+                }
+            }
+        }
+        dr *= -1;
+    } while (checkOtherRow);
+    if (nodeIsLeaf) {
+        ArrayList<Integer> move = getMoveFromTree(next);
+        if (!move.isEmpty()) {
+            moves.add(move);
+        }
+    }
+}
+\end{lstlisting} 
+\end{footnotesize}

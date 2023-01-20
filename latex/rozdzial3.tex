@@ -2,9 +2,7 @@
 \thispagestyle{chapterBeginStyle}
 \label{rozdzial3}
 
-% TODO: Wrzucić w tym rozdziale mini-instrukcję obsługi mojego programu.
-
-Kody źródłowe dołączone do niniejszej pracy (patrz Dodatek~\ref{plytaCD}) są wynikiem implementacji algorytmów opisanych w rozdziale~\ref{rozdzial2}. Przed ich omówieniem warto wspomnieć o dwóch niuansach które miał wpływ na pisanie tej części pracy.
+Kody źródłowe dołączone do niniejszej pracy (patrz Dodatek~\ref{plytaCD}) są wynikiem implementacji algorytmów opisanych w rozdziale~\ref{rozdzial2}. Przed ich omówieniem warto wspomnieć o dwóch niuansach, które miały wpływ na pisanie tej części pracy.
 
 Po pierwsze, priorytetem w implementacji nie była szczegółowa optymalizacja. W założeniu czas przydzielony na przeprowadzenie sesji algorytmu genetycznego wynosił kilka miesięcy, natomiast ograniczenia maszynowe były zaniedbywane. Z tego powodu praca nie skupia się na wielu optymalizacjach, a projekt nie został napisany w języku bardzo wysokiej wydajności (jak C/C++, Rust). 
 
@@ -21,40 +19,91 @@ Projekt pisany był w środowisku Javy \textit{OpenJDK 17.0.4 2022-07-19}, aczko
 \section{Struktura projektu}
 \label{porozdzial3-2}
 
-\ldots TBA \ldots
+Struktura projektu składa się z kilkunastu klas, w tym z dwóch klas numerycznych (\textbf{HParam}, \textbf{StopCond}), dwóch klas statycznych (\textbf{RNG}, \textbf{Console}) i trzech programów wykonawczych (\textbf{Play}, \textbf{Find}, \textbf{Show}). Poniżej znajduje się ogólny opis odpowiedzialności i funkcjonalności ważniejszych encji w projekcie.
+
+\subsection{Klasa State}
+
+Reprezentacja pojedynczego stanu w przestrzeni stanów rozgrywki. Przechowuje informacje o planszy, numerze gracza do którego należy tura, liście możliwych ruchów tego gracza, ruchu poprzednim, ruchu który utworzył ten stan, oraz liczniku naprzemiennych ruchów bez zbicia (licznik potrzebny do określenia remisu). Wykorzystuje prywatne klasy rekordów \textbf{Pair} i \textbf{Node} do przekazywania odpowiednio współrzędnych pól i drzewa możliwych bić. W kodach źródłowych instancje tej klasy często nazywa się po prostu ,,board''.
+
+Plansza w obiekcie \textbf{State} jest dwuwymiarową tablicą liczb całkowitych. Puste pola oznaczane są zerem, natomiast pola przynależne do gracza pierwszego lub gracza drugiego mają wartości odpowiednio dodatnie lub ujemne. Wartość bezwzględna pola z pionem wynosi 1, a pola z damką wynosi 2. Klasa obsługuje wykonywanie ruchów zarówno dla komputera jak i człowieka, wykorzystując do tego metody \textit{makeMove} i \textit{submitUserInput}. Każdy ruch aktualizuje potrzebne flagi i pola wewnątrz obiektu, dlatego też plansza jest bezpośrednio związana z tą klasą.
+
+% \include{code/buildCaptureMove.tex}
+\input{code/buildCaptureMove.tex}
+
+Każdy obiekt klasy \textbf{State} może utworzyć listę stanów pochodnych. Do tego służy metoda \textit{getChildren}, zwracająca listę obiektów \textbf{State} różniących się od rodzica pojedynczym ruchem.
+
+\subsection{Klasa Heuristic}
+
+Generuje obiekty różnych funkcji oceny heurystycznej. Zapożycza listę parametrów z klasy numerycznej \textbf{HParam} i przechowuje swój własny ciąg wag. Jej najważniejszymi metodami są \textit{evaluate} obliczająca wartość oceny oraz \textit{getParams} wstawiająca wartości pod parametry. Ogromną część klasy \textbf{Heuristic} stanowią metody wyciągające informacje o parametrach z obiektu klasy \textbf{State} z uwzględnieniem numeru gracza. Są to wrappery na metody z klasy stanu, dostosowane względem symetrii.
+
+\subsection{Klasa MinMax}
+
+Implementuje algorytm Minimax jako metodę \textit{minimax}. Metoda jako parametry przyjmuje obiekt klasy \textbf{State}, obiekt klasy \textbf{Heuristric}, a także głębokość przeszukiwania, numer gracza uruchamiającego pierwsze wywołanie Minimaxa, flagę MIN/MAX oraz wartości $\alpha$ i $\beta$ do wykonywania cięć. Wykorzystuje również statyczną klasę \textbf{RNG}, zawierającą logikę rachunków pseudolosowych.
+
+% \include{code/minimax.tex}
+\input{code/minimax.tex}
+
+\subsection{GameHandler i rodzina klas Player}
+
+\textbf{GameHandler} odpowiedzialny jest za obsługę rozgrywek w warcaby angielskie. Mając obiekt klasy \textbf{State} oraz dwóch graczy \textbf{Player} ustala odpowiednią kolejność ruchów i kończy rozgrywkę w razie zwycięstwa. Aby uruchomić rozgrywkę, należy wywołać metodę \textit{run}.
+
+\textbf{Player} jest klasą abstrakcyjną z obowiązkową do zaimplementowania metodą \textit{makeMove}. Dziedziczą po niej \textbf{PlayerComputer} oraz \textbf{PlayerHuman}. \textbf{PlayerComputer} odpowiada logice gracza komputerowego i implementuje \textit{makeMove} jako wywołanie Minimaxa z posiadanej instancji \textbf{MinMax}, podając mu jako argument swój obiekt klasy \textbf{Heuristic}. \textbf{PlayerHuman} zawiera obsługę I/O potrzebną do komunikacji między graczem ludzkim a rozgrywką. Jego implementacja \textit{makeMove} manipuluje listą dostępnych ruchów, a także łapie podstawowe błędy wejścia.
+
+\subsection{Klasa Genetic}
+
+W tej klasie znajduje się najważniejsza dla eksperymentów metoda \textit{run}, która przeprowadza sesję algorytmu genetycznego. W swoich polach przechowuje argumenty dla takiej sesji, przez co jeden obiekt klasy \textbf{Genetic} jest w stanie przeprowadzić tylko jedną sesję (do odtworzenia sesji należy stworzyć nowy obiekt).
+
+\textbf{Genetic} obsługuje selekcje i pojedynki metodami \textit{selection} i \textit{playDuels}, ustawiając ciągi wag w heurystykach graczy \textbf{PlayerComputer} i przeprowadzając rozgrywki obiektem \textbf{GameHandler}. Ostateczna selekcja w generacji działa na zasadzie ruletki, tj. osobniki mają tym wyższą szansę na przejście do populacji rodziców, im lepiej grały w pojedynkach. Do zsumowanego wyniku turniejowego każdego osobnika dodaje się losową wartość z przedziału od zera do wartości parametru ruletki, a następnie sortuje się osobniki względem nowych wyników.
+
+Zarówno selekcja, jak i metody \textit{crossover} oraz \textit{mutation} korzystają ze statycznych funkcji losowania klasy \textbf{RNG}. Funkcje losowanie wykorzystuje się również w ogólnym przebiegu algorytmu genetycznego, by do świeżo powstających pokoleń wpuszczać też nowe, losowe osobniki.
+
+Długość trwania sesji algorytmu genetycznego zależy od podanego kryterium stopu, obsługiwanego przez prywatną klasę \textbf{StopCondition}. Typy kryterium stopu definiowane są przez klasę numeryczną \textbf{StopCond}. W tej chwili dostępne są dwa typy - \textit{TIME} (warunkiem stopu jest czas w sekundach) i~\textit{GENERATIONS} (warunkiem stopu jest liczba iteracji).
+
+% \include{code/selection.tex}
+\input{code/selection.tex}
 
 \section{Instrukcja obsługi programów}
 
-Jak już wspominano we wcześniejszym podrozdziale~\ref{porozdzial3-2}, projekt obejmuje dwa dostępne dla użytkownika programy:
+Jak już wspominano we wcześniejszym podrozdziale~\ref{porozdzial3-2}, projekt obejmuje trzy dostępne dla użytkownika programy:
 \begin{itemize}
     \item \textbf{Play} - kierownik rozgrywek, prowadzi gry dla graczy zarówno ludzkich jak i komputerowych;
-    \item \textbf{Find} - interfejs do uruchamiania sesji algorytmu genetycznego.
+    \item \textbf{Find} - interfejs do uruchamiania sesji algorytmu genetycznego;
+    \item \textbf{Show} - służy do przejrzystego drukowania ciągu wag z parametrami.
 \end{itemize}
-Oba programy uruchamia się przekazując argumenty z poziomu konsoli. Sygnatury wywołań każdego z programów można wydrukować na standardowe wyjście, podając \textit{,,--help''} jako pierwszy argument.
+
+Programy uruchamia się przekazując argumenty z poziomu konsoli. Uruchomione programy przekazują informacje na standardowe wyjście (używając różnych kolorów, dostarczanych przez statyczną klasę \textbf{Console}). Sygnatury wywołań każdego z programów można wydrukować na standardowe wyjście, podając ,,--help'' jako pierwszy argument.
 
 \subsection{Play}
 
 Dostępne sygnatury wywołania programu:
 \begin{itemize}
-    \item Rozgrywka (standardowy model gry w Warcaby, dostępny dla graczy ludzkich i/lub komputerowych; gracz komputerowy musi otrzymać ścieżkę do pliku z którego wczyta ciąg wag do swojej funkcji oceny heurystycznej)
+    \item Rozgrywka (standardowy model gry w warcaby, dostępny dla graczy ludzkich i/lub komputerowych; gracz komputerowy musi otrzymać ścieżkę do pliku z którego wczyta ciąg wag do swojej funkcji oceny heurystycznej)
     \begin{enumerate}
         \item Typ pierwszego gracza [0 $\rightarrow$ gracz ludzki; liczba naturalna większa od zera $\rightarrow$ gracz komputerowy z głębokością przeszukiwań równą podanej liczbie]
         \item Ścieżka do pliku z ciągiem wag dla gracza pierwszego [ciąg znaków; argument omijany jeśli pierwszym graczem jest człowiek]
         \item Typ drugiego gracza [0 $\rightarrow$ gracz ludzki; liczba naturalna większa od zera $\rightarrow$ gracz komputerowy z głębokością przeszukiwań równą podanej liczbie]
         \item Ścieżka do pliku z ciągiem wag dla gracza drugiego [ciąg znaków; argument omijany jeśli drugim graczem jest człowiek]
     \end{enumerate}
-    \item Szybka gra z ,,głupim'' komputerem (gra między graczem ludzkim a komputerowym; ciąg wag dla gracza komputerowego zostanie wylosowany)
+    \item Szybka gra z komputerem o wylosowanej heurystyce (gra między graczem ludzkim a komputerowym; ciąg wag dla gracza komputerowego zostanie wylosowany)
     \begin{enumerate}
         \item Gracz zaczynający [1 $\rightarrow$ zaczyna człowiek; -1 $\rightarrow$ zaczyna komputer]
         \item Głębokość przeszukiwań gracza komputerowego [liczba naturalna większa od zera]
     \end{enumerate}
 \end{itemize}
 
-Poprawnie wywołany program rozpocznie rozgrywkę w Warcaby angielskie. Będzie na zmianę prosił graczy o wykonanie ruchu, lub, jeśli gracz jest komputerowy, obsłuży jego ruch. Po każdym ruchu drukowany będzie obecny stan planszy. Pokazywane są tez oistatnio wykonane ruchy.
+Poprawnie wywołany program rozpocznie rozgrywkę w warcaby angielskie. Będzie na zmianę prosił graczy o wykonanie ruchu, lub, jeśli gracz jest komputerowy, obsłuży jego ruch. Po każdym ruchu drukowany będzie obecny stan planszy. Pokazywane są też ostatnio wykonane ruchy i lista możliwych ruchów dla gracza ludzkiego.
 
-W trakcie wykonywania ruchu gracz ludzki musi podać pole z którego chce wykonać ruch, a następnie pole (pola) na które chce przeskoczyć wybraną figurą. Można się odnosić do pól na planszy na dwa sposoby: albo poprzez współrzędne (kolumna i wiersz), albo poprzez numerację pól.
+W trakcie wykonywania ruchu gracz ludzki musi podać pole z którego chce wykonać ruch, a następnie pole (pola) na które chce przeskoczyć wybraną figurą. Można się odnosić do pól na planszy na dwa sposoby: albo poprzez współrzędne (kolumna i wiersz), albo poprzez numerację pól (ukazaną na~rys.~\ref{fig:numer}).
 
-\ldots OBRAZEK Z NUMERACJĄ PÓL NA PLANSZY \ldots
+\FloatBarrier
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=.6]{graphics/warcaby_planszaNumerowana.png}
+    \caption{Numeracja pól i współrzędne planszy}
+    \label{fig:numer}
+\end{figure}
+
 
 W przypadku podania błędnego wejścia, program poprosi gracza o ponowne wprowadzenie ruchu od zera. W momencie gdy rozgrywka miałaby się skończyć, program informuje o zwycięzcy i kończy działanie.
 
@@ -66,9 +115,9 @@ Dostępne sygnatury wywołania programu:
     \begin{enumerate}
         \item Liczebność populacji osobników [liczba naturalna podzielna przez 4]
         \item Liczba pojedynków osobnika w procesie selekcji [liczba naturalna, przy czym 0 oznacza pojedynek z każdym innym osobnikiem]
-        \item Głębokość przeszukiwania w Minimaxie [liczba naturalna większa od zera]
+        \item Głębokość przeszukiwania w Minimaksie [liczba naturalna większa od zera]
         \item Współczynnik losowej selekcji osobników [liczba całkowita]
-        \item Szansa na mutację [liczba wymierna między 0 a 1]
+        \item Szansa na mutację [liczba wymierna z przedziału od~0 do~1]
         \item Rodzaj kryterium stopu [0 $\rightarrow$ czas (w sekundach); 1 $\rightarrow$ liczba iteracji]
         \item Limit dla kryterium stopu [liczba naturalna]
     \end{enumerate}
@@ -77,11 +126,12 @@ Dostępne sygnatury wywołania programu:
         \item Nazwa pliku [ciąg znaków]
     \end{enumerate}
     \item Reaktywacja algorytmu genetycznego z ostatniego pliku populacji [BRAK ARGUMENTÓW]
+    \vspace{1cm}
     \item Kontynuacja algorytmu genetycznego z nowymi parametrami
     \begin{enumerate}
         \item Nazwa pliku z którego należy wczytać populację [ciąg znaków]
         \item Liczba pojedynków osobnika w procesie selekcji [liczba naturalna, przy czym 0 oznacza pojedynek z każdym innym osobnikiem]
-        \item Głębokość przeszukiwania w Minimaxie [liczba naturalna większa od zera]
+        \item Głębokość przeszukiwania w Minimaksie [liczba naturalna większa od zera]
         \item Współczynnik losowej selekcji osobników [liczba całkowita]
         \item Szansa na mutację [liczba wymierna między 0 a 1]
         \item Rodzaj kryterium stopu [0 $\rightarrow$ czas (w sekundach); 1 $\rightarrow$ liczba iteracji]
@@ -89,99 +139,19 @@ Dostępne sygnatury wywołania programu:
     \end{enumerate}
 \end{itemize}
 
-Bezbłędne uruchomienie rozpocznie sesję algorytmu genetycznego z podanymi argumentami. W trakcie działania program operuje na plikach w katalogu \textit{heuristics} i jego podkatalogach: \textit{population} (pliki zapisanych populacji, z których można reaktywować sesje; program na bieżąco aktualizuje plik populacji) oraz \textit{output} (najlepiej przystosowany osobnik, tworzony w katalogu po osiągnięciu kryterium stopu). Oprócz tych podkatalogów istnieją również \textit{single} (katalog na samodzielne tworzenie plików ciągów wag) i \textit{archive} (archiwum w którym można bezpiecznie zapisywać pliki ciągów wag), lecz program na tych dwóch podkatalogach nie wykonuje żadnych operacji oprócz ich stworzenia.
+Bezbłędne uruchomienie rozpocznie sesję algorytmu genetycznego z podanymi argumentami. W trakcie działania program operuje na plikach w katalogu \textit{heuristics} i jego podkatalogach: \textit{population} (pliki zapisanych populacji, z których można reaktywować sesje; program na bieżąco aktualizuje plik populacji) oraz \textit{output} (najlepiej przystosowany osobnik, tworzony w katalogu po osiągnięciu kryterium stopu). Oprócz tych podkatalogów istnieją również \textit{single} (katalog na samodzielne tworzenie plików ciągów wag) i~\textit{archive} (archiwum w którym można bezpiecznie zapisywać pliki ciągów wag), lecz program na tych dwóch podkatalogach nie wykonuje żadnych operacji oprócz ich stworzenia.
 
 Sesja algorytmu genetycznego na bieżąco informuje o postępie - w każdej iteracji drukuje numer porządkowy obecnie ewaluowanej generacji oraz stosunek postępu do limitu we wcześniej podanym kryterium stopu (np. 5/100 generacji lub 100/2000 sekund). W razie niespodziewanego wcześniejszego zakończenia programu, możliwym jest odczyt argumentów sesji i postępu z pliku ostatniej populacji.
 
-% {\color{dgray}
-% Do implementacji systemu użyto języka JAVA w wersji \ldots, szczegółowy opis można znaleźć w \cite{Java}.
-% }
+\subsection{Show}
 
-% \section{Omówienie kodów źródłowych}
+Dostępne sygnatury wywołania programu:
+\begin{itemize}
+    \item Wydrukowanie ciągu wag z pliku osobnika
+    \begin{enumerate}
+        \item Ścieżka do pliku osobnika
+    \end{enumerate}
+\end{itemize}
 
-% {\color{dgray}
-% % Kod źródłowy~\ref{ws} przedstawia opisy poszczególnych metod interfejsu: \texttt{WSPodmiotRejestracjaIF}. Kompletne
-% kody źródłowe znajdują się na płycie CD dołączonej do niniejszej pracy w katalogu \texttt{Kody} (patrz Dodatek~\ref{plytaCD}).
-% }
+Program drukuje listę opisanych parametrów z przydzielonymi im wagami z podanego pliku. Jest to użyteczne narzędzie do wglądu w wyniki sesji algorytmu genetycznego.
 
-% \begin{small}
-% \begin{lstlisting}[language=Java, frame=lines, numberstyle=\tiny, stepnumber=5, caption=Interfejs usługi Web Service: \texttt{WSPodmiotRejestracjaIF}\label{ws}., firstnumber=1]
-% package erejestracja.podmiot;
-% import java.rmi.RemoteException;
-% // Interfejs web serwisu dotyczącego obsługi podmiotów i rejestracji.
-% public interface WSPodmiotRejestracjaIF extends java.rmi.Remote{
-% // Pokazuje informacje o danym podmiocie.
-% // parametr: nrPeselRegon - numer PESEL podmiotu lub numer REGON firmy.
-% // return: Podmiot - obiekt transportowy: informacje o danym podmiocie.
-% public Podmiot pokazPodmiot(long nrPeselRegon) throws RemoteException;
-% // Dodaje nowy podmiot.
-% // parametr: nowyPodmiot - obiekt transportowy: informacje o nowym podmiocie.
-% // return: true - jeśli podmiot dodano, false - jeśli nie dodano.
-% public boolean dodajPodmiot(Podmiot nowyPodmiot) throws RemoteException;
-% // Usuwa dany podmiot.
-% // parametr: nrPeselRegon - numer PESEL osoby fizycznej lub numer REGON firmy.
-% // return: true - jeśli podmiot usunięto, false - jeśli nie usunięto.
-% public boolean usunPodmiot(long nrPeselRegon) throws RemoteException;
-% // Modyfikuje dany podmiot.
-% // parametr: podmiot - obiekt transportowy: informacje o modyfikowanym podmiocie.
-% // return: true - jeśli podmiot zmodyfikowano, false - jeśli nie zmodyfikowano.
-% public boolean modyfikujPodmiot(Podmiot podmiot) throws RemoteException;
-% // Pokazuje zarejestrowane podmioty na dany dowód rejestracyjny.
-% // parametr: nrDowoduRejestracyjnego - numer dowodu rejestracyjnego.
-% // return: PodmiotRejestracja[] - tablica obiektów transportowych: informacje o
-% // wszystkich zarejestrowanych podmiotach.
-% public PodmiotRejestracja[] pokazZarejestrowanePodmioty(
-% String nrDowoduRejestracyjnego) throws RemoteException;
-% // Nowa rejestracja podmiotu na dany dowód rejestracyjny.
-% // parametr: nrDowoduRejestracyjnego - numer dowodu rejestracyjnego.
-% // parametr: nrPeselRegon - numer PESEL podmiotu lub numer REGON firmy.
-% // parametr: czyWlasciciel - czy dany podmiot jest właścicielem pojazdu.
-% // return: true - jeśli zarejestrowano podmiot, false - jeśli nie zarejestrowano.
-% public boolean zarejestrujNowyPodmiot(String nrDowoduRejestracyjnego,
-% long nrPeselRegon, boolean czyWlasciciel) throws RemoteException;
-% // Usuwa wiązanie pomiędzy danym podmiotem, a dowodem rejestracyjnym.
-% // parametr: nrDowoduRejestracyjnego - numer dowodu rejestracyjnego.
-% // parametr: nrPeselRegon - numer PESEL podmiotu lub numer REGON firmy.
-% // return: true - jeśli podmiot wyrejestrowano, false - jeśli nie wyrejestrowano.
-% public boolean wyrejestrujPodmiot(String nrDowoduRejestracyjnego,
-% long nrPeselRegon) throws RemoteException;
-% \end{lstlisting} 
-% \end{small}
-
-% {\color{dgray}
-% Kod źródłowy~\ref{req} przedstawia procedurę przetwarzającą żądanie. Hasz utrwalany \verb|%granulacja| wykorzystywany jest do komunikacji międzyprocesowej.
-% }
-
-% \begin{small}
-% \begin{lstlisting}[language=perl, frame=lines, caption=Przetwarzanie żądania - procedura \texttt{process\_req()}\label{req}., firstnumber=86]
-% sub process_req(){	
-%   my($r) = @_;
-%   $wyn = "";
-%   if ($r=~/get/i) {
-% 	@reqest = split(" ",$r);
-% 	$zad = $reqest[0];
-% 	$ts1 = $reqest[1];
-% 	$ts2 = $reqest[2];
-% 	@date1 = split(/\D/,$ts1);
-% 	@date2 = split(/\D/,$ts2);
-% 	print "odebralem: $r"; 
-% 	$wyn = $wyn."zadanie: $zad\n";
-% 	$wyn = $wyn."czas_od: "."$date1[0]"."-"."$date1[1]"."-"."$date1[2]"."_"."$date1[3]".":"."$date1[4]".":"."$date1[5]"."\n";
-% 	$wyn = $wyn."czas_do: "."$date2[0]"."-"."$date2[1]"."-"."$date2[2]"."_"."$date2[3]".":"."$date2[4]".":"."$date2[5]"."\n";		
-% 	$wyn = $wyn.&sym_sens($ts1,$ts2);
-% 	return $wyn;
-%   }
-%   if ($r=~/set gt/i) {
-% 	@reqest = split(" ",$r);
-% 	$zad = $reqest[0];
-% 	$ts1 = $reqest[1];
-% 	$ts2 = $reqest[2];
-% 	$gt = $reqest[2];
-% 	dbmopen(%granulacja,"granulacja_baza",0644);
-% 	$granulacja{"gt"}=$gt;
-% 	dbmclose(%granulacja);
-% 	$wyn = "\'GT\' zmienione na: $gt";
-%   }		
-% }	
-% \end{lstlisting} 
-% \end{small}

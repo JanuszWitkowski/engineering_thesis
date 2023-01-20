@@ -1,0 +1,141 @@
+\label{results-minmax2}
+
+{
+% \small
+\begin{center}
+\begin{table}
+\centering
+{
+\footnotesize
+\begin{tabular}{|| c | c | c | c ||}
+ \hline
+ Nr & Parametr & Priorytet h = 4 & Priorytet h = 5 \\ %[0.5ex] 
+ \hline\hline
+ 1 & Liczba sojuszniczych pionów & \priohp & \priomn \\ 
+ \hline
+ 2 & Liczba sojuszniczych damek & \priohn & \priomn \\
+ \hline
+ 3 & Liczba przeciwnych pionów & \priomn & \priohn \\
+ \hline
+ 4 & Liczba przeciwnych damek & \priol & \priohp \\
+ \hline
+ 5 & Liczba sojuszniczych pionów przy ścianie & \priohp & \priomp \\
+ \hline
+ 6 & Liczba sojuszniczych damek przy ścianie & \priohp & \priomn \\ 
+ \hline
+ 7 & Liczba przeciwnych pionów przy ścianie & \priohn & \priomp \\
+ \hline
+ 8 & Liczba przeciwnych damek przy ścianie & \priohn & \priomp \\
+ \hline
+ 9 & Liczba ruchomych pionów gracza & \priohp & \priohp \\
+ \hline
+ 10 & Liczba ruchomych damek gracza & \priomn & \priomn \\
+ \hline
+ 11 & Liczba ruchomych pionów przeciwnika & \priomn & \priohn \\ 
+ \hline
+ 12 & Liczba ruchomych damek przeciwnika & \priomp & \priohn \\
+ \hline
+ 13 & Liczba możliwych ruchów gracza & \priomp & \priomp \\
+ \hline
+ 14 & Liczba możliwych ruchów przeciwnika & \priohp & \priohp \\
+ \hline
+ 15 & Istnienie bijącego ruchu gracza & \priohn & \priomn \\
+ \hline
+ 16 & Liczba bijących ruchów gracza & \priohn & \priohn \\ 
+ \hline
+ 17 & Rozmiar najdłuższego bijącego ruchu gracza & \priohn & \priomp \\
+ \hline
+ 18 & Istnienie bijącego ruchu przeciwnika & \priomp & \priohn \\
+ \hline
+ 19 & Liczba bijących ruchów przeciwnika & \priohn & \priohp \\
+ \hline
+ 20 & Rozmiar najdłuższego bijącego ruchu przeciwnika & \priohn & \priohn \\
+ \hline
+ 21 & Suma dystansów pionów gracza do rzędu awansu & \priohp & \priomp \\ 
+ \hline
+ 22 & Suma dystansów pionów przeciwnika do rzędu awansu & \priohn & \priohn \\
+ \hline
+ 23 & Liczba niezajętych pól w rzędzie awansu gracza & \priol & \priomn \\
+ \hline
+ 24 & Liczba niezajętych pól w rzędzie awansu przeciwnika & \priohp & \priohp \\
+ \hline
+ 25 & Liczba sojuszniczych pionów w dolnych rzędach & \priohp & \priol \\
+ \hline
+ 26 & Liczba sojuszniczych damek w dolnych rzędach & \priomp & \priomp \\ 
+ \hline
+ 27 & Liczba przeciwnych pionów w dolnych rzędach & \priol & \priol \\
+ \hline
+ 28 & Liczba przeciwnych damek w dolnych rzędach & \priomn & \priomn \\
+ \hline
+ 29 & Liczba sojuszniczych pionów w środkowych rzędach & \priohp & \priohn \\
+ \hline
+ 30 & Liczba sojuszniczych damek w środkowych rzędach & \priomp & \priomp \\
+ \hline
+ 31 & Liczba przeciwnych pionów w środkowych rzędach & \priol & \priomn \\
+ \hline
+ 32 & Liczba przeciwnych damek w środkowych wierszach & \priomn & \priomp \\
+ \hline
+ 33 & Liczba sojuszniczych pionów w górnych rzędach & \priomp & \priomp \\
+ \hline
+ 34 & Liczba sojuszniczych damek w górnych rzędach & \priohn & \priohn \\
+ \hline
+ 35 & Liczba przeciwnych pionów w górnych rzędach & \priomp & \priohp \\
+ \hline
+ 36 & Liczba przeciwnych damek w górnych rzędach & \priohp & \priol \\
+ \hline
+ 37 & Liczba samotnych sojuszniczych pionów & \priol & \priohn \\
+ \hline
+ 38 & Liczba samotnych sojuszniczych damek & \priohp & \priohn \\
+ \hline
+ 39 & Liczba samotnych przeciwnych pionów & \priomp & \priomn \\
+ \hline
+ 40 & Liczba samotnych przeciwnych damek & \priohp & \priomp \\
+ \hline
+ 41 & Czy pion gracza jest w kącie & \priohp & \priomp \\
+ \hline
+ 42 & Czy damka gracza jest w kącie & \priomn & \priohn \\
+ \hline
+ 43 & Czy gracz zajmuje dwa kąty & \priomn & \priol \\
+ \hline
+ 44 & Czy pion przeciwnika jest w kącie & \priomn & \priomp \\
+ \hline
+ 45 & Czy damka przeciwnika jest w kącie & \priohn & \priomn \\
+ \hline
+ 46 & Czy przeciwnik zajmuje dwa kąty & \priohp & \priomn \\
+ \hline
+ 47 & Obecność \textit{Triangle pattern} u gracza & \priohp & \priomp \\
+ \hline
+ 48 & Obecność \textit{Oreo pattern} u gracza & \priomn & \priohp \\
+ \hline
+ 49 & Obecność \textit{Bridge pattern} u gracza & \priol & \priomn \\
+ \hline
+ 50 & Obecność \textit{Dog pattern} u gracza & \priomp & \priomn \\
+ \hline
+ 51 & Obecność \textit{Triangle pattern} u przeciwnika & \priol & \priohn \\
+ \hline
+ 52 & Obecność \textit{Oreo pattern} u przeciwnika & \priomp & \priomp \\
+ \hline
+ 53 & Obecność \textit{Bridge pattern} u przeciwnika & \priomp & \priohn \\
+ \hline
+ 54 & Obecność \textit{Dog pattern} u przeciwnika & \priohp & \priohn \\
+ \hline
+ 55 & Liczba blokujących sojuszniczych figur & \priohp & \priol \\
+ \hline
+ 56 & Liczba linii bloku gracza & \priol & \priol \\
+ \hline
+ 57 & Wielkość najdłuższej linii bloku gracza & \priol & \priohp \\
+ \hline
+ 58 & Liczba blokujących przeciwnych figur & \priohp & \priohp \\
+ \hline
+ 59 & Liczba linii bloku przeciwnika & \priol & \priomp \\
+ \hline
+ 60 & Wielkość najdłuższej linii bloku przeciwnika & \priol & \priomn \\
+ \hline
+\end{tabular}
+}
+\caption{Porównanie priorytetów dla głębokości 4 oraz głębokości 5, sesja 2.}
+\label{tab:results-minmax2}
+\end{table}
+\end{center}
+}
+
