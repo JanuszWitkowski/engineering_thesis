@@ -1,5 +1,0 @@
-\babel@toc {polish}{}
-\beamer@sectionintoc {1}{Warcaby}{2}{0}{1}
-\beamer@sectionintoc {2}{Algorytmy}{4}{0}{2}
-\beamer@sectionintoc {3}{Implementacja}{7}{0}{3}
-\beamer@sectionintoc {4}{Wyniki}{9}{0}{4}
